@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="">
+
+    <title>My Sheds - agn3691</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/toolshare.css" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+   
+          <a class="navbar-brand" href="profile.htm">Toolshare</a>
+        
+          <ul class="nav navbar-nav navbar-right">
+            <li><a><span class="glyphicon glyphicon-bell"></span></a></li>
+            <li><a><span class="glyphicon glyphicon-envelope"></span></a></li>
+            <li class="dropdown">
+              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Andy<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Dashboard</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Account Info</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Help</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+          <h1 class="page-header">Dashboard</h1>
+          <div class="row placeholders">
+            <div class="col-md-4">
+              <a href="profile.htm"><img alt="140x140" class="img-circle" src="img/profile/kurisu140.jpg" style="width: 140px; height: 140px;">
+              <h4>Profile</h4></a>
+              <span class="text-muted">View your profile</span>
+            </div>
+            <div class="col-md-4">
+              <a href="#"><img alt="140x140" src="img/icon/mysharezoneicon140.png" style="width: 140px; height: 140px;">
+              <h4>Share Zone</h4></a>
+              <span class="text-muted">Find and borrow tools</span>
+            </div>
+            <div class="col-md-4">
+              <a href="mytools.htm"><img alt="140x140" src="img/icon/mytoolsicon140.png" style="width: 140px; height: 140px;">
+              <h4>My Tools</h4></a>
+              <span class="text-muted">Manage your tools</span>
+            </div>
+
+          </div>
+
+          <h2 class="sub-header">My Sheds</h2>
+            <div class="row">
+              <a class="no-color" href="#"><div class="col-sm-6 col-md-6 shed-tile">
+                <div class="col-sm-3 col-md-3">
+                  <img class="img-rounded" alt="140x140" src="img/shed/shed1.jpg" style="width: 150px; height: 150px;">
+                </div>
+                <div class="col-sm-1 col-md-1">
+                </div>
+                <div class="col-sm-8 col-md-8">
+                  <table>
+                    <tr><td>
+          
+                  <table class="table no-border table-condensed">
+                    <tbody>
+                     <tr>
+                      <td><h4 class="no-top-margin">andy's shed</h4></td>
+                     </tr>
+                      <tr>
+                        <td class="text-muted"><small>Description:</small></td>
+                        <td>My home shed</td>
+                      </tr>
+                      <tr>
+                        <td class="text-muted"><small>Location:</small></td>
+                        <td>123 Imaginary Rd</td>
+                      </tr>
+                      <tr>
+                        <td class="text-muted"><small>Tools Shared:</small></td>
+                        <td>5</td>
+                      </tr>
+                      <tr>
+                        <td class="text-muted"><small>Tools Borrowed:</small></td>
+                        <td>1</td>
+                      </tr>
+         
+                    </tbody>
+
+                  </table>
+                </td>
+                </tr>
+                  </table>
+
+              </div>
+              </div></a>
+
+
+              <div class="col-md-6">
+
+              </div>
+
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+    <script src="js/jquery-1.11.0.min.js"></script> 
+    <script src="js/bootstrap.min.js"></script> 
+    <script>
+      $(document).ready(function() {
+        $(".shed-tile").hover( function() {
+          $(this).addClass("tile-hover");
+        }, function() {
+          $(this).removeClass("tile-hover");
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="">
+
+    <title>My Tools - agn3691</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/toolshare.css" rel="stylesheet">
+    <link href="bwsewell-tablecloth/assets/css/tablecloth.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="profile.htm">Toolshare</a>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a><span class="glyphicon glyphicon-bell"></span></a></li>
+            <li><a><span class="glyphicon glyphicon-envelope"></span></a></li>
+            <li class="dropdown">
+              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Andy<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Dashboard</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Account Info</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Help</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+          <h1 class="page-header">Dashboard</h1>
+          <div class="row placeholders">
+            <div class="col-md-4">
+              <a href="mysheds.htm"><img alt="140x140" src="img/icon/myshedsicon140.png" style="width: 140px; height: 140px;">
+              <h4>My Sheds</h4></a>
+              <span class="text-muted">Manage your sheds</span>
+            </div>
+            <div class="col-md-4">
+              <a href="#"><img alt="140x140" src="img/icon/mysharezoneicon140.png" style="width: 140px; height: 140px;">
+              <h4>Share Zone</h4></a>
+              <span class="text-muted">Find and borrow tools</span>
+            </div>
+            <div class="col-md-4">
+              <a href="profile.htm"><img alt="140x140" class="img-circle" src="img/profile/kurisu140.jpg" style="width: 140px; height: 140px;">
+              <h4>Profile</h4></a>
+              <span class="text-muted">View your profile</span>
+            </div>
+          </div>
+          
+          <h2 class="sub-header">Tools Owned </h2>
+
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Tool Management</a>
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="#">Create</a></li>
+                  <li><a href="#">Delete</a></li>
+                  <li><a href="#">Edit</a></li>
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                  </div>
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  <button type="submit" class="btn btn-default">Clear</button>
+                </form>
+              
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+
+          <div class="table-responsive">
+            <table>
+                <thead>
+                  <tr>
+                    <th class="{sorter: false}"></th>
+                    <th class="{sorter: false}"></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                 <tr>
+                  <td class="check"><input type="checkbox"></td>
+                  <td><img alt="50x50" class="img-thumbnail" src="img/tool/tekton.jpg" style="width: 50px; height: 50px;"></td>
+                  <td><a href="#">Tekton Screwdriver Set</a></td>
+                  <td>16 piece precision set</td>
+                  <td>Screwdriver</td>
+                  <td><a href="#">andy's shed</a></td>
+                  <td>Shared</td>
+                 </tr>
+
+
+                <tr>
+
+                  <td class="check"><input type="checkbox"></td>
+                  <td><img alt="50x50" class="img-thumbnail" src="img/tool/philips-screw.jpg" style="width: 50px; height: 50px;"></td>
+                  <td><a href="#">Philips screwdriver</a></td>
+                  <td>single</td>
+                  <td>Screwdriver</td>
+                  <td><a href="#">andy's shed</a></td>
+                  <td>Loaned<br><a href="#"><small>ransom (rq3153)</snall></a></td>
+
+                 </tr>
+               
+
+                <tr>
+
+                  <td class="check"><input type="checkbox"></td>
+                  <td><img alt="50x50" class="img-thumbnail" src="img/tool/buster.jpg" style="width: 50px; height: 50px;"></td>
+                  <td><a href="#">Buster Sword</a></td>
+                  <td>giant broadsword for cutting stuff</td>
+                  <td>Weapon</td>
+                  <td><a href="#">raymond's shed</a></td>
+                  <td>Shared</td>
+
+                 </tr>
+               
+
+                <tr>
+
+                  <td class="check"><input type="checkbox"></td>
+                  <td><img alt="50x50" class="img-thumbnail" src="img/tool/brick-hammer.jpg" style="width: 50px; height: 50px;"></td>
+                  <td><a href="#">Greatneck Brick Hammer</a></td>
+                  <td>BR24 professional</td>
+                  <td>Hammer</td>
+                  <td><a href="#">andy's shed</a></td>
+                  <td>Shared</td>
+
+                 </tr>
+                  <tr>
+
+                    <td class="check"><input type="checkbox"></td>
+                    <td><img alt="50x50" class="img-thumbnail" src="img/tool/masterball.jpg" style="width: 50px; height: 50px;"></td>
+                    <td><a href="#">Masterball</a></td>
+                    <td>I want to be the very best...</td>
+                    <td>Pokeball</td>
+                    <td><a href="#">andy's shed</a></td>
+                    <td>Shared</td>
+                 </tr>
+               
+              
+              </tbody>
+            </table>
+          </div>
+          <br>
+          <h2 class="sub-header">Tools Borrowed</h2>
+          <div align="center">
+           <h3 class="text-muted">None</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+    <script src="js/jquery-1.11.0.min.js"></script> 
+    <script src="js/bootstrap.min.js"></script> 
+    <script src="bwsewell-tablecloth/assets/js/jquery.metadata.js"></script>
+    <script src="bwsewell-tablecloth/assets/js/jquery.tablesorter.min.js"></script>
+    <script src="bwsewell-tablecloth/assets/js/jquery.tablecloth.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      $(document).ready(function() {
+        $("table").tablecloth({
+          theme: "default",
+          striped: true,
+          sortable: true
+        });
+      });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="">
+
+    <title>Toolshare Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/toolshare.css" rel="stylesheet">
+    <!-- For inline editing -->
+    <link href="bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+   
+          <a class="navbar-brand" href="dashboard.htm">Toolshare</a>
+        
+          <ul class="nav navbar-nav navbar-right">
+            <li><a><span class="glyphicon glyphicon-bell"></span></a></li>
+            <li><a><span class="glyphicon glyphicon-envelope"></span></a></li>
+
+            <li class="dropdown">
+              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Andy<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Dashboard</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Account Info</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Help</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
+              </ul>
+            </li>
+
+          </ul>
+      
+        </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!--
+        <div class="col-sm-3 col-md-2 sidebar">
+               <label>andy (@agn3691)</label>
+          <ul class="nav nav-sidebar">
+            <li><a href="#">Account</a></li>
+            <li><a href="#">Sheds</a></li>
+            <li><a href="#">Tools</a></li>
+            <li><a href="#">Share Zone</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        
+        </div> -->
+
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+
+          <h1 class="page-header">Profile <small>agn3691</small></h1>
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <img class="img-circle" alt="170x170" src="img/profile/kurisu200.jpg" style="width: 200px; height: 200px;">
+            </div>
+         
+            <div class="col-md-3">
+              <table class="table no-border">
+                <tbody>
+                  <tr>
+                    <td class="text-muted">Name: </td>
+                    <td><a href="#" id="my-name" data-type="text" data-pk="1" data-title="Edit display name" class="editable editable-click" style="display: inline;">andy</a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted">Last Online: </td>
+                    <td>Now</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted">Join Date: </td>
+                    <td>February 17, 2014</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted">Share Zone: </td>
+                    <td>Victor, NY (14564)</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted">Total Tools: </td>
+                    <td>5</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br>
+
+          <h1 class="page-header">Dashboard</h1>
+
+          <div class="row placeholders">
+            <div class="col-md-4">
+              <a href="mysheds.htm"><img alt="140x140" src="img/icon/myshedsicon140.png" style="width: 140px; height: 140px;">
+              <h4>My Sheds</h4></a>
+              <span class="text-muted">Manage your sheds</span>
+            </div>
+            <div class="col-md-4">
+              <a href="#"><img alt="140x140" src="img/icon/mysharezoneicon140.png" style="width: 140px; height: 140px;">
+              <h4>Share Zone</h4></a>
+              <span class="text-muted">Find and borrow tools</span>
+            </div>
+            <div class="col-md-4">
+              <a href="mytools.htm"><img alt="140x140" src="img/icon/mytoolsicon140.png" style="width: 140px; height: 140px;">
+              <h4>My Tools</h4></a>
+              <span class="text-muted">Manage your tools</span>
+            </div>
+
+          </div>
+
+          <h2 class="sub-header">Recent Activity</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+  
+           
+                <thead>
+                  <tr>
+                  </tr>
+                </thead>
+              <tbody>
+               
+                <tr>
+                  <td><a href="#">ransom</a></td>
+                  <td>borrowed <a href="#">philips screwdriver</a> from your shed (<a href="#">andy's shed</a>)</td>
+                  <td>Feb 14 at 9:15 am</td>
+                </tr>
+                <tr>
+                  <td>you</td>
+                  <td>returned <a href="#">stanley bow saw</a> to <a href="#">arron's shed</a></td>
+                  <td>Feb 12 at 7:15 pm</td>
+                </tr>
+                <tr>
+                  <td>you</td>
+                  <td>borrowed <a href="#">stanley bow saw</a> from <a href="#">arron's shed</a></td>
+                  <td>Feb 11 at 4:12 pm</td>
+                </tr>
+                <tr>
+                  <td>you</td>
+                  <td>added <a href="#">philips screwdriver</a> to <a href="#">andy's shed</a></td>
+                  <td>Feb 9 at 11:03 am</td>
+                </tr>
+                <tr>
+                  <td>you</td>
+                  <td>created a shed (<a href="#">andy's shed</a>)</td>
+                  <td>Feb 9 at 11:03 am</td>
+                </tr>
+              
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>-->
+    <script src="js/jquery-1.11.0.min.js"></script> 
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bootstrap3-editable/js/bootstrap-editable.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <script>
+
+      $(document).ready(function() {
+        //turn to inline mode
+        //$.fn.editable.defaults.mode = 'inline';
+        $('#my-name').editable();
+
+      });
+    </script>
+  </body>
+</html>
