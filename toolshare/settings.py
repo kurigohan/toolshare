@@ -11,15 +11,15 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 TEMPLATE_DIRS = (
-    BASE_DIR + '/templates', BASE_DIR + '/users/templates/profiles',
+    BASE_DIR + '/templates', 
 )
 
-#TEMPLATE_DIRS = (
-   # '/home/andy/Workspace/SE261/django-dev/toolshare/templates',
+#TEMPLATE_LOADERS = (
+   # 'django.template.loaders.filesystem.Loader',
+    #'django.template.loaders.app_directories.Loader',
 #)
-
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -38,9 +38,6 @@ ALLOWED_HOSTS = []
 #site id
 SITE_ID = 1
 
-#registration default templates settings
-from registration_defaults.settings import *
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -51,7 +48,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'registration_defaults',
     'registration',
     'profiles',
     'users',
@@ -70,7 +66,9 @@ ROOT_URLCONF = 'toolshare.urls'
 
 WSGI_APPLICATION = 'toolshare.wsgi.application'
 
+# Activation time limit for new accounts
 ACCOUNT_ACTIVATION_DAYS = 7
+
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
@@ -86,7 +84,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -102,7 +100,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+# Used by profiles app
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
+# Display activation emails in the console ifi n debug mode
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
