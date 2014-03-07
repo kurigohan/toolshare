@@ -9,6 +9,3 @@ def user_home(request):
         return  redirect(reverse(ProfileView.profile_detail, args=[request.user.username]))
     else:
         return redirect(reverse('auth_login'))
-        
-#def login_check(request):
-   # if request.user.is_authenticated():

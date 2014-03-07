@@ -2,5 +2,21 @@
 {% load i18n %}
 {% block title %}{% trans "Logged out" %}{% endblock %}
 {% block content %}
-{% trans "Successfully logged out!" %}
+{% blocktrans %}
+<div class="col-xs-6 col-xs-offset-3 text-center">
+<br>
+    <h4>
+        Successfully logged out.
+    </h4>
+</div>
+{% endblocktrans %}
+
+{% block js %}
+    <script type="text/javascript">
+        /* Redirect to login after set time */
+        setTimeout(function() {
+            window.location.href = "{% url 'auth_login' %}";
+        }, 5000);
+    </script>
+{% endblock %}
 {% endblock %}
