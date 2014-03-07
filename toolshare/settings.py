@@ -108,7 +108,9 @@ STATICFILES_DIRS = (
 # Used by profiles app
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/profile/'
+
 
 # Display activation emails in the console ifi n debug mode
 if DEBUG:

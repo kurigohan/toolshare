@@ -5,6 +5,7 @@ admin.autodiscover()
 from users.forms import CustomRegistrationForm, ProfileForm
 
 from registration.backends.default.views import RegistrationView
+from profiles import views as ProfileView
 from users import views as UserView
 
 
@@ -17,7 +18,8 @@ urlpatterns = patterns('',
     url(r'^register/$', 
        RegistrationView.as_view(form_class = CustomRegistrationForm), 
        name = 'registration_register'),
-   # url(r'^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
+    url(r'^edit/', UserView.edit_account, name='edit_account'),
+    #url(r'^profile/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
     url(r'^', include('registration.backends.default.urls')),
     url(r'^profile/$', UserView.user_home, name='user_home' ),
     url(r'^profile/', include('profiles.urls')),

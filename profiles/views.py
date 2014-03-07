@@ -270,10 +270,6 @@ def profile_detail(request, username, public_profile_field=None,
     """
     user = get_object_or_404(User, username=username) 
     login_ago = timePassed(user.last_login)
-    if request.user.is_authenticated():
-        auth_user = request.user
-    else: 
-        return HttpResponseRedirect( reverse('auth_login') )
 
     try:
         profile_obj = user.get_profile()
@@ -290,10 +286,10 @@ def profile_detail(request, username, public_profile_field=None,
         context[key] = callable(value) and value() or value
     
 
-
     return render_to_response(template_name,
-                              { 'profile': profile_obj, 'auth_user': auth_user , 'login_ago':  login_ago, },
+                              { 'profile': profile_obj, 'auth_user': request.user, 'login_ago':  login_ago, },
                               context_instance=context)
+profile_detail = login_required(profile_detail)
 
 def profile_list(request, public_profile_field=None,
                  template_name='profiles/profile_list.html', **kwargs):

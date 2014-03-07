@@ -24,21 +24,21 @@ redirect. If you don't use that name, remember to explicitly pass
 
 #from django.conf.urls.defaults import *
 from django.conf.urls import patterns, url, include
-from profiles import views
+from profiles import views as ProfileView
 
 
 urlpatterns = patterns('',
                        url(r'^create/$',
-                           views.create_profile,
+                           ProfileView.create_profile,
                            name='profiles_create_profile'),
                        url(r'^edit/$',
-                           views.edit_profile,
+                           ProfileView.edit_profile,
                            name='profiles_edit_profile'),
                        url(r'^(?P<username>\w+)/$',
-                           views.profile_detail,
+                           ProfileView.profile_detail,
                            name='profiles_profile_detail'),
                        url(r'^$',
-                           views.profile_list,
+                           ProfileView.profile_list,
                            name='profiles_profile_list'),
 
                        )
