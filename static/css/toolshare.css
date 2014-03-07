@@ -147,10 +147,6 @@ ul.shed-detail{
   border-color: #8a6dcd !important;;
 }
 
-.h-inline{
-  display: inline-block !important;
-}
-
 .editable-submit {
   background-color: #8a6dcd !important;
 }
@@ -159,4 +155,21 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     border-color: rgba(138, 109, 205, 0.8);
     box-shadow: 0 1px 1px rgba(138, 109, 205, 0.075) inset, 0 0 8px rgba(138, 109, 205, 0.6);
     outline: 0 none;
+}
+
+/* Registration form input */
+.input-inline {
+  width: 173px !important;
+}
+.input-single{
+  width: 350px !important;
+}
+
+/*profile details*/
+.detail-table {
+  width:  auto !important;
+}
+
+.label-col {
+  width: 120px !important;
 }

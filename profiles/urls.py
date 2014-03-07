@@ -40,4 +40,5 @@ urlpatterns = patterns('',
                        url(r'^$',
                            views.profile_list,
                            name='profiles_profile_list'),
+
                        )

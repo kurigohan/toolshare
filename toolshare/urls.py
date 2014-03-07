@@ -1,9 +1,11 @@
 from django.conf.urls import patterns, include, url
-
+from django.views.generic import RedirectView
 from django.contrib import admin
 admin.autodiscover()
 from users.forms import CustomRegistrationForm, ProfileForm
+
 from registration.backends.default.views import RegistrationView
+from users import views
 
 urlpatterns = patterns('',
     # Examples:
@@ -11,10 +13,12 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'accounts/register/$', 
+    url(r'^register/$', 
        RegistrationView.as_view(form_class = CustomRegistrationForm), 
        name = 'registration_register'),
-    url('^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
-    url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^profiles/', include('profiles.urls')),
+   # url(r'^profiles/edit', 'profiles.views.edit_profile', {'form_class': ProfileForm,}),
+    url(r'^', include('registration.backends.default.urls')),
+    url(r'^profile/$', views.user_home, name='user_home' ),
+    url(r'^profile/', include('profiles.urls')),
+
 )

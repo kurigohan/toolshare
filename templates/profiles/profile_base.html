@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+
+    <h1 class="page-header">Profile <small>{{ profile.user.username }}</small></h1>
+        <div class="row">
+            <div class="col-md-6 text-right">
+                <img class="img-circle" alt="170x170" src="img/profile/kurisu200.jpg" style="width: 200px; height: 200px;">
+            </div>
+         
+            <div class="col-md-6 text-left">
+              <table class="table no-border detail-table">
+                <tbody>
+                  <tr>
+                    <td class="text-muted label-col">Name: </td>
+                    <td>{{ profile.user.first_name }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted">Last Online: </td>
+                    <td>{{ profile.user.last_login.time }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted">Join Date: </td>
+                    <td>{{ profile.user.date_joined.date }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted">Share Zone: </td>
+                    <td>{{ profile.postal_code }}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted">Total Tools: </td>
+                    <td>0</td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+</div>
+{% endblock %}
