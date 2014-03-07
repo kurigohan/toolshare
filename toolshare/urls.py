@@ -7,6 +7,7 @@ from users.forms import CustomRegistrationForm, ProfileForm
 from registration.backends.default.views import RegistrationView
 from users import views as UserView
 
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'toolshare.views.home', name='home'),

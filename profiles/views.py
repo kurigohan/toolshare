@@ -18,7 +18,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from profiles import utils
-
+from datetime import datetime
 
 def create_profile(request, form_class=None, success_url=None,
                    template_name='profiles/create_profile.html',
@@ -268,7 +268,8 @@ def profile_detail(request, username, public_profile_field=None,
     :template:`profiles/profile_detail.html`.
     
     """
-    user = get_object_or_404(User, username=username)
+    user = get_object_or_404(User, username=username) 
+    login_ago = timePassed(user.last_login)
     if request.user.is_authenticated():
         auth_user = request.user
     else: 
@@ -291,7 +292,7 @@ def profile_detail(request, username, public_profile_field=None,
 
 
     return render_to_response(template_name,
-                              { 'profile': profile_obj, 'auth_user': auth_user },
+                              { 'profile': profile_obj, 'auth_user': auth_user , 'login_ago':  login_ago, },
                               context_instance=context)
 
 def profile_list(request, public_profile_field=None,
@@ -345,3 +346,33 @@ def profile_list(request, public_profile_field=None,
         queryset = queryset.filter(**{ public_profile_field: True })
     kwargs['queryset'] = queryset
     return ListView.as_view(request, template_name=template_name, **kwargs)
+
+
+
+from django.utils.timezone import utc
+def timePassed(time):
+    """
+     Calculates time elapsed since last login.
+    """
+    timeNow = datetime.utcnow().replace(tzinfo=utc) #set timezone to utc
+    elapsedTime = (timeNow - time).total_seconds()
+
+    if(elapsedTime >= 86400 ):
+        elapsedTime, remainder = divmod(elapsedTime, 86400) 
+        tag = 'days'
+    elif(elapsedTime >= 3600):
+        elapsedTime, remainder = divmod(elapsedTime, 3600) 
+        tag = 'hours'
+    elif(elapsedTime >= 60):
+        elapsedTime, remainder = divmod(elapsedTime, 60)
+        tag = 'minutes'
+    else:
+        return 'Now'
+
+    if elapsedTime == 1:
+        tag[:-2]
+    return  '%i %s ago' % (int(elapsedTime), tag)
+
+
+
+
