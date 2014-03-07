@@ -1,3 +1,20 @@
 {% extends "profiles/profile_base.html" %}
 
 {% block title %}Profile - {{ profile.user.username }}{% endblock %} 
+
+{% block navbar-right %}
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ profile.user.first_name }}<b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Dashboard</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Account Info</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Help</a></li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'auth_logout' %}">Logout</a></li>
+        </ul>
+    </li>
+</ul>
+{% endblock %}
