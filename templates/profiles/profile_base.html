@@ -1,21 +1,63 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 {% load i18n %}
 
-{% block navbar-right %}
-{% if auth_user %}
-<ul class="nav navbar-nav navbar-right">
-    <li class="dropdown">
-        <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ auth_user.first_name }}<b class="caret"></b></a>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Dashboard</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Account Info</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
-            <li role="presentation" class="divider"></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Help</a></li>
-            <li role="presentation" class="divider"></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'auth_logout' %}">Logout</a></li>
-        </ul>
-    </li>
-</ul>
+
+  {% block navbar-right %}
+{% if auth_user  %}
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ auth_user.first_name }}<b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Dashboard</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Account Info</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Help</a></li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'auth_logout' %}">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
 {% endif %}
-{% endblock %}
+  {% endblock navbar-right %}
+
+
+
+  {% block content %}
+
+  <div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+    {% if auth_user  == profile.user %}
+    <h1 class="page-header">Dashboard</h1>
+    <div class="row placeholders">
+          <div class="col-md-4">
+          {% block nav_item_1 %}
+            <a href="#"><img alt="140x140" src="{% static 'img/icon/myshedsicon140.png' %}" style="width: 140px; height: 140px;">
+            <h4>My Sheds</h4></a>
+            <span class="text-muted">Manage your sheds</span>
+          {% endblock %}
+          </div>
+
+          <div class="col-md-4">
+          {% block nav_item_2 %}
+            <a href="#"><img alt="140x140" src="{% static 'img/icon/mysharezoneicon140.png' %}" style="width: 140px; height: 140px;">
+            <h4>Share Zone</h4></a>
+            <span class="text-muted">Find and borrow tools</span>
+            {% endblock %}
+          </div>
+
+          <div class="col-md-4">
+          {% block nav_item_3 %}
+            <a href="#"><img alt="140x140" src="{% static 'img/icon/mytoolsicon140.png' %}" style="width: 140px; height: 140px;">
+            <h4>My Tools</h4></a>
+            <span class="text-muted">Manage your tools</span>
+            {% endblock %}
+        </div>
+    </div>
+    {% endif %}
+    {% block inner_content %}{% endblock %}
+    </div>
+
+  {% endblock content %}
+
+

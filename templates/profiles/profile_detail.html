@@ -2,8 +2,7 @@
 {% load staticfiles %}
 {% block title %}Profile - {{ profile.user.username }}{% endblock %} 
 
-{% block content %}
-<div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
+{% block inner_content %} 
     <h1 class="page-header">Profile <small>{{ profile.user.username }}</small></h1>
         <div class="row">
             <div class="col-md-6 text-right">
@@ -37,5 +36,4 @@
               </table>
             </div>
           </div>
-</div>
 {% endblock %}
