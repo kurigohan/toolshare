@@ -37,7 +37,7 @@ class ShedModel(models.Model):
     name = models.charField(max_length=30);
     owner = models.ForeignKey(UserProfile);
     toolLimit = models.IntegerField(verbose_name='tool limit');
-    address = models.OneToOne(Address, related_name='address');
+    address = models.OneToOneField(Address, related_name='address');
 
     def addTool(tool):
         tool.shed = self.id;
