@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
-from sharecenter.forms import ToolCreationForm
 
 # Create your views here.
 def create_tool(request, template_name='tools/create_tool.html'):
@@ -34,39 +33,36 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
         #return redirect to success page
     return render(request, template_name)
 
+
 def tool_detail(request, tool_id):
     tool=get_object_or_404(ToolModel, pk=tool_id)
-    return False
+    return render(tool)
 
 
-def create_shed(request):
-    shed1 = shed();
-    shed1.name = request.name;
-    shed1.owner = request.user.id;
-    shed1.toolLimit = request.toolLimit;
-    address1 = address();
-    address1.state = request.state;
-    address1.zipcode=request.zipcode;
-    address1.street=request.street;
-    address1.save();
-    shed1.address=address1.id;
-    shed1.save();
-    return False
+def create_shed(request, template_name='sheds/create_shed.html'):
+    if request.method == 'POST':
+        shed1 = ShedCreateForm(data=request.POST);
+        shed1.owner = request.user.id;
+        shed1.toolLimit = request.toolLimit;
+        shed1.save();
+        return redirect(reverse('user_home'))
+    else:
+        form = ShedCreateForm()
+        
+    return render(request, template_name, {'form': form});
 
-def edit_shed(request):
+def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
+    shed1=get_object_or_404(ShedModel,pk=shed_id);
+    if request.method == 'POST':
+        shed1.name = request.POST['name'];
+        shed1.owner = request.user.id;
+        shed1.toolLimit = request.toolLimit;
+        shed1.state = request.POST['state'];
+        shed1.zipcode=request.POST['zipcode'];
+        shed1.street=request.POST['zipcode'];
+        shed1.save();
+    return render(request, template_name);
+
+def shed_detail(request):
     shed1=get_object_or_404(ShedModel,pk=request.SHEDID);
-    shed1.name = request.name;
-    shed1.owner = request.user.id;
-    shed1.toolLimit = request.toolLimit;
-    address1 = address();
-    address1.state = request.state;
-    address1.zipcode=request.zipcode;
-    address1.street=request.street;
-    address1.save();
-    shed1.address=address1.id;
-    shed1.save();
-    return render(request,template_name='sheds/edit_shed.html');
-
-#def shed_detail(request):
-  #  shed1=get_object_or_404(ShedModel,pk=request.SHEDID);
-    #return render(request,template_name='sheds/shed_detail.html',shed1);
+    return render(request,template_name='sheds/shed_detail.html',shed1);
