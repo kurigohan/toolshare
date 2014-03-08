@@ -21,7 +21,7 @@ class ToolModel(models.Model):
         else:
             return True
     
-    def unicode():
+    def __unicode__():
         return name
     
     def borrowTool(user):
