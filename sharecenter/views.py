@@ -34,3 +34,36 @@ def edit_tool(request, tool_id):
 def tool_detail(request, tool_id):
     tool=get_object_or_404(ToolModel, pk=tool_id)
     return render(tool)
+
+
+def create_shed(request):
+    shed1 = shed();
+    shed1.name = request.name;
+    shed1.owner = request.user.id;
+    shed1.toolLimit = request.toolLimit;
+    address1 = address();
+    address1.state = request.state;
+    address1.zipcode=request.zipcode;
+    address1.street=request.street;
+    address1.save();
+    shed1.address=address1.id;
+    shed1.save();
+    return render;
+
+def edit_shed(request):
+    shed1=get_object_or_404(ShedModel,pk=request.SHEDID);
+    shed1.name = request.name;
+    shed1.owner = request.user.id;
+    shed1.toolLimit = request.toolLimit;
+    address1 = address();
+    address1.state = request.state;
+    address1.zipcode=request.zipcode;
+    address1.street=request.street;
+    address1.save();
+    shed1.address=address1.id;
+    shed1.save();
+    return render(request,template_name='sheds/edit_shed.html');
+
+def shed_detail(request):
+    shed1=get_object_or_404(ShedModel,pk=request.SHEDID);
+    return render(request,template_name='sheds/shed_detail.html',shed1);
