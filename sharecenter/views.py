@@ -13,10 +13,11 @@ def my_tools(request):
     toolList = request.user.profile.tool_set()
     return render(request,template_name='tools/my_tools.html',{'tool':tool,toolList})
 
-def edit_tool(request):
-    name=request.POST['tool_name']
-    description=request.POST['description']
-    category=request.POST['category']
+def edit_tool(request, tool_id):
+    tool=get_object_or_404(ToolModel, pk=tool_id)
+    tool.name=request.POST['tool_name']
+    tool.description=request.POST['description']
+    tool.category=request.POST['category']
     return render(request,template_name='tools/edit_tool.html')
 
 def tool_detail(request, tool_id):
