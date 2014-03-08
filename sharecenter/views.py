@@ -23,12 +23,13 @@ def my_tools(request, template_name='my_tools.html'):
     """
     return render_to_response
 
-def edit_tool(request, template_name='tools/edit_tool.html'):
-    """
-    Takes form information from request, updates tool and updates
-    tool database.
-    """
-    return render
+def edit_tool(request, tool_id):
+    tool=get_object_or_404(ToolModel, pk=tool_id)
+    tool.name=request.POST['tool_name']
+    tool.description=request.POST['description']
+    tool.category=request.POST['category']
+    return render(request,template_name='tools/edit_tool.html')
+
 
 def tool_detail(request, tool_id):
     tool=get_object_or_404(ToolModel, pk=tool_id)
