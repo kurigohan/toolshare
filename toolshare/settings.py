@@ -16,10 +16,6 @@ TEMPLATE_DIRS = (
     BASE_DIR + '/templates', 
 )
 
-MEDIA_ROOT = (
-    BASE_DIR + '/media',
-)
-
 #TEMPLATE_LOADERS = (
    # 'django.template.loaders.filesystem.Loader',
     #'django.template.loaders.app_directories.Loader',
