@@ -23,7 +23,7 @@ def edit_account(request, template_name='users/edit_account.html'):
             return redirect(request.path)
     else:
         form = AccountForm(instance=request.user)
-    return render_to_response(template_name, {'form': form, 'user': request.user}, 
+    return render_to_response(template_name, {'form': form, 'auth_user': request.user, 'profile': request.user.get_profile()}, 
                                                                     context_instance=context)
 
 # Currently unused

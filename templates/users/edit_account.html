@@ -1,12 +1,12 @@
 
 {% extends "profiles/profile_base.html" %}
-{% block title %}Edit Account - {{ user.username }} {% endblock %}
+{% block title %}Edit Account - {{ auth_user.username }} {% endblock %}
 
 {% block inner_content %}
 <h1 class="page-header">Edit Account</h1>
     <div class="col-sm-4 col-sm-offset-4">
 
-    <form action="" method="POST">{% csrf_token %}
+    <form action="" method='post' role='form'>{% csrf_token %}
    
         <input id="id_first_name" class="form-control form-group" maxlength="30" name="first_name" placeholder="First Name" type="text" value="{{ form.first_name.value }}">
         <input id="id_last_name" class="form-control form-group" maxlength="30" name="last_name" placeholder="Last Name" type="text" value="{{ form.last_name.value }}">

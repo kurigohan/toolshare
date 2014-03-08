@@ -6,7 +6,7 @@ class UserProfile(models.Model):
     Each User has a UserProfile associated with it. UserProfile holds extra information 
     about the user.
     """
-    user = models.OneToOneField(User) # Each User can have only 1 UserProfile
+    user = models.OneToOneField(User, related_name='profile') # Each User can have only 1 UserProfile
     postal_code = models.CharField(verbose_name='postal code', max_length=10)
 
 
