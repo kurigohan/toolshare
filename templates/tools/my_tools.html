@@ -1,4 +1,4 @@
-
+<!--Not full completed look for commented section-->
 {% extends "tools/tool_base.html" %}
 {% load staticfiles %}
 {% block title %}Tool Owned{% endblock %}
@@ -46,7 +46,11 @@
 					{% for 0 in some_list %}
 						<tr>
 							{% for 0 in some_list %}
-							<td class="{% cycle  %}">
+							<td class="{% cycle rowvalue1 rowvalue2 %}">
+							</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
 			
 <!-- 		{% for o in some_list %}
     <tr class="{% cycle rowvalue1 rowvalue2 %}">
