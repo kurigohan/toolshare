@@ -7,7 +7,7 @@ import datetime
 class ToolModel(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=250)
-    shed = models.ForeignKey(
+    shed = models.ForeignKey(ShedModel)
     owner = models.ForeignKey(UserProfile)
     borrower = models.ForeignKey(UserProfile, blank=True)
     category = models.CharField(max_length=30)
@@ -31,3 +31,5 @@ class ToolModel(models.Model):
     def returnTool():
         borrower = None
         dateBorrowed = None
+
+    
