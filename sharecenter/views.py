@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from sharecenter.forms import ToolCreationForm
 
 # Create your views here.
 def create_tool(request, template_name='tools/create_tool.html'):
@@ -14,7 +15,8 @@ def create_tool(request, template_name='tools/create_tool.html'):
     else: 
         form = ToolCreationForm()
 
-    return render(template_name, {'form': form})
+    return render(request, template_name, {'form': form})
+
 
 def my_tools(request, template_name='my_tools.html'):
     """
@@ -30,10 +32,9 @@ def edit_tool(request, tool_id):
     tool.category=request.POST['category']
     return render(request,template_name='tools/edit_tool.html')
 
-
 def tool_detail(request, tool_id):
     tool=get_object_or_404(ToolModel, pk=tool_id)
-    return render(tool)
+    return False
 
 
 def create_shed(request):
@@ -48,7 +49,7 @@ def create_shed(request):
     address1.save();
     shed1.address=address1.id;
     shed1.save();
-    return render;
+    return False
 
 def edit_shed(request):
     shed1=get_object_or_404(ShedModel,pk=request.SHEDID);
@@ -64,6 +65,6 @@ def edit_shed(request):
     shed1.save();
     return render(request,template_name='sheds/edit_shed.html');
 
-def shed_detail(request):
-    shed1=get_object_or_404(ShedModel,pk=request.SHEDID);
-    return render(request,template_name='sheds/shed_detail.html',shed1);
+#def shed_detail(request):
+  #  shed1=get_object_or_404(ShedModel,pk=request.SHEDID);
+    #return render(request,template_name='sheds/shed_detail.html',shed1);
