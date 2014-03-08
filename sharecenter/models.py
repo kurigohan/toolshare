@@ -13,6 +13,7 @@ class ToolModel(models.Model):
     category = models.CharField(max_length=30)
     dateBorrowed = models.DateTimeField(verbose_name='borrow date')
     timeLimit = models.IntegerField(verbose_name='time limit')
+    related_name = 'tool'
 
     @classmethod
     def isAvailable():
