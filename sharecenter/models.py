@@ -3,17 +3,13 @@ from django.contrib.auth.models import User
 from users.models import UserProfile
 import datetime
 
-
-class Address(models.Model):
-    street = models.CharField(max_length=30)
-    state = models.CharField(max_length=2)
-    zipcode = models.IntegerField(verbose_name='zip code')
-        
 class ShedModel(models.Model):
     name = models.CharField(max_length=30)
     owner = models.ForeignKey(UserProfile, related_name='owner')
     tool_limit = models.IntegerField(verbose_name='tool limit')
-    address = models.OneToOneField(Address, related_name='address')
+    street = models.CharField(max_length=30)
+    state = models.CharField(max_length=2)
+    zipcode = models.IntegerField(verbose_name='zip code')
 
     def addTool(tool):
         tool.shed = self
