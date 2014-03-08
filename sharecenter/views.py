@@ -16,10 +16,6 @@ def create_tool(request, template_name='tools/create_tool.html'):
         form = ToolCreationForm()
 
     return render(request, template_name, {'form': form})
-<<<<<<< HEAD
-
-=======
->>>>>>> 4d29bb7adeef6194033da3bc690101b2d9eb7b92
 
 def my_tools(request, template_name='my_tools.html'):
     """
