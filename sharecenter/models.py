@@ -16,20 +16,31 @@ class ToolModel(models.Model):
 
     @classmethod
     def isAvailable():
-        if borrower
+        if borrower:
             return False
-        else
+        else:
             return True
     
     def unicode():
         return name
     
-    def borrowTool(User user):
+    def borrowTool(user):
         borrower = user
         dateBorrowed = datetime.now
     
     def returnTool():
         borrower = None
         dateBorrowed = None
+        
+class ShedModel(models.Model):
+    name = models.charField(max_length=30);
+    owner = models.ForeignKey(UserProfile);
+    toolLimit = models.IntegerField(verbose_name= 'toolLimit');
 
+    def addTool(tool):
+        tool.shed = self.id;
+
+    def removeTool(tool):
+        tool.shed = None;
+        
     
