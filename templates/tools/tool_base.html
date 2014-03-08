@@ -1,55 +1,6 @@
-{% extends "base.html" %}
+{% extends "profiles/profile_base.html" %}
 {% load staticfiles %}
 {% load i18n %}
 
-
-{% block navbar-right %}
-    <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ user.first_name }}<b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'profiles_profile_detail' username=user.username %} ">Profile</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'edit_account' %}">Account Info</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="text-muted">Settings</span></a></li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="text-muted">Help</span></a></li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'auth_logout' %}">Logout</a></li>
-            </ul>
-        </li>
-    </ul>
-{% endblock navbar-right %}
-
-
-
-  {% block content %}
-    <h1 class="page-header">Dashboard</h1>
-    <div class="row placeholders">
-          <div class="col-md-4">
-          {% block nav_item_1 %}
-            <a href="#"><img alt="140x140" src="{% static 'img/icon/myshedsicon140.png' %}" style="width: 140px; height: 140px;">
-            <h4>My Sheds</h4></a>
-            <span class="text-muted">Manage your sheds</span>
-          {% endblock %}
-          </div>
-
-          <div class="col-md-4">
-          {% block nav_item_2 %}
-            <a href="#"><img alt="140x140" src="{% static 'img/icon/mysharezoneicon140.png' %}" style="width: 140px; height: 140px;">
-            <h4>Share Zone</h4></a>
-            <span class="text-muted">Find and borrow tools</span>
-            {% endblock %}
-          </div>
-
-          <div class="col-md-4">
-          {% block nav_item_3 %}
-            <a href="#"><img alt="140x140" src="{% static 'img/icon/mytoolsicon140.png' %}" style="width: 140px; height: 140px;">
-            <h4>My Tools</h4></a>
-            <span class="text-muted">Manage your tools</span>
-             {% endblock nav_item_3 %}
-        </div>
-    </div>
-
-  {% endblock content %}
 
 
