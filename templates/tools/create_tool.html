@@ -24,15 +24,7 @@
         {% endfor %}
 	
 		<div class="col-md-6 text-left">
-			<div class="form-group">
-				<input id="id_name" class="form-control input-single" maxlength="30" name="tool_name" placeholder="Name of Tool" type="text">
-			</div>
-			<div class="form-group">
-				<input id="id_category" class="form-control input-single" maxlength="30" name="category" placeholder="Category of Tool" type="text">
-			</div>
-			<div class="form-group">
-				<input id="id_description" class="form-control input-single" maxlength="250" name="description" placeholder="Description of tool" type="text" textarea rows="4" cols="50">
-			</div>
+			{{Forms}}
 			<hr>
 			<input class="btn btn-lg btn-primary btn-block" type="submit" value="{% trans "Create Tool" %}"/>
 		</div>
