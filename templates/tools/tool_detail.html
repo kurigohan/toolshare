@@ -1,8 +1,9 @@
-{% extends "tools/tool.html" %}
+{% extends "tools/tool_base.html" %}
 {% load staticfiles %}
 {% block title %}Tool - {{ tool.name }}{% endblock %} 
 
-{% block inner_content %} 
+{% block content %} 
+{{block.super}}
     <h1 class="page-header">Tool <small>{{ tool.name }}</small></h1>
         <div class="row">
             <div class="col-md-6 text-right">
