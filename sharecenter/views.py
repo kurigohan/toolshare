@@ -14,7 +14,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
     else: 
         form = ToolCreationForm()
 
-    return render(template_name, {'form': form})
+    return render(request, template_name, {'form': form})
 
 def my_tools(request, template_name='my_tools.html'):
     """
@@ -23,12 +23,15 @@ def my_tools(request, template_name='my_tools.html'):
     """
     return render_to_response
 
-def edit_tool(request, tool_id):
+def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     tool=get_object_or_404(ToolModel, pk=tool_id)
-    tool.name=request.POST['tool_name']
-    tool.description=request.POST['description']
-    tool.category=request.POST['category']
-    return render(request,template_name='tools/edit_tool.html')
+    if request.method == 'POST':
+        tool.name=request.POST['tool_name']
+        tool.description=request.POST['description']
+        tool.category=request.POST['category']
+        tool.save()
+        #return redirect to success page
+    return render(request, template_name)
 
 
 def tool_detail(request, tool_id):
