@@ -36,12 +36,19 @@ class ToolModel(models.Model):
 class ShedModel(models.Model):
     name = models.charField(max_length=30);
     owner = models.ForeignKey(UserProfile);
-    toolLimit = models.IntegerField(verbose_name= 'toolLimit');
+    toolLimit = models.IntegerField(verbose_name='tool limit');
+    address = models.OneToOne(Address, related_name='address');
 
     def addTool(tool):
         tool.shed = self.id;
 
     def removeTool(tool):
         tool.shed = None;
-        
+
+    def __unicode__():
+        return name
     
+class Address(models.Model):
+    street = models.charField(max_length=30);
+    state = models.charField(max_length=2);
+    zipcode = models.IntegerField(verbose_name='zip code');
