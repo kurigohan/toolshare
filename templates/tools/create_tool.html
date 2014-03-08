@@ -1,0 +1,42 @@
+
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block title %}Create Tool{% endblock %}
+ 
+{% block inner_content %}
+	<h1 class="page-header"> Create a Tool</h1>
+	
+		<div class="row">
+		<div class="col-md-6 text-right">
+			<img class="img-circle" alt="image of tool" src="{% static 'img/icon/profileicon140.png' %}" style="width: 200px; height:200px;">
+		</div>
+	
+	<form method='post' action='' role="form">{% csrf_token %}
+	
+	                {% for field, errors in form.errors.items %}
+            <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error }}</li>
+                
+            {% endfor %}
+            </ul>
+        {% endfor %}
+	
+		<div class="col-md-6 text-left">
+			<div class="form-group">
+				<input id="id_name" class="form-control input-single" maxlength="30" name="tool_name" placeholder="Name of Tool" type="text">
+			</div>
+			<div class="form-group">
+				<input id="id_category" class="form-control input-single" maxlength="30" name="category" placeholder="Category of Tool" type="text">
+			</div>
+			<div class="form-group">
+				<input id="id_description" class="form-control input-single" maxlength="250" name="description" placeholder="Description of tool" type="text" textarea rows="4" cols="50">
+			</div>
+			<hr>
+			<input class="btn btn-lg btn-primary btn-block" type="submit" value="{% trans "Create Tool" %}"/>
+		</div>
+	</form>
+{% if form.errors %}
+<p>{% blocktrans %}Error!!!!{% endblocktrans %}</p>
+{% endif %}
+{% endblock inner_content %}
