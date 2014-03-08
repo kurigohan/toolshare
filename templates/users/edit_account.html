@@ -1,21 +1,23 @@
 
 {% extends "profiles/profile_base.html" %}
-{% block title %}Edit Account - {{ auth_user.username }} {% endblock %}
+{% block title %}Edit Account - {{ user.username }} {% endblock %}
 
-{% block inner_content %}
+{% block content %}
+{{ block.super }}
 <h1 class="page-header">Edit Account</h1>
     <div class="col-sm-4 col-sm-offset-4">
-
-    <form action="" method='post' role='form'>{% csrf_token %}
-   
-        <input id="id_first_name" class="form-control form-group" maxlength="30" name="first_name" placeholder="First Name" type="text" value="{{ form.first_name.value }}">
-        <input id="id_last_name" class="form-control form-group" maxlength="30" name="last_name" placeholder="Last Name" type="text" value="{{ form.last_name.value }}">
-        <input id="id_password1" class="form-control form-group" name="password1" placeholder="Password" type="password">
-        <input id="id_password2" class="form-control form-group" name="password2" placeholder="Re-type Password" type="password">
-        <input id="id_email" class="form-control form-group" name="email" placeholder="Email" type="email" value="{{ form.email.value }}">
+    {% if form.errors %}
+        {% for field, errors in form.errors.items %}
+            <ul class="errorlist">
+            {% for error in errors %}
+                <li>{{ error }}</li>         
+            {% endfor %}
+            </ul>
+        {% endfor %}
+    {% endif %}
+    <form action="" method='POST' role='form'>{% csrf_token %}
+        {{form.as_p}}
         <input id="submit" type="submit" name="submit" value="Update" />
-
-
     </form>
  </div>
 

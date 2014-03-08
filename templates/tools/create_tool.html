@@ -3,8 +3,9 @@
 {% load staticfiles %}
 {% block title %}Create Tool{% endblock %}
  
-{% block inner_content %}
-	<h1 class="page-header"> Create a Tool</h1>
+{% block content %}
+	{{block.super}}
+	<h1 class="page-header">Create a Tool</h1>
 	
 		<div class="row">
 		<div class="col-md-6 text-right">
@@ -13,7 +14,7 @@
 	
 	<form method='post' action='' role="form">{% csrf_token %}
 	
-	                {% for field, errors in form.errors.items %}
+	{% for field, errors in form.errors.items %}
             <ul class="errorlist">
             {% for error in errors %}
                 <li>{{ error }}</li>
@@ -36,7 +37,4 @@
 			<input class="btn btn-lg btn-primary btn-block" type="submit" value="{% trans "Create Tool" %}"/>
 		</div>
 	</form>
-{% if form.errors %}
-<p>{% blocktrans %}Error!!!!{% endblocktrans %}</p>
-{% endif %}
-{% endblock inner_content %}
+{% endblock %}

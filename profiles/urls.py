@@ -28,17 +28,17 @@ from profiles import views as ProfileView
 
 
 urlpatterns = patterns('',
-                       url(r'^create/$',
-                           ProfileView.create_profile,
-                           name='profiles_create_profile'),
-                       url(r'^edit/$',
-                           ProfileView.edit_profile,
-                           name='profiles_edit_profile'),
+                    #   url(r'^create/$',
+                        #   ProfileView.create_profile,
+                         #  name='profiles_create_profile'),
+                      # url(r'^edit/$',
+                     #      ProfileView.edit_profile,
+                         #  name='profiles_edit_profile'),
                        url(r'^(?P<username>\w+)/$',
                            ProfileView.profile_detail,
                            name='profiles_profile_detail'),
-                       url(r'^$',
-                           ProfileView.profile_list,
-                           name='profiles_profile_list'),
+                       #url(r'^$',
+                          # ProfileView.profile_list,
+                           #name='profiles_profile_list'),
 
                        )

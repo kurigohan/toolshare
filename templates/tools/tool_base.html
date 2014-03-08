@@ -4,10 +4,9 @@
 
 
 {% block navbar-right %}
-  {% if auth_user  %}
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ auth_user.first_name }}<b class="caret"></b></a>
+            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ user.first_name }}<b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'profiles_profile_detail' username=auth_user.username %} ">Profile</a></li>
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'edit_account' %}">Account Info</a></li>
@@ -19,15 +18,11 @@
             </ul>
         </li>
     </ul>
-  {% endif %}
 {% endblock navbar-right %}
 
 
 
   {% block content %}
-
-  <div class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-2 main">
-    {% if auth_user  == profile.user %}
     <h1 class="page-header">Dashboard</h1>
     <div class="row placeholders">
           <div class="col-md-4">
@@ -51,11 +46,7 @@
             <a href="#"><img alt="140x140" src="{% static 'img/icon/mytoolsicon140.png' %}" style="width: 140px; height: 140px;">
             <h4>My Tools</h4></a>
             <span class="text-muted">Manage your tools</span>
-            {% endblock %}
         </div>
-    </div>
-    {% endif %}
-    {% block inner_content %}{% endblock %}
     </div>
 
   {% endblock content %}

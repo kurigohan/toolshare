@@ -5,9 +5,8 @@
 {% block css%}
 <link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
-{% block content %}
-{% url 'auth_password_reset' as auth_pwd_reset_url %}
-{% url 'registration_register' as register_url%}
+{% block outside_content %}
+
 
 {% if form.errors %}
 <p>{% blocktrans %}Your username and password didn't match. Please try again.{% endblocktrans %}</p>
@@ -20,27 +19,14 @@
             <input id="id_username"  class="form-control" placeholder="Username" maxlength="254" name="username" type="text" required autofocus>
             <input id="id_password"  class="form-control" placeholder="Password" maxlength="254" name="password" type="password" required>
         </p>
-    <!--
-    <table>
-    <tr>
-        <td>{% trans form.username.label_tag %}</td>
-        <td>{{ form.username }}</td>
-    </tr>
-    <tr>
-        <td>{% trans form.password.label_tag %}</td>
-        <td>{{ form.password }}</td>
-    </tr>
-    </table> -->
-    <!-- <p>{% blocktrans %}<a href="{{ auth_pwd_reset_url }}">Forgot</a> your password?
-        <a href="{{ register_url }}">Need an account</a>?{% endblocktrans %}</p>-->
 
         <input type="submit" class="btn btn-lg btn-primary btn-block" value="{% trans "Log In" %}" />
         <input type="hidden" name="next" value="{{ next }}" />
         <p>
             <hr>
-            {% blocktrans %}<span class="text-muted">New here? <a href="{{ register_url }}" class="text-muted"><b>Create an account.</b></a></span>{% endblocktrans %}
+            <span class="text-muted">New here? <a href="{% url 'registration_register' %}" class="text-muted"><b>Create an account.</b></a></span>
             <br>
-            <a href="{{ auth_pwd_reset_url }}" class="text-muted">Forgot your password?</a>
+          <!--  <a href="{% url 'auth_password_reset' %}" class="text-muted">Forgot your password?</a> -->
         </p>
     </form>
 </div>
