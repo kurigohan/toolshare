@@ -17,11 +17,16 @@ class Shed(models.Model):
     
     @property    
     def share_count(self):
-        return 0
+        return self.shed_tools.all().count()
 
     @property
     def borrow_count(self):
-        return 0
+        count = 0
+        tool_list = self.shed_tools.all()
+        for tool in tool_list:
+            if tool.is_available == False:
+                ++count
+        return count
 
     @property
     def location(self):
@@ -54,7 +59,7 @@ class Tool(models.Model):
     time_limit = models.IntegerField(verbose_name='time limit', default=7)
     objects = ToolManager()
 
-    def isAvailable(self):
+    def is_available(self):
         if self.borrower:
             return False
         else:

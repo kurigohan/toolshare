@@ -25,10 +25,11 @@
 
   {% block content %}
 
-
+<div class="dash-btn-div"><a href="#" class="btn dash-btn"><h4>+</h4></a></div>
    <!-- <h1 class="page-header">Dashboard</h1> -->
    <br>
-    <div class="row placeholders">
+    <div id="dashboard" class="row placeholders">
+      
           <div class="col-md-4">
           {% block nav_item_1 %}
             <a href="{% url 'my_sheds' %}"><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/myshedsicon140.png' %}">
@@ -54,5 +55,17 @@
         </div>
     </div>
 
-  {% endblock content %}
+{% endblock content %}
 
+{% block js %}
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $(".dash-btn").click( function() {
+    $("#dashboard").slideToggle()
+  });
+});
+
+</script>
+
+{% endblock %}

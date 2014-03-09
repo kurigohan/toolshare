@@ -69,14 +69,15 @@
 {% endblock %}
 
 {% block js %}
+{{block.super}}
 <script>
-    $(document).ready(function() {
+
     $(".shed-tile").hover( function() {
     $(this).addClass("tile-hover");
         }, function() {
     $(this).removeClass("tile-hover");
         });
-      });
+
 </script>
 {% endblock %}
 
