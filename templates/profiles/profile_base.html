@@ -40,7 +40,7 @@
 
           <div class="col-md-4">
           {% block nav_item_2 %}
-            <a href="#"><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/mysharezoneicon140.png' %}">
+            <a href = {% url 'share_zone' %}><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/mysharezoneicon140.png' %}">
             <h4>Share Zone</h4></a>
             <span class="text-muted">Find and borrow tools</span>
             {% endblock %}

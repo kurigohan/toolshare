@@ -1,0 +1,62 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block title %}My Tools - {{user.username}}{% endblock %}
+
+{% block nav_item_3 %}
+<a href="{% url 'user_home' %}"><img alt="profile icon" class="img-circle dashboard-icon" src="{% static 'img/profileplaceholder.png' %}">
+<h4>Profile</h4></a>
+<span class="text-muted">View your profile</span>
+
+{% endblock %}
+
+{% block content %}
+{{block.super}}
+<h1 class="page-header">Sharezone </h1>
+
+          {% if shed_list %}
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<!--<th class="{sorter:false}"></th>
+						<th class="{sorter:false}"></th>-->
+						<th>Name</th>
+						<th>Owner</th>
+						<th>Tools Shared</th>
+						<th>Tools Borrowed</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+		
+
+					{% for shed in shed_list %}
+
+						<tr>
+		
+							<td>
+							{{shed.name}}
+							</td>
+							<td>
+							{{shed.owner.user.username}}
+							</td>
+							<td>
+							{{shed.share_count}}
+							</td>
+							<td>
+							{{shed.borrow_count}}
+							</td>
+							<td class="but-col">
+								<a href="{% url 'shed_detail' shed_id=shed.id %}">View</a>
+							</td>
+
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+		</div>
+		{% else %}
+		<div class="text-center"><h2 class="text-muted">None</h2></div>
+		{% endif %}
+{% endblock %}
