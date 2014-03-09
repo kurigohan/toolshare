@@ -58,6 +58,12 @@ def borrow_tool(request, tool_id):
         tool.save()
     return redirect('my_sheds')
 
+def return_tool(request, tool_id):
+    tool = get_object_or_404(Tool, pk=tool_id)
+    if tool.borrower.user == request.user:
+        tool.return_tool()
+        tool.save()
+    return redirect('my_sheds')
 
 def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
     tool = get_object_or_404(Tool, pk=tool_id)
@@ -101,8 +107,8 @@ def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
         shed.save();
     return render(request, template_name, {'shed':shed})
 
-
-
 def share_zone(request, template_name='sheds/share_zone.html'):
     shed_list = Shed.objects.filter(postal_code=request.user.get_profile().postal_code)
     return render(request, template_name, {'shed_list':shed_list})
+
+
