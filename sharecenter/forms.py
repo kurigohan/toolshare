@@ -1,8 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from sharcenter.models import ShedModel
-
-class 
+from sharecenter.models import Shed, Tool
 
 class ShedCreateForm(forms.Form):
     """
@@ -11,20 +9,17 @@ class ShedCreateForm(forms.Form):
     name = forms.CharField(label='Shed Name')
     street = forms.CharField(label='Street', error_messages={'required': 'No street entered'})
     state = forms.CharField(label='State', error_messages={'required': 'No state entered'})
-    zipcode = forms.IntegerField(label='Zip Code', error_messages={'required': 'No zip code entered'})
+    postal_code = forms.CharField(label='Zip Code', error_messages={'required': 'No zip code entered'}, max_length=10)
 
 class ShedEditForm(ModelForm):
-    class Meta: model=ShedModel
+    class Meta: 
+        model=Shed
     name = forms.CharField(label='Shed Name')
     street = forms.CharField(label='Street', error_messages={'required': 'No street entered'})
     state = forms.CharField(label='State', error_messages={'required': 'No state entered'})
-    zipcode = forms.IntegerField(label='Zip Code', error_messages={'required': 'No zip code entered'})
-from django import forms
-from django.db import models
-from django.forms import ModelForm
-
+    postal_code = forms.CharField(label='Zip Code', error_messages={'required': 'No zip code entered'}, max_length=10)
  
-class ToolCreationForm(forms.Form):
+class ToolCreateForm(ModelForm):
     """
     Form for editting account info.
     """
@@ -32,3 +27,6 @@ class ToolCreationForm(forms.Form):
     category = forms.CharField(label='Category', max_length=30, widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),error_messages={'required': 'No category was entered.'})
     description = forms.CharField(label='Description', max_length=250, widget=forms.TextInput(attrs={'class':'form-control form-group input-single',} ),error_messages={'required': 'No description was entered.'})
 
+    class Meta:
+        model = Tool
+        fields = ('name', 'category', 'description')

@@ -173,3 +173,8 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .label-col {
   width: 120px !important;
 }
+
+.dashboard-icon {
+   width: 100px; 
+   height: 100px;
+}

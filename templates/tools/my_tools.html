@@ -1,40 +1,55 @@
-<!--Not full completed look for commented section-->
 {% extends "tools/tool_base.html" %}
 {% load staticfiles %}
-{% block title %}Tool Owned{% endblock %}
- 
+{% block title %}My Tools - {{user.username}}{% endblock %}
+
+{% block nav_item_3 %}
+ <a href="{% url 'user_home' %}"><img alt="140x140" class="img-circle dashboard-icon" src="{% static 'img/icon/profileicon140.png' %}">
+              <h4>Profile</h4></a>
+              <span class="text-muted">View your profile</span>
+
+{% endblock %}
+
 {% block content %}
-	{{block.super}}
-	<h1 class="page-header">Tool Owned</h1>
-		<div class="row">
-			<div class="col-md-4 text-left">
-				<a>Tool Management</a>
-			</div>
-			<div class="col-md-8 text-right">
-				<ul class="nav navbar-nav">
-					<li><a href="#">Create</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4 text-right">
-			</div>
-			<div class="col-md-8 text-right">
-			<form>
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-				</div>
-				<button type="submit" class="btn btn-default">Submit</button>
-				<button type="submit" class="btn btn-default">Clear</button>
-			</form>
-			</div>
-		</div>
-		<div class="row">
-			<table>
+{{block.super}}
+<h1 class="page-header">Tools Owned </h1>
+<!--
+          <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Tool Management</a>
+              </div>
+
+             
+              <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                  <li><a href="#">Create</a></li>
+                  <li><a href="#">Delete</a></li>
+                  <li><a href="#">Edit</a></li> 
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                  </div>
+                  <button type="submit" class="btn btn-default">Submit</button>
+                  <button type="submit" class="btn btn-default">Clear</button>
+                </form>
+              
+              </div>
+            </div>
+          </nav> -->
+          {% if tool_list %}
+		<div class="table-responsive">
+			<table class="table">
 				<thead>
 					<tr>
-						<th class="{sorter:false}"></th>
-						<th class="{sorter:false}"></th>
+						<!--<th class="{sorter:false}"></th>
+						<th class="{sorter:false}"></th>-->
 						<th>Name</th>
 						<th>Description</th>
 						<th>Category</th>
@@ -43,49 +58,33 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for 0 in some_list %}
+		
+
+					{% for tool in tool_list %}
 						<tr>
-							{% for 0 in some_list %}
-							<td class="{% cycle rowvalue1 rowvalue2 %}">
+							
+							<td><a href="{% static 'tool_detail' tool_id=tool.id %}"
+							{{tool.name}}
 							</td>
-							{% endfor %}
+							<td>
+							{{tool.description}}
+							</td>
+							<td>
+							{{tool.category}}
+							</td>
+							<td>
+							{{tool.shed}}
+							</td>
+							<td>
+							{{tool.status}}
+							</td>
 						</tr>
 					{% endfor %}
-			
-<!-- 		{% for o in some_list %}
-    <tr class="{% cycle rowvalue1 rowvalue2 %}">
-        ...
-    </tr>
-{% endfor %} -->	
-			
-		<div class="row">
-		<div class="col-md-6 text-right">
-			<img class="img-circle" alt="image of tool" src="{% static 'img/icon/profileicon140.png' %}" style="width: 200px; height:200px;">
+
+				</tbody>
+			</table>
 		</div>
-	
-	<form method='post' action='' role="form">{% csrf_token %}
-	
-	{% for field, errors in form.errors.items %}
-            <ul class="errorlist">
-            {% for error in errors %}
-                <li>{{ error }}</li>
-                
-            {% endfor %}
-            </ul>
-        {% endfor %}
-	
-		<div class="col-md-6 text-left">
-			<div class="form-group">
-				<input id="id_name" class="form-control input-single" maxlength="30" name="tool_name" placeholder="Name of Tool" type="text">
-			</div>
-			<div class="form-group">
-				<input id="id_category" class="form-control input-single" maxlength="30" name="category" placeholder="Category of Tool" type="text">
-			</div>
-			<div class="form-group">
-				<input id="id_description" class="form-control input-single" maxlength="250" name="description" placeholder="Description of tool" type="text" textarea rows="4" cols="50">
-			</div>
-			<hr>
-			<input class="btn btn-lg btn-primary btn-block" type="submit" value="{% trans "Create Tool" %}"/>
-		</div>
-	</form>
+		{% else %}
+		<div class="text-center"><h2 class="text-muted">None</h2></div>
+		{% endif %}
 {% endblock %}

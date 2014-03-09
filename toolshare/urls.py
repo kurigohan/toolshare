@@ -27,7 +27,8 @@ urlpatterns = patterns('',
     url(r'^profile/', include('profiles.urls')),
     url(r'^account/password_changed', TemplateView.as_view(template_name='registration/password_change_done.html'), 
                                                                                                                                           name='password_change_done'),
-    url(r'^tool_detail', TemplateView.as_view(template_name='tools/tool_detail.html'),  ),
+    url(r'^tool_detail', TemplateView.as_view(template_name='tools/tool_detail.html'), name='tool_detail'  ),
     url(r'^create_tool', 'sharecenter.views.create_tool', name = 'create_tool'),
+    url(r'^profile/my_tools', TemplateView.as_view(template_name='tools/my_tools.html'), name='my_tools'),
     )
 

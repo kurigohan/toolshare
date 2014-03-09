@@ -26,11 +26,12 @@
   {% block content %}
 
 
-    <h1 class="page-header">Dashboard</h1>
+   <!-- <h1 class="page-header">Dashboard</h1> -->
+   <br>
     <div class="row placeholders">
           <div class="col-md-4">
           {% block nav_item_1 %}
-            <a href="#"><img alt="120x120" src="{% static 'img/icon/myshedsicon140.png' %}" style="width: 100px; height: 100px;">
+            <a href="#"><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/myshedsicon140.png' %}">
             <h4>My Sheds</h4></a>
             <span class="text-muted">Manage your sheds</span>
           {% endblock %}
@@ -38,7 +39,7 @@
 
           <div class="col-md-4">
           {% block nav_item_2 %}
-            <a href="#"><img alt="120x120" src="{% static 'img/icon/mysharezoneicon140.png' %}" style="width: 100px; height: 100px;">
+            <a href="#"><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/mysharezoneicon140.png' %}">
             <h4>Share Zone</h4></a>
             <span class="text-muted">Find and borrow tools</span>
             {% endblock %}
@@ -46,7 +47,7 @@
 
           <div class="col-md-4">
           {% block nav_item_3 %}
-            <a href="#"><img alt="120x120" src="{% static 'img/icon/mytoolsicon140.png' %}" style="width: 100px; height: 100px;">
+            <a href="{% url 'my_tools' %}"><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/mytoolsicon140.png' %}">
             <h4>My Tools</h4></a>
             <span class="text-muted">Manage your tools</span>
             {% endblock %}
