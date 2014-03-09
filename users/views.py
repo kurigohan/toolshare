@@ -8,12 +8,17 @@ from users.forms import AccountForm
 from registration.backends.simple.views import RegistrationView
 
 def user_home(request):
+    """
+    send user home or to login screen
+    """
     if request.user.is_authenticated(): #redirect logged in user to their profile 
         return  redirect(reverse(ProfileView.profile_detail, args=[request.user.username]))
     else:
         return redirect('auth_login')
 
-# overides get_success_url in registration app
 class CustomRegistrationView(RegistrationView):
+    """
+    Custom get_success_url
+    """
     def get_success_url(self, request, user):
         return (user.profile.get_absolute_url(), (), {})

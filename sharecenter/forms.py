@@ -12,6 +12,9 @@ class ShedCreateForm(forms.Form):
     postal_code = forms.CharField(label='Zip Code', error_messages={'required': 'No zip code entered'}, max_length=10)
 
 class ShedEditForm(ModelForm):
+    """
+    Form for editing shed, meta for current model
+    """
     class Meta: 
         model=Shed
     name = forms.CharField(label='Shed Name')

@@ -13,11 +13,13 @@ class UserProfile(models.Model):
         return self.user.username + ' (' + self.user.email + ')'
 
     def get_absolute_url(self):
+        #generate and return absolute URL to profile
         return ('profiles_profile_detail', (), { 'username': self.user.username })
     get_absolute_url = models.permalink(get_absolute_url)
 
     @property
     def tool_count(self):
+        #return number of tools
         return self.tool_owned.all().count()
 
 #    class Meta:

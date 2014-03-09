@@ -4,6 +4,9 @@ from users.models import UserProfile
 import datetime
 
 class Shed(models.Model):
+    """
+    Shed is a shed with name, owner, tool limit, and address.
+    """
     name = models.CharField(max_length=30)
     owner = models.ForeignKey(UserProfile, related_name='shed_owned')
     tool_limit = models.IntegerField(verbose_name='tool limit', default=20)
@@ -12,15 +15,15 @@ class Shed(models.Model):
     state = models.CharField(max_length=2, blank=True)
     postal_code = models.CharField(verbose_name='postal code', max_length=10, blank=True)
 
-    def add_tool(self, tool):
-        tool.shed = self
-    
+     
     @property    
     def share_count(self):
+        #return number of tools used
         return self.shed_tools.all().count()
 
     @property
     def borrow_count(self):
+        #return number of borrowers
         count = 0
         tool_list = self.shed_tools.all()
         for tool in tool_list:
@@ -30,25 +33,29 @@ class Shed(models.Model):
 
     @property
     def location(self):
+        #return address as string
         return "%s \n %s %s" % (self.street, self.city, self.state) 
     
 
     def __unicode__(self):
         return self.name
-    #class Meta:
-    #    app_label = 'toolshare'
-    #
+    
 
 class ToolManager(models.Manager):
+    """
+    ToolManager allows creation of tools.
+    """
     def create_tool(self, name, category, description, owner, shed):
         tool = self.create(name=name, category=category, description=description,
                                         owner=owner, shed=shed)
         return tool
-   # class Meta:
-      #  app_label = 'toolshare'
+   
 
-# Create your models here.
+
 class Tool(models.Model):
+    """
+    Tool represents a tool with name, description, shed, owner, and borrow info
+    """
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=250)
     shed = models.ForeignKey(Shed, related_name='shed_tools')
@@ -60,6 +67,7 @@ class Tool(models.Model):
     objects = ToolManager()
 
     def is_available(self):
+        #return whether is borrowed(false)
         if self.borrower:
             return False
         else:
@@ -69,19 +77,26 @@ class Tool(models.Model):
         return name
     
     def borrow_tool(self, user):
+        """
+        Set tool as borrowed by user
+        """
         self.borrower = user
-        self.date_borrowed = datetime.datetime.now()
+        self.date_borrowed = datetime.now()
     
     def return_tool(self):
+        """
+        Set tools as not borrowed
+        """
         self.borrower = None
         self.date_borrowed = None
 
     @property 
     def status(self):
+        """
+        return string representation of whether is borrowed
+        """
         if self.is_available():
             return 'Shared'
         else:
             return 'Loaned'
-        
-   # class Meta:
-      #  app_label = 'toolshare'
+   
