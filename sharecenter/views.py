@@ -18,27 +18,26 @@ def create_tool(request, template_name='tools/create_tool.html'):
                 category=form.cleaned_data['category'],
                 description=form.cleaned_data['description'],
                 owner=user_profile,
-                shed=user_profile.shed_set.all()[0]
+                shed=user_profile.shed_owned.all()[0]
             )
             tool.save()
-            return redirect(reverse('user_home'))
+            return redirect(reverse('my_tools'))
     else: 
         form = ToolCreateForm()
 
     return render(request, template_name, {'form': form})
 
-#def my_tools(request, template_name='tools/my_tools.html'):
+def my_tools(request, template_name='tools/my_tools.html'):
     """
-    Calls the full list of tools and pulls only the tools with an
-    owner id that matches the user making the request.
+    Display a table containing the user's tools. 
     """
+    tool_list = request.user.get_profile().tool_owned.all()
 
-
-   # return render(request, template_name)
+    return render(request, template_name, {'tool_list':tool_list})
 
 #def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
    # tool=get_object_or_404(Tool, pk=tool_id)
-    i#f request.method == 'POST':
+    #if request.method == 'POST':
        # tool.name=request.POST['tool_name']
         #tool.description=request.POST['description']
        # tool.category=request.POST['category']

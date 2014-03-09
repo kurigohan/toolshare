@@ -24,9 +24,10 @@
         {% endfor %}
 	
 		<div class="col-md-6 text-left">
-			{{form}}
+			{{form.as_p}}
 			<hr>
-			<input class="btn btn-primary btn-block" type="submit" value="Create Tool "/>
+
+			<input class="btn btn-primary" type="submit" value="Create Tool"/>
 		</div>
 	</form>
 {% endblock %}

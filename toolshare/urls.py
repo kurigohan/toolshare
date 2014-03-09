@@ -7,6 +7,7 @@ from users.forms import CustomRegistrationForm, ProfileForm, CustomPasswordChang
 from registration.backends.default.views import RegistrationView
 from profiles import views as ProfileView
 from users import views as UserView
+from sharecenter import views as ShareView
 
 from django.views.generic import TemplateView
 urlpatterns = patterns('',
@@ -28,7 +29,7 @@ urlpatterns = patterns('',
     url(r'^account/password_changed', TemplateView.as_view(template_name='registration/password_change_done.html'), 
                                                                                                                                           name='password_change_done'),
     url(r'^tool_detail', TemplateView.as_view(template_name='tools/tool_detail.html'), name='tool_detail'  ),
-    url(r'^create_tool', 'sharecenter.views.create_tool', name = 'create_tool'),
-    url(r'^profile/my_tools', TemplateView.as_view(template_name='tools/my_tools.html'), name='my_tools'),
+    url(r'^profile/create_tool', ShareView.create_tool, name = 'create_tool'),
+    url(r'^profile/my_tools', ShareView.my_tools, name='my_tools'),
     )
 

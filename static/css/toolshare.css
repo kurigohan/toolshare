@@ -147,9 +147,21 @@ ul.shed-detail{
   border-color: #8a6dcd !important;;
 }
 
-.editable-submit {
+/*.editable-submit {
   background-color: #8a6dcd !important;
+}*/
+
+
+.btn, .btn-primary {
+  background-color: #8a6dcd;
+  border-color: #8a6dcd;
 }
+
+
+.btn:hover{
+  background-color: #755cad;
+}
+
 
 textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
     border-color: rgba(138, 109, 205, 0.8);
@@ -172,6 +184,10 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 
 .label-col {
   width: 120px !important;
+}
+
+.but-col{
+  width: 50px;
 }
 
 .dashboard-icon {

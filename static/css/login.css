@@ -43,13 +43,3 @@ body {
 .container hr {
   border-color: #808080;
 }
-
-.btn, .btn-primary {
-  background-color: #8a6dcd;
-  border-color: #8a6dcd;
-}
-
-
-.btn:hover{
-  background-color: #755cad;
-}
