@@ -81,14 +81,14 @@ class Tool(models.Model):
         Set tool as borrowed by user
         """
         self.borrower = user
-        self.date_borrowed = datetime.now()
+      #  self.date_borrowed = datetime.now()
     
     def return_tool(self):
         """
         Set tools as not borrowed
         """
         self.borrower = None
-        self.date_borrowed = None
+    #   self.date_borrowed = None
 
     @property 
     def status(self):
