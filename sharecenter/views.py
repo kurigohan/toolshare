@@ -38,7 +38,7 @@ def my_tools(request, template_name='tools/my_tools.html'):
 
 def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     tool=get_object_or_404(Tool, pk=tool_id)
-    if request.user == tool.owner:
+    if request.user == tool.owner.user:
         if request.method == 'POST':
             form = ToolCreateForm(data=request.POST, instance=tool)
             if form.is_valid:
