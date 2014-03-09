@@ -36,15 +36,15 @@ def my_tools(request, template_name='tools/my_tools.html'):
 
     return render(request, template_name, {'tool_list':tool_list})
 
-#def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
-   # tool=get_object_or_404(Tool, pk=tool_id)
-    #if request.method == 'POST':
-       # tool.name=request.POST['tool_name']
-        #tool.description=request.POST['description']
-       # tool.category=request.POST['category']
-       # tool.save()
-        #return redirect to success page
-    #return render(request, template_name)
+def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
+    tool=get_object_or_404(Tool, pk=tool_id)
+    if request.method == 'POST':
+        tool.name=request.POST['tool_name']
+        tool.description=request.POST['description']
+        tool.category=request.POST['category']
+        tool.save()
+        return redirect(reverse('tool_detail'))
+    return render(request, template_name)
 
 
 def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
@@ -92,8 +92,3 @@ def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
 def share_zone(request, template_name='sheds/share_zone.html'):
     shed_list = Shed.objects.get(postal_code=request.user.get_profile().postal_code)
     return shed_list
-
-    
-#def shed_detail(request, shed, template_name='sheds/shed_detail.html'):
-  #  shed = get_object_or_404(Shed, )
-   # return render(request,template_name {'shed': shed})
