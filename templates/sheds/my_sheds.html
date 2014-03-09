@@ -4,7 +4,7 @@
 
 
 {% block nav_item_1 %} 
-<a href="{% url 'user_home' %}"><img alt="140x140" class="img-circle dashboard-icon" src="{% static 'img/icon/profileicon140.png' %}">
+<a href="{% url 'user_home' %}"><img alt="profile thumbnail" class="img-circle dashboard-icon" src="{% static 'img/profileplaceholder.png' %}">
 <h4>Profile</h4></a>
 <span class="text-muted">View your profile</span>
 {% endblock %}
@@ -18,7 +18,7 @@
     <a class="no-color" href="{% url 'shed_detail' shed_id=shed.id %}">
         <div class="col-md-6 shed-tile">
             <div class="col-sm-3">
-                <img class="img-rounded shed-img" alt="140x140" src="img/shed/shed1.jpg">
+                <img class="img-rounded shed-img" alt="shed thumbnail" src="{% static 'img/shedplaceholder.png' %}">
             </div>
             <div class="col-sm-1"></div>
             <div class="col-sm-8">
