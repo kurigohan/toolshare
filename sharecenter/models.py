@@ -8,11 +8,25 @@ class Shed(models.Model):
     owner = models.ForeignKey(UserProfile, related_name='shed_owned')
     tool_limit = models.IntegerField(verbose_name='tool limit', default=20)
     street = models.CharField(max_length=30, blank=True)
+    city = models.CharField(max_length=30, blank=True)
     state = models.CharField(max_length=2, blank=True)
     postal_code = models.CharField(verbose_name='postal code', max_length=10, blank=True)
 
     def add_tool(self, tool):
         tool.shed = self
+    
+    @property    
+    def share_count(self):
+        return 0
+
+    @property
+    def borrow_count(self):
+        return 0
+
+    @property
+    def location(self):
+        return "%s \n %s %s" % (self.street, self.city, self.state) 
+    
 
     def __unicode__(self):
         return self.name
@@ -57,7 +71,7 @@ class Tool(models.Model):
         self.borrower = None
         self.date_borrowed = None
 
-    @property #allow template to access 
+    @property 
     def status(self):
         if self.isAvailable():
             return 'Shared'

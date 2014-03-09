@@ -10,5 +10,6 @@ def user_registered_callback(sender, user, request, **kwargs):
     shed = Shed( 
             name='Home',
             owner=profile,
+            postal_code = profile.postal_code
         )
     shed.save()

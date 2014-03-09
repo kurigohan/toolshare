@@ -182,6 +182,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   width:  auto !important;
 }
 
+/* table column */
 .label-col {
   width: 120px !important;
 }
@@ -190,7 +191,23 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   width: 50px;
 }
 
+/* image size */
 .dashboard-icon {
    width: 100px; 
    height: 100px;
+}
+
+.shed-img {
+  width: 150px;
+  height: 150px;
+}
+
+.profile-img {
+  width: 200px;
+  height: 200px;
+}
+
+.tool-img {
+  width: 200px;
+  height: 200px;
 }

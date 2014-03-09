@@ -31,7 +31,7 @@
     <div class="row placeholders">
           <div class="col-md-4">
           {% block nav_item_1 %}
-            <a href="#"><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/myshedsicon140.png' %}">
+            <a href="{% url 'my_sheds' %}"><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/myshedsicon140.png' %}">
             <h4>My Sheds</h4></a>
             <span class="text-muted">Manage your sheds</span>
           {% endblock %}

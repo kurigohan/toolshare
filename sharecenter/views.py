@@ -51,6 +51,13 @@ def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
     display_tool = get_object_or_404(Tool, pk=tool_id)
     return render(request, template_name, {'tool':display_tool})
 
+def my_sheds(request, template_name='sheds/my_sheds.html'):
+    """
+    Display table containing user's sheds. 
+    """
+    shed_list = request.user.get_profile().shed_owned.all()
+    return render(request, template_name, {'shed_list':shed_list})
+
 
 def create_shed(request, template_name='sheds/create_shed.html'):
     if request.method == 'POST':
