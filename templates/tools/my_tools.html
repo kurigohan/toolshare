@@ -76,13 +76,13 @@
 							{{tool.category}}
 							</td>
 							<td>
-							{{tool.shed}}
+							{{tool.shed.name}}
 							</td>
 							<td>
 							{{tool.status}}
 							</td>
 							<td class="but-col">
-								<a href="{% static 'tool_detail' tool_id=tool.id %}">View</a>
+								<a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
 							</td>
 
 						</tr>

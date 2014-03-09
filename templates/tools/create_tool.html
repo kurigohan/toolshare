@@ -8,8 +8,8 @@
 	<h1 class="page-header">Create a Tool</h1>
 	
 		<div class="row">
-		<div class="col-md-6 text-right">
-			<img class="img-circle" alt="image of tool" src="{% static 'img/icon/profileicon140.png' %}" style="width: 200px; height:200px;">
+		<div class="col-md-5 text-right">
+			<img  class="img-rounded" alt="image of tool" src="{% static 'img/tool/toolplaceholder.png' %}" style="width: 200px; height:200px;">
 		</div>
 	
 	<form method='post' action='' role="form">{% csrf_token %}
@@ -22,7 +22,7 @@
             {% endfor %}
             </ul>
         {% endfor %}
-	
+	       <div class="col-md-1"></div>
 		<div class="col-md-6 text-left">
 			{{form.as_p}}
 			<hr>

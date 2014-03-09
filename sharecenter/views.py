@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from sharecenter.forms import ToolCreateForm
 from sharecenter.models import Tool, Shed
+
 
 # Create your views here.
 def create_tool(request, template_name='tools/create_tool.html'):
@@ -47,8 +48,8 @@ def my_tools(request, template_name='tools/my_tools.html'):
 
 
 def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
-    tool=get_object_or_404(Tool, pk=tool_id)
-    return render(request, tool)
+    display_tool = get_object_or_404(Tool, pk=tool_id)
+    return render(request, template_name, {'tool':display_tool})
 
 
 def create_shed(request, template_name='sheds/create_shed.html'):

@@ -7,7 +7,7 @@
     <h1 class="page-header">Tool <small>{{ tool.name }}</small></h1>
         <div class="row">
             <div class="col-md-6 text-right">
-                <img class="img-circle" alt="170x170" src="{% static 'img/icon/profileicon140.png' %}" style="width: 200px; height: 200px;">
+                <img class="img-circle" alt="170x170" src="{% static 'img/tool/toolplaceholder.png' %}" style="width: 200px; height: 200px;">
             </div>
          
             <div class="col-md-6 text-left">
@@ -19,15 +19,28 @@
                   </tr>
                   <tr>
                     <td class="text-muted">Shed: </td>
-                    <td>{{ tool.Shed }}</td>
+                    <td>{{ tool.shed.name }}</td>
                   </tr>
                   <tr>
                     <td class="text-muted">Owner </td>
-                    <td>{{ tool.owner.name }}</td>
+                    {% with owner=tool.owner.user.username %}
+                    <td><a href="{% url 'profiles_profile_detail' username=owner %}">
+                      {{owner}}
+                    </a></td>
+                    {% endwith %}
                   </tr>
+
                   <tr>
                     <td class="text-muted">Borrower </td>
-                    <td>{{ tool.borrower.name }}</td>
+                    <td>
+                    {% if tool.borrower %}
+                    {% with borrower=tool.borrower.user.username %}
+                    <a href="{% url 'profiles_profile_detail' username=borrower %}">{{ borrower }}
+                    </a>
+                    {% endwith %}
+                    {% else %}
+                    None
+                    {% endif %}</td>
                   </tr>
                   <tr>
                     <td class="text-muted">Category </td>
