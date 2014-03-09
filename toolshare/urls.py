@@ -34,6 +34,8 @@ urlpatterns = patterns('',
     url(r'^profile/my_tools', ShareView.my_tools, name='my_tools'),
     url(r'^profile/my_sheds', ShareView.my_sheds, name='my_sheds'),
     url(r'^shed/(?P<shed_id>\w+)/$', ShareView.shed_detail, name='shed_detail'),
-    url(r'^share_zone/', ShareView.share_zone, name='share_zone')
+    url(r'^share_zone/', ShareView.share_zone, name='share_zone'),
+    url(r'^tool/edit_tool/(?P<tool_id>\w+)/$', ShareView.edit_tool, name='edit_tool'),
+    url(r'^tool/borrow_tool/', ShareView.borrow_tool, name='borrow_tool'),
     )
 

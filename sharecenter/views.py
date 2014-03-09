@@ -39,12 +39,17 @@ def my_tools(request, template_name='tools/my_tools.html'):
 def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     tool=get_object_or_404(Tool, pk=tool_id)
     if request.method == 'POST':
-        tool.name=request.POST['tool_name']
-        tool.description=request.POST['description']
-        tool.category=request.POST['category']
-        tool.save()
-        return redirect(reverse('tool_detail'))
-    return render(request, template_name)
+        form = ToolCreateForm(data=request.POST, instance=tool)
+        if form.is_valid:
+          
+            form.save()
+        return redirect(reverse('my_tools'))
+    else:
+        form = ToolCreateForm(instance=tool)
+    return render(request, template_name, {'form':form})
+
+def borrow_tool(request, tool_id, template_name='tools/borrow_tool.html'):
+    return None
 
 
 def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
