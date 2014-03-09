@@ -95,5 +95,5 @@ def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
 
 
 def share_zone(request, template_name='sheds/share_zone.html'):
-    shed_list = Shed.objects.get(postal_code=request.user.get_profile().postal_code)
-    return shed_list
+    shed_list = Shed.objects.filter(postal_code=request.user.get_profile().postal_code)
+    return render(request, template_name, {'shed_list':shed_list})
