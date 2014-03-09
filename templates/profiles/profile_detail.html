@@ -3,9 +3,7 @@
 {% block title %}Profile - {{ profile.user.username }}{% endblock %} 
 
 {% block content %} 
-    {% if user == profile.user %}
-        {{ block.super }}
-    {% endif %}
+    {{ block.super }}
     <h1 class="page-header">Profile <small>{{ profile.user.username }}</small></h1>
         <div class="row">
             <div class="col-md-6 text-right">
@@ -39,5 +37,8 @@
               </table>
             </div>
           </div>
+{% if user == profile.user %}
+<!-- Display Recent Activity -->
+{% endif %}
 
 {% endblock %}

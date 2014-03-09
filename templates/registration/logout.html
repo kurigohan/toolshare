@@ -7,18 +7,18 @@
 {% blocktrans %}
 <div class="col-xs-6 col-xs-offset-3 text-center">
 <br>
-    <h4>
+    <h3>
         Successfully logged out.
-    </h4>
+    </h3>
 </div>
 {% endblocktrans %}
 
 {% block js %}
-    <script type="text/javascript">
-        /* Redirect to login after set time */
+<script type="text/javascript">
+    /* Redirect to login after set time */
         setTimeout(function() {
             window.location.href = "{% url 'auth_login' %}";
-        }, 5000);
-    </script>
+    }, 3000);
+</script>
 {% endblock %}
 {% endblock %}

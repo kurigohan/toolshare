@@ -1,0 +1,98 @@
+{% extends "sheds/shed_base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block content %} 
+{{ block.super }}
+<h1 class="page-header">
+    Shed <small>{{shed.name}}</small>
+</h1>
+<div class="row">
+    <div class="col-md-6 text-right">
+        <img class="img-rounded shed-img" alt="170x170" src="{% static 'img/icon/profileicon140.png' %}">
+    </div>
+         
+    <div class="col-md-6 text-left">
+        <table class="table no-border detail-table">
+            <tbody>
+            <tr>
+                <td class="text-muted label-col">Owner: </td>
+                <td>
+                    <a href="{% url 'profiles_profile_detail' username=shed.owner.user.username %}">
+                      {{shed.owner.user.username}}
+                    </a>
+                </td>
+            </tr>
+            {% if shed.street and shed.city and shed.state %}
+            <tr>
+                <td class="text-muted">Location: </td>
+                <td>{{shed.location}}</td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td class="text-muted">Share Zone: </td>
+                <td>{{shed.postal_code}}</td>
+            </tr>
+            <tr>
+                <td class="text-muted">Tools Shared: </td>
+                <td>{{shed.share_count}}</td>
+            </tr>
+            <tr>
+                <td class="text-muted">Tools Borrowed: </td>
+                <td>{{shed.borrow_count}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+ </div>
+
+<h2 class="sub-header">Tools List</h2>
+{% if tool_list %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                        <!--<th class="{sorter:false}"></th>
+                        <th class="{sorter:false}"></th>-->
+                <th>Name</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tool in tool_list %}
+            <tr>
+                <td>
+                    {{tool.name}}
+                </td>
+                <td>
+                    {{tool.description}}
+                </td>
+                <td>
+                    {{tool.category}}
+                </td>
+                <td>
+                    {{tool.shed.name}}
+                </td>
+                <td>
+                    {{tool.status}}
+                </td>
+                <td class="but-col">
+                    <a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="text-center"><h2 class="text-muted">None</h2></div>
+{% endif %}
+
+{% endblock %}

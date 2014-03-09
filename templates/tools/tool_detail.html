@@ -23,21 +23,17 @@
                   </tr>
                   <tr>
                     <td class="text-muted">Owner </td>
-                    {% with owner=tool.owner.user.username %}
-                    <td><a href="{% url 'profiles_profile_detail' username=owner %}">
-                      {{owner}}
+                    <td><a href="{% url 'profiles_profile_detail' username=tool.owner.user.username %}">
+                      {{tool.owner.user.username}}
                     </a></td>
-                    {% endwith %}
                   </tr>
 
                   <tr>
                     <td class="text-muted">Borrower </td>
                     <td>
                     {% if tool.borrower %}
-                    {% with borrower=tool.borrower.user.username %}
-                    <a href="{% url 'profiles_profile_detail' username=borrower %}">{{ borrower }}
+                    <a href="{% url 'profiles_profile_detail' username=tool.borrower.user.username %}">{{ tool.borrower.user.username }}
                     </a>
-                    {% endwith %}
                     {% else %}
                     None
                     {% endif %}</td>

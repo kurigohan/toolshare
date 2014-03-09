@@ -1,0 +1,84 @@
+{% extends "profiles/profile_base.html" %}
+{% load staticfiles %}
+{% block title %}My Sheds - {{ profile.user.username }}{% endblock %} 
+
+
+{% block nav_item_1 %} 
+<a href="{% url 'user_home' %}"><img alt="140x140" class="img-circle dashboard-icon" src="{% static 'img/icon/profileicon140.png' %}">
+<h4>Profile</h4></a>
+<span class="text-muted">View your profile</span>
+{% endblock %}
+
+
+{% block content %}
+{{block.super}}
+<h2 class="sub-header">My Sheds</h2>
+<div class="row">
+    {% for shed in shed_list %}
+    <a class="no-color" href="{% url 'shed_detail' shed_id=shed.id %}">
+        <div class="col-md-6 shed-tile">
+            <div class="col-sm-3">
+                <img class="img-rounded shed-img" alt="140x140" src="img/shed/shed1.jpg">
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-8">
+                <table>
+                    <tr><td>
+      
+                         <table class="table no-border table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td><h4 class="no-top-margin">{{shed.name}}</h4></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted label-col"><small>Owner:</small></td>
+                                    <td>{{shed.owner.user.username}}</td>
+                                </tr>
+                                {% if shed.street and shed.city and shed.state %}
+                                <tr>
+                                    <td class="text-muted label-col"><small>Location:</small></td>
+                                    <td>{{shed.location}}</td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <td class="text-muted label-col"><small>Share Zone:</small></td>
+                                    <td>{{shed.postal_code}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted label-col"><small>Tools Shared:</small></td>
+                                    <td>{{shed.share_count}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-muted"><small>Tools Borrowed:</small></td>
+                                    <td>{{shed.borrow_count}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                   
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function() {
+    $(".shed-tile").hover( function() {
+    $(this).addClass("tile-hover");
+        }, function() {
+    $(this).removeClass("tile-hover");
+        });
+      });
+</script>
+{% endblock %}
+
+
+
