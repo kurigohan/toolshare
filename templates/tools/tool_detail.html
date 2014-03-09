@@ -22,14 +22,14 @@
                     <td><a href="{% url 'shed_detail' shed_id=tool.shed.id %}">{{ tool.shed.name }}</a></td>
                   </tr>
                   <tr>
-                    <td class="text-muted">Owner </td>
+                    <td class="text-muted">Owner: </td>
                     <td><a href="{% url 'profiles_profile_detail' username=tool.owner.user.username %}">
                       {{tool.owner.user.username}}
                     </a></td>
                   </tr>
 
                   <tr>
-                    <td class="text-muted">Borrower </td>
+                    <td class="text-muted">Borrower: </td>
                     <td>
                     {% if tool.borrower %}
                     <a href="{% url 'profiles_profile_detail' username=tool.borrower.user.username %}">{{ tool.borrower.user.username }}
@@ -39,7 +39,7 @@
                     {% endif %}</td>
                   </tr>
                   <tr>
-                    <td class="text-muted">Category </td>
+                    <td class="text-muted">Category: </td>
                     <td>{{ tool.category }}</td>
                   </tr>
 				  <tr>

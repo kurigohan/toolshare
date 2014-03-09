@@ -78,7 +78,7 @@ class Tool(models.Model):
 
     @property 
     def status(self):
-        if self.isAvailable():
+        if self.is_available():
             return 'Shared'
         else:
             return 'Loaned'
