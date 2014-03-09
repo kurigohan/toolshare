@@ -37,5 +37,6 @@ urlpatterns = patterns('',
     url(r'^share_zone/', ShareView.share_zone, name='share_zone'),
     url(r'^tool/edit_tool/(?P<tool_id>\w+)/$', ShareView.edit_tool, name='edit_tool'),
     url(r'^tool/borrow_tool/(?P<tool_id>\w+)/$', ShareView.borrow_tool, name='borrow_tool'),
+    url(r'^tool/return_tool/(?P<tool_id>\w+)/$', ShareView.return_tool, name='return_tool'),
     )
 
