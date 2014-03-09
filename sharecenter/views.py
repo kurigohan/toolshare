@@ -22,7 +22,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
                 shed=user_profile.shed_owned.all()[0]
             )
             tool.save()
-            return redirect(reverse('my_tools'))
+            return redirect('my_tools')
     else: 
         form = ToolCreateForm()
 
@@ -43,18 +43,24 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
         if form.is_valid:
           
             form.save()
-        return redirect(reverse('my_tools'))
+        return redirect('my_tools')
     else:
         form = ToolCreateForm(instance=tool)
     return render(request, template_name, {'form':form})
 
-def borrow_tool(request, tool_id, template_name='tools/borrow_tool.html'):
-    return None
+def borrow_tool(request, tool_id):
+    tool = get_object_or_404(Tool, pk=tool_id)
+    if tool.is_available():
+        tool.borrow_tool(request.user.get_profile())
+        tool.save()
+    return redirect('my_sheds')
 
 
 def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
     tool = get_object_or_404(Tool, pk=tool_id)
     return render(request, template_name, {'tool':tool})
+
+
 
 def my_sheds(request, template_name='sheds/my_sheds.html'):
     """
@@ -74,7 +80,7 @@ def create_shed(request, template_name='sheds/create_shed.html'):
         shed.owner = request.user.id;
         shed.toolLimit = request.toolLimit;
         shed.save();
-        return redirect(reverse('user_home'))
+        return redirect('user_home')
     else:
         form = ShedCreateForm()
         

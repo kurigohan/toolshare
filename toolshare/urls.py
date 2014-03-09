@@ -36,6 +36,6 @@ urlpatterns = patterns('',
     url(r'^shed/(?P<shed_id>\w+)/$', ShareView.shed_detail, name='shed_detail'),
     url(r'^share_zone/', ShareView.share_zone, name='share_zone'),
     url(r'^tool/edit_tool/(?P<tool_id>\w+)/$', ShareView.edit_tool, name='edit_tool'),
-    url(r'^tool/borrow_tool/', ShareView.borrow_tool, name='borrow_tool'),
+    url(r'^tool/borrow_tool/(?P<tool_id>\w+)/$', ShareView.borrow_tool, name='borrow_tool'),
     )
 

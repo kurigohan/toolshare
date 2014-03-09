@@ -11,7 +11,7 @@ def user_home(request):
     if request.user.is_authenticated(): #redirect logged in user to their profile 
         return  redirect(reverse(ProfileView.profile_detail, args=[request.user.username]))
     else:
-        return redirect(reverse('auth_login'))
+        return redirect('auth_login')
 
 # overides get_success_url in registration app
 class CustomRegistrationView(RegistrationView):

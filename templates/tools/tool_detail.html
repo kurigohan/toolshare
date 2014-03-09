@@ -59,7 +59,7 @@
                     <td>{{ tool.description }}</td>
                   </tr>
                   <tr>
-                    <td>  <a class="btn btn-primary" href="#"><strong>Borrow</strong></a>
+                    <td>  <a class="btn btn-primary" href="{%url 'borrow_tool' tool_id=tool.id %}"><strong>Borrow</strong></a>
                     </td>
                     <td>
                       <a class="btn btn-primary" href="{%url 'edit_tool' tool_id=tool.id %}"><strong>Edit</strong></a>

@@ -70,7 +70,7 @@ class Tool(models.Model):
     
     def borrow_tool(self, user):
         self.borrower = user
-        self.date_borrowed = datetime.now()
+        self.date_borrowed = datetime.datetime.now()
     
     def return_tool(self):
         self.borrower = None
