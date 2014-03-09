@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from sharecenter.forms import ToolCreateForm
 from sharecenter.models import Tool, Shed
-
+from django.http import Http404  
 
 # Create your views here.
 def create_tool(request, template_name='tools/create_tool.html'):
@@ -38,15 +38,18 @@ def my_tools(request, template_name='tools/my_tools.html'):
 
 def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     tool=get_object_or_404(Tool, pk=tool_id)
-    if request.method == 'POST':
-        form = ToolCreateForm(data=request.POST, instance=tool)
-        if form.is_valid:
-          
-            form.save()
-        return redirect('my_tools')
+    if request.user == tool.owner:
+        if request.method == 'POST':
+            form = ToolCreateForm(data=request.POST, instance=tool)
+            if form.is_valid:
+              
+                form.save()
+            return redirect('my_tools')
+        else:
+            form = ToolCreateForm(instance=tool)
+        return render(request, template_name, {'form':form})
     else:
-        form = ToolCreateForm(instance=tool)
-    return render(request, template_name, {'form':form})
+        raise Http404
 
 def borrow_tool(request, tool_id):
     tool = get_object_or_404(Tool, pk=tool_id)
