@@ -1,0 +1,25 @@
+{% extends "profiles/profile_base.html" %}
+{% load staticfiles %}
+{% block title %}Fequently asked questions{% endblock %} 
+
+{% block content %} 
+    {{ block.super }}
+    <h1 class="page-header">Fequently asked questions </h1>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <table class="table no-border detail-table">
+					<tbody>
+						<tr>
+							<td class="text-muted label-col">What is a shed?</td>
+							<td>
+								A shed is a place in which a user can store tools or borrower tools.
+								Each share zone has at least one shed. When a user create an account
+								their home is a representative shed. A Shed is a physical location that a user
+								could goto received their borrowed tools. 
+							</td>
+						</tr>
+					</tbody>
+				</table>
+            </div>
+          </div>
+{% endblock %}
