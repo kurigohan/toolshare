@@ -22,7 +22,7 @@
               
 
          
-            <div class="col-sm-5 text-left">
+            <div class="col-sm-6 text-left">
               <table class="table no-border detail-table">
                 <tbody>
                   <tr>
@@ -59,14 +59,14 @@
                     <td>{{ tool.description }}</td>
                   </tr>
                   <tr>
+                    <td>  <a class="btn btn-primary" href="#"><strong>Borrow</strong></a>
+                    </td>
+                    <td>
+                      <a class="btn btn-primary" href="{%url 'edit_tool' tool_id=tool.id %}"><strong>Edit</strong></a>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
-            </div>
-            <div class="sm-col-2">
-       <a class="btn btn-primary" href="#"><strong>Borrow</strong></a>
-          <br>
-          <br>
-          <a class="btn btn-primary" href="{%url 'edit_tool' tool_id=tool.id %}"><strong>Edit</strong></a>
             </div>
           </div>
 
