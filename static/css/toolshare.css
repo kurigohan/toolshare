@@ -220,16 +220,26 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   background-color: #eeeeee;
   color: #222222;
   border-color: #bababa;
-}
 
-.dash-btn:hover{
-  background: #222222;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding-left:10px;
+  padding-right:10px;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
-
 .open-dash {
   display: block;
 }
 
 .close-dash{
   display: none;
+}
+
+.opened {
+  background-image: url('../img/icon/close.png');
+}
+
+.closed {
+    background-image: url('../img/icon/open.png');
 }

@@ -25,7 +25,7 @@
 
   {% block content %}
 
-<div class="dash-btn-div"><a href="#" class="btn dash-btn"><h4>+</h4></a></div>
+<div class="dash-btn-div"><a href="#" class="btn dash-btn opened"></a></div>
    <!-- <h1 class="page-header">Dashboard</h1> -->
    <br>
     <div id="dashboard" class="row placeholders">
@@ -63,6 +63,7 @@
 $(document).ready(function(){
   $(".dash-btn").click( function() {
     $("#dashboard").slideToggle()
+    $(".dash-btn").toggleClass("opened closed")
   });
 });
 

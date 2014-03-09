@@ -19,7 +19,7 @@
                   </tr>
                   <tr>
                     <td class="text-muted">Shed: </td>
-                    <td>{{ tool.shed.name }}</td>
+                    <td><a href="{% url 'shed_detail' shed_id=tool.shed.id %}">{{ tool.shed.name }}</a></td>
                   </tr>
                   <tr>
                     <td class="text-muted">Owner </td>
