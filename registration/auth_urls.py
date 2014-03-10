@@ -26,6 +26,7 @@ consult a specific backend's documentation for details.
 from django.conf.urls import include
 from django.conf.urls import patterns
 from django.conf.urls import url
+from django.views.generic import TemplateView
 
 from django.contrib.auth import views as auth_views
 
@@ -57,4 +58,7 @@ urlpatterns = patterns('',
                        url(r'^password/reset/done/$',
                            auth_views.password_reset_done,
                            name='auth_password_reset_done'),
+                       url(r'^aboutus/', TemplateView.as_view(
+                            template_name='static/aboutus.html'), 
+                           name='about_page'),
 )
