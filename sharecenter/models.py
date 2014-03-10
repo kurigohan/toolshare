@@ -74,7 +74,7 @@ class Tool(models.Model):
             return True
     
     def __unicode__(self):
-        return name
+        return self.name
     
     def borrow_tool(self, user):
         """
