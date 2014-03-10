@@ -59,7 +59,7 @@
                     <td>{{ tool.description }}</td>
                   </tr>
                   <tr>
-                    {% if user != tool.owner.user and user != tool.borrower.user %}
+                    {% if user != tool.owner.user and user != tool.borrower.user and tool.shed.postal_code == user.get_profile.postal_code %}
                     <td>  <a class="btn btn-primary" href="{%url 'borrow_tool' tool_id=tool.id %}"><strong>Borrow</strong></a>
                     </td>
 
