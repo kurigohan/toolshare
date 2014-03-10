@@ -13,7 +13,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
     if request.method == 'POST':
         form = ToolCreateForm(data=request.POST)
         if form.is_valid():
-            user_profile = request.user.get_profile()
+            user_profile = request.user.profile
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
@@ -35,7 +35,7 @@ def my_tools(request, template_name='tools/my_tools.html'):
     """
     Display a table containing the user's tools. 
     """
-    user = request.user.get_profile()
+    user = request.user.profile
     tool_list = user.tool_owned.all()
     borrow_list = Tool.objects.filter(borrower=user.id)
     return render(request, template_name, {'tool_list':tool_list, 'borrow_list':borrow_list})
@@ -68,7 +68,7 @@ def borrow_tool(request, tool_id):
     """
     tool = get_object_or_404(Tool, pk=tool_id)
     if tool.is_available():
-        tool.borrow_tool(request.user.get_profile())
+        tool.borrow_tool(request.user.profile)
         tool.save()
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
@@ -101,7 +101,7 @@ def my_sheds(request, template_name='sheds/my_sheds.html'):
     """
     Display table containing user's sheds. 
     """
-    shed_list = request.user.get_profile().shed_owned.all()
+    shed_list = request.user.profile.shed_owned.all()
     return render(request, template_name, {'shed_list':shed_list})
 my_sheds = login_required(my_sheds)
 
@@ -133,7 +133,7 @@ def share_zone(request, template_name='sheds/share_zone.html'):
     """
     Display table with all sheds in share zone
     """
-    shed_list = Shed.objects.filter(postal_code=request.user.get_profile().postal_code)
+    shed_list = Shed.objects.filter(postal_code=request.user.profile.postal_code)
     return render(request, template_name, {'shed_list':shed_list})
 
 share_zone = login_required(share_zone)
