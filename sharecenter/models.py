@@ -15,13 +15,11 @@ class Shed(models.Model):
     state = models.CharField(max_length=2, blank=True)
     postal_code = models.CharField(verbose_name='postal code', max_length=10, blank=True)
 
-     
-    @property    
+         
     def share_count(self):
         #return number of tools used
         return self.shed_tools.all().count()
 
-    @property
     def borrow_count(self):
         #return number of borrowers
         count = 0
@@ -31,7 +29,6 @@ class Shed(models.Model):
                 count += 1
         return count
 
-    @property
     def location(self):
         #return address as string
         return "%s \n %s %s" % (self.street, self.city, self.state) 
@@ -77,12 +74,20 @@ class Tool(models.Model):
         """
         Set tool as borrowed by user
         """
-        self.borrower = user
-        self.date_borrowed = timezone.now()
+        if self.is_available():
+            self.borrower = user
+            self.date_borrowed = timezone.now()
+            return True
+        else:
+            return False
     
     def return_tool(self):
         """
         Set tools as not borrowed
         """
-        self.borrower = None
-        self.date_borrowed = None
+        if self.is_available() == False:
+            self.borrower = None
+            self.date_borrowed = None
+            return True
+        else:
+            return False
