@@ -14,6 +14,8 @@ To Run:
 3. Sync the database - 'python manage.py syncdb'
 4. Enter the server ip in your web browser (default 127.0.0.1:8000) 
 
+**You must register an the site to login to the toolshare site. During registration, a profile and shed is created for the user which is required for the site to run properly.  Using the super user account created during syncdb will give an error.
+
 Current-Progress:
 - User login: completed
 - User registration: completed
