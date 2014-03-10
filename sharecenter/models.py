@@ -27,7 +27,7 @@ class Shed(models.Model):
         count = 0
         tool_list = self.shed_tools.all()
         for tool in tool_list:
-            if tool.is_available == False:
+            if tool.is_available() == False:
                 ++count
         return count
 
