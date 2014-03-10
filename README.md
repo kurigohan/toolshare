@@ -17,4 +17,7 @@ Current-Progress:
 - User registration: completed
 - User profiles: completed
 - Tool profiles: completed
-- Tool management: in-progress
+- Tool management: R1 completed
+- Shed profiles: R1 completed
+- Share Zone: R1 completed 
+- Shed management: in-progress

@@ -15,6 +15,7 @@
 <div class="container">
     <form  class="form-signin" role="form" method="post" action="{% url 'auth_login' %}">{% csrf_token %}
         <h2 class="form-signin-heading">Log in</h2>
+        <hr>
         <p>
             <input id="id_username"  class="form-control" placeholder="Username" maxlength="254" name="username" type="text" required autofocus>
             <input id="id_password"  class="form-control" placeholder="Password" maxlength="254" name="password" type="password" required>
