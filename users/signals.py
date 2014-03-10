@@ -3,7 +3,7 @@ from sharecenter.models import Shed
 
 def user_registered_callback(sender, user, request, **kwargs):
     """
-    Create user and auto-create shed named Home
+    Save name to user and automatically create shed and profile named
     """
     user.first_name = request.POST["first_name"]
     user.last_name = request.POST["last_name"]
@@ -12,7 +12,7 @@ def user_registered_callback(sender, user, request, **kwargs):
     profile.postal_code = request.POST["postal_code"]
     profile.save()
     shed = Shed( 
-            name='Home',
+            name= "%s's home" % user.username,
             owner=profile,
             postal_code = profile.postal_code
         )

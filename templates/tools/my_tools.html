@@ -1,17 +1,16 @@
-{% extends "tools/tool_base.html" %}
+{% extends "table_sortable.html" %}
 {% load staticfiles %}
 {% block title %}My Tools - {{user.username}}{% endblock %}
 
 {% block nav_item_3 %}
-<a href="{% url 'user_home' %}"><img alt="profile icon" class="img-circle dashboard-icon" src="{% static 'img/profileplaceholder.png' %}">
+<a href="{% url 'user_home' %}"><img alt="profile" class="img-circle dashboard-icon" src="{% static 'img/profileplaceholder.png' %}">
 <h4>Profile</h4></a>
 <span class="text-muted">View your profile</span>
 
 {% endblock %}
 
 {% block content %}
-{{block.super}}
-<h1 class="page-header">Tools Owned </h1>
+<h2 class="page-header">Tools Owned </h2>
 
           <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
@@ -95,7 +94,7 @@
 		<div class="text-center"><h2 class="text-muted">None</h2></div>
 		{% endif %}
 
-
+<h2 class="page-header">Tools Owned </h2>
           {% if borrow_list %}
         <div class="table-responsive">
             <table class="table table-striped">
@@ -147,3 +146,5 @@
         <div class="text-center"><h2 class="text-muted">None</h2></div>
         {% endif %}
 {% endblock %}
+
+

@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from sharecenter.forms import ToolCreateForm
 from sharecenter.models import Tool, Shed
-from django.http import Http404  
+from django.http import Http404, HttpResponseRedirect
 
 # Create your views here.
 def create_tool(request, template_name='tools/create_tool.html'):
@@ -22,7 +22,8 @@ def create_tool(request, template_name='tools/create_tool.html'):
                 shed=user_profile.shed_owned.all()[0]
             )
             tool.save()
-            return redirect('my_tools')
+            url = reverse('tool_detail', kwargs={'tool_id':tool.id})
+            return HttpResponseRedirect(url)
     else: 
         form = ToolCreateForm()
 
@@ -42,10 +43,10 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     if request.user == tool.owner.user:
         if request.method == 'POST':
             form = ToolCreateForm(data=request.POST, instance=tool)
-            if form.is_valid:
-              
+            if form.is_valid:  
                 form.save()
-            return redirect('my_tools')
+                url = reverse('tool_detail', kwargs={'tool_id':tool.id})
+                return HttpResponseRedirect(url)
         else:
             form = ToolCreateForm(instance=tool)
         return render(request, template_name, {'form':form})
@@ -57,14 +58,16 @@ def borrow_tool(request, tool_id):
     if tool.is_available():
         tool.borrow_tool(request.user.get_profile())
         tool.save()
-    return redirect('my_sheds')
+    url = reverse('tool_detail', kwargs={'tool_id':tool.id})
+    return HttpResponseRedirect(url)
 
 def return_tool(request, tool_id):
     tool = get_object_or_404(Tool, pk=tool_id)
     if tool.borrower.user == request.user:
         tool.return_tool()
         tool.save()
-    return redirect('my_sheds')
+    url = reverse('tool_detail', kwargs={'tool_id':tool.id})
+    return HttpResponseRedirect(url)
 
 def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
     tool = get_object_or_404(Tool, pk=tool_id)

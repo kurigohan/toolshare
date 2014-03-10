@@ -14,20 +14,88 @@
        
               <a class="navbar-brand" href="{% url 'user_home' %}">Toolshare</a>
               <ul class="nav navbar-nav navbar-right">
-                {% block navbar-right %}{% endblock %}
+                
+              {% if user.is_authenticated %}
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ user.username }}<b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'profiles_profile_detail' username=user.username %} ">Profile</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'edit_account' %}">Account Info</a></li>
+                        <!--<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="text-muted">Settings</span></a></li>-->
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'help_page' %}"><span >Help</span></a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'auth_logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+                <li style="margin-right: 50px"></li>
+            </ul>
+
+          {% endif %}
+
+
+
               </ul>
               
             </div>
         </div>
-        {% block outside_content %}{% endblock %}
-
+  {% block dashboard %}
   <div class="col-sm-8 col-sm-offset-2 main">
-        {% block content %}{% endblock %}
+
+<div class="dash-btn-div"><a href="#" class="btn dash-btn opened"></a></div>
+   <!-- <h1 class="page-header">Dashboard</h1> -->
+   <br>
+    <div id="dashboard" class="row placeholders">
+      
+          <div class="col-md-4">
+          {% block nav_item_1 %}
+            <a href="{% url 'my_sheds' %}"><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/myshedsicon140.png' %}">
+            <h4>My Sheds</h4></a>
+            <span class="text-muted">Manage your sheds</span>
+          {% endblock %}
+          </div>
+
+          <div class="col-md-4">
+          {% block nav_item_2 %}
+            <a href = {% url 'share_zone' %}><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/mysharezoneicon140.png' %}">
+            <h4>Share Zone</h4></a>
+            <span class="text-muted">Find and borrow tools</span>
+            {% endblock %}
+          </div>
+
+          <div class="col-md-4">
+          {% block nav_item_3 %}
+            <a href="{% url 'my_tools' %}"><img class="dashboard-icon" alt="100x100" src="{% static 'img/icon/mytoolsicon140.png' %}">
+            <h4>My Tools</h4></a>
+            <span class="text-muted">Manage your tools</span>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+
+  {% block content %}{% endblock %}
         </div>
 
         <script type="text/javascript" src="{% static 'js/jquery-1.11.0.min.js' %}"></script> 
         <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-        {% block js %}{% endblock %}
+ {% block js %}{% endblock %}
+        <script type="text/javascript">
+   
+      $(document).ready(function(){
+        $(".dash-btn").click( function() {
+          $("#dashboard").slideToggle()
+          $(".dash-btn").toggleClass("opened closed")
+
+
+        });
+                  {% block js_ready %}{% endblock %}
+      });
+
+      </script>
+
+    
     </body>
 </html>
 <!-- -->

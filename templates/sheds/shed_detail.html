@@ -1,10 +1,9 @@
-{% extends "sheds/shed_base.html" %}
+{% extends "table_sortable.html" %}
 {% load staticfiles %}
 {% load i18n %}
 
 
 {% block content %} 
-{{ block.super }}
 <h1 class="page-header">
     Shed <small>{{shed.name}}</small>
 </h1>
@@ -47,7 +46,7 @@
     </div>
  </div>
 
-<h2 class="sub-header">Tools List</h2>
+<h2 class="sub-header">Tool List</h2>
 {% if tool_list %}
 <div class="table-responsive">
     <table class="table table-striped">
@@ -79,7 +78,12 @@
                     {{tool.shed.name}}
                 </td>
                 <td>
-                    {{tool.status}}
+                    {% if tool.is_available %}
+                    Shared
+                    {% else %}
+                    Loaned 
+                    (<a href="{% url 'profiles_profile_detail' username=tool.borrower.user.username %}">{{tool.borrower.user.username}}</a>)
+                    {% endif %}
                 </td>
                 <td class="but-col">
                     <a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
