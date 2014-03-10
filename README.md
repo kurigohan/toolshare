@@ -11,7 +11,6 @@ To Run:
 3. Sync the database - 'python manage.py syncdb'
 4. Enter the server ip in your web browser (default 127.0.0.1:8000) 
 
-
 Current-Progress:
 - User login: completed
 - User registration: completed
