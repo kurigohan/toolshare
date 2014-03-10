@@ -14,15 +14,15 @@
 
           {% if shed_list %}
 		<div class="table-responsive">
-			<table class="table table-striped">
+			<table class="table table-striped sort-table">
 				<thead>
 					<tr>
 						<!--<th class="{sorter:false}"></th>
 						<th class="{sorter:false}"></th>-->
 						<th>Name</th>
 						<th>Owner</th>
-						<th>Tools Shared</th>
-						<th>Tools Borrowed</th>
+						<th class="center-text">Shared</th>
+						<th class="center-text">Loaned</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -36,13 +36,13 @@
 							<td>
 							{{shed.name}}
 							</td>
-							<td>
-							{{shed.owner.user.username}}
+							<td>                   <a href="{% url 'shed_detail' shed_id=shed.id %}"> 
+							{{shed.owner.user.username}}</a>
 							</td>
-							<td>
+							<td class="label-col center-text">
 							{{shed.share_count}}
 							</td>
-							<td>
+							<td class="label-col center-text">
 							{{shed.borrow_count}}
 							</td>
 							<td class="but-col">

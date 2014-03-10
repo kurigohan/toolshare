@@ -243,3 +243,8 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .closed {
     background-image: url('../img/icon/open.png');
 }
+
+
+.center-text {
+  text-align: center;
+}
