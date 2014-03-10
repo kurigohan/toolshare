@@ -28,7 +28,7 @@ class Shed(models.Model):
         tool_list = self.shed_tools.all()
         for tool in tool_list:
             if tool.is_available() == False:
-                ++count
+                count += 1
         return count
 
     @property
@@ -86,14 +86,3 @@ class Tool(models.Model):
         """
         self.borrower = None
         self.date_borrowed = None
-
-    @property 
-    def status(self):
-        """
-        return string representation of whether is borrowed
-        """
-        if self.is_available():
-            return 'Shared'
-        else:
-            return 'Loaned'
-   
