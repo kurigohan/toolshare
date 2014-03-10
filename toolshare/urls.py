@@ -41,5 +41,8 @@ urlpatterns = patterns('',
 	url(r'^help/', TemplateView.as_view(
                             template_name='static/help.html'), 
                             name='help_page'),
+	#url(r'^aboutus/', TemplateView.as_view(
+    #                        template_name='static/aboutus.html'), 
+    #                        name='about_page'),
     )
 
