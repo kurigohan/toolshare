@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from users.models import UserProfile
-import datetime
+from django.utils import timezone
 
 class Shed(models.Model):
     """
@@ -41,14 +41,11 @@ class Shed(models.Model):
         return self.name
     
 
-class ToolManager(models.Manager):
-    """
-    ToolManager allows creation of tools.
-    """
-    def create_tool(self, name, category, description, owner, shed):
-        tool = self.create(name=name, category=category, description=description,
-                                        owner=owner, shed=shed)
-        return tool
+#class ToolManager(models.Manager):
+ #   def create_tool(self, name, category, description, owner, shed):
+   #     tool = self.create(name=name, category=category, description=description,
+  #                                      owner=owner, shed=shed)
+     #   return tool
    
 
 
@@ -64,31 +61,31 @@ class Tool(models.Model):
     category = models.CharField(max_length=30)
     date_borrowed = models.DateTimeField(verbose_name='borrow date', null=True)
     time_limit = models.IntegerField(verbose_name='time limit', default=7)
-    objects = ToolManager()
+    #objects = ToolManager()
 
     def is_available(self):
-        #return whether is borrowed(false)
+        #return whether is borrowed(false when borrowed)
         if self.borrower:
             return False
         else:
             return True
     
     def __unicode__(self):
-        return name
+        return self.name
     
     def borrow_tool(self, user):
         """
         Set tool as borrowed by user
         """
         self.borrower = user
-      #  self.date_borrowed = datetime.now()
+        self.date_borrowed = timezone.now()
     
     def return_tool(self):
         """
         Set tools as not borrowed
         """
         self.borrower = None
-    #   self.date_borrowed = None
+        self.date_borrowed = None
 
     @property 
     def status(self):

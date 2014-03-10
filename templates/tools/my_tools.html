@@ -44,6 +44,11 @@
             </div>
           </nav> 
           {% if tool_list %}
+		
+		<body>
+		Tools Owned		
+		</body>
+		
 		<div class="table-responsive">
 			<table class="table table-striped sort-table">
 				<thead>
@@ -58,6 +63,7 @@
 						<th></th>
 					</tr>
 				</thead>
+				
 				<tbody>
 		
 
@@ -78,7 +84,12 @@
 							{{tool.shed.name}}
 							</td>
 							<td>
-							{{tool.status}}
+                                      {% if tool.is_available %}
+                                      Shared
+                                      {% else %}
+                                      Loaned 
+                                      (<a href="{% url 'profiles_profile_detail' username=tool.borrower.user.username %}">{{tool.borrower.user.username}}</a>)
+                                      {% endif %}
 							</td>
 							<td class="but-col">
 								<a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
@@ -94,7 +105,7 @@
 		<div class="text-center"><h2 class="text-muted">None</h2></div>
 		{% endif %}
 
-<h2 class="page-header">Tools Owned </h2>
+<h2 class="page-header">Tools Borrowed</h2>
           {% if borrow_list %}
         <div class="table-responsive">
             <table class="table table-striped">
@@ -106,7 +117,7 @@
                         <th>Description</th>
                         <th>Category</th>
                         <th>Location</th>
-                        <th>Status</th>
+                        <th>Owner</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -130,7 +141,7 @@
                             {{tool.shed.name}}
                             </td>
                             <td>
-                            {{tool.status}}
+                           <a href="{% url 'profiles_profile_detail' username=tool.owner.user.username %}"> {{tool.owner.user.username}}</a>
                             </td>
                             <td class="but-col">
                                 <a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
