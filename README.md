@@ -2,6 +2,9 @@ toolshare
 =========
 
 Toolshare Project SE261
+Required:
+Django 1.5 and above
+Python 2.7 and above
 
 To Run:
 
