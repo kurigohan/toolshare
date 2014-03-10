@@ -11,7 +11,7 @@
 
 {% block content %}
 {{block.super}}
-<h1 class="page-header">Tools Owned </h1>
+<h1 class="page-header">Tools Owned/Borrowed </h1>
 
           <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
@@ -45,6 +45,11 @@
             </div>
           </nav> 
           {% if tool_list %}
+		
+		<body>
+		Tools Owned		
+		</body>
+		
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<thead>
@@ -59,6 +64,7 @@
 						<th></th>
 					</tr>
 				</thead>
+				
 				<tbody>
 		
 
@@ -97,6 +103,11 @@
 
 
           {% if borrow_list %}
+
+		<body>
+		Tools Borrowed		
+		</body>
+
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>

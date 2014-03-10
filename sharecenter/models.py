@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from users.models import UserProfile
-import datetime
+from django.utils import timezone
 
 class Shed(models.Model):
     """
@@ -67,7 +67,7 @@ class Tool(models.Model):
     objects = ToolManager()
 
     def is_available(self):
-        #return whether is borrowed(false)
+        #return whether is borrowed(false when borrowed)
         if self.borrower:
             return False
         else:
@@ -81,14 +81,14 @@ class Tool(models.Model):
         Set tool as borrowed by user
         """
         self.borrower = user
-      #  self.date_borrowed = datetime.now()
+        self.date_borrowed = timezone.now()
     
     def return_tool(self):
         """
         Set tools as not borrowed
         """
         self.borrower = None
-    #   self.date_borrowed = None
+        self.date_borrowed = None
 
     @property 
     def status(self):
