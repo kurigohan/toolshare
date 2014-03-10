@@ -20,6 +20,7 @@ from django.contrib.auth.models import User
 from profiles import utils
 from datetime import datetime
 
+@login_required
 def create_profile(request, form_class=None, success_url=None,
                    template_name='profiles/create_profile.html',
                    extra_context=None):
@@ -122,6 +123,7 @@ def create_profile(request, form_class=None, success_url=None,
                               context_instance=context)
 create_profile = login_required(create_profile)
 
+@login_required
 def edit_profile(request, form_class=None, success_url=None,
                  template_name='profiles/edit_profile.html',
                  extra_context=None):
@@ -214,6 +216,7 @@ def edit_profile(request, form_class=None, success_url=None,
                               context_instance=context)
 edit_profile = login_required(edit_profile)
 
+@login_required
 def profile_detail(request, username, public_profile_field=None,
                    template_name='profiles/profile_detail.html',
                    extra_context=None):
@@ -290,6 +293,7 @@ def profile_detail(request, username, public_profile_field=None,
                               { 'profile': profile_obj, 'auth_user': request.user, 'login_ago':  login_ago, },
                               context_instance=context)
 profile_detail = login_required(profile_detail)
+
 
 def profile_list(request, public_profile_field=None,
                  template_name='profiles/profile_list.html', **kwargs):

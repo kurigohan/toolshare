@@ -5,6 +5,7 @@ from sharecenter.forms import ToolCreateForm
 from sharecenter.models import Tool, Shed
 from django.http import Http404, HttpResponseRedirect
 
+@login_required
 def create_tool(request, template_name='tools/create_tool.html'):
     """
     Create a new tool with data from request and add it to database.
@@ -27,7 +28,9 @@ def create_tool(request, template_name='tools/create_tool.html'):
         form = ToolCreateForm()
 
     return render(request, template_name, {'form': form})#no tool created
+create_tool = login_required(create_tool)
 
+@login_required
 def my_tools(request, template_name='tools/my_tools.html'):
     """
     Display a table containing the user's tools. 
@@ -36,7 +39,9 @@ def my_tools(request, template_name='tools/my_tools.html'):
     tool_list = user.tool_owned.all()
     borrow_list = Tool.objects.filter(borrower=user.id)
     return render(request, template_name, {'tool_list':tool_list, 'borrow_list':borrow_list})
+my_tools = login_required(my_tools)
 
+@login_required
 def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     """
     Update tool info with data from request
@@ -54,7 +59,9 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
         return render(request, template_name, {'form':form}) #no editing done
     else:
         raise Http404 #can only edit own tools
+edit_tool = login_required(edit_tool)
 
+@login_required
 def borrow_tool(request, tool_id):
     """
     Set selected tool as borrowed
@@ -65,7 +72,9 @@ def borrow_tool(request, tool_id):
         tool.save()
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
+borrow_tool = login_required(borrow_tool)
 
+@login_required
 def return_tool(request, tool_id):
     """
     Set selected tool as returned
@@ -76,23 +85,27 @@ def return_tool(request, tool_id):
         tool.save()
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
+return_tool = login_required(return_tool)
 
+@login_required
 def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
     """
     Display tool info
     """
     tool = get_object_or_404(Tool, pk=tool_id)
     return render(request, template_name, {'tool':tool})
+tool_detail = login_required(tool_detail)
 
-
-
+@login_required
 def my_sheds(request, template_name='sheds/my_sheds.html'):
     """
     Display table containing user's sheds. 
     """
     shed_list = request.user.get_profile().shed_owned.all()
     return render(request, template_name, {'shed_list':shed_list})
+my_sheds = login_required(my_sheds)
 
+@login_required
 def shed_detail(request, shed_id, template_name='sheds/shed_detail.html'):
     """
     Display shed info, tool list as table
@@ -100,37 +113,22 @@ def shed_detail(request, shed_id, template_name='sheds/shed_detail.html'):
     shed = get_object_or_404(Shed, pk=shed_id)
     tool_list = shed.shed_tools.all()
     return render(request, template_name, {'shed':shed, 'tool_list':tool_list})
+shed_detail = login_required(shed_detail)
 
-def create_shed(request, template_name='sheds/create_shed.html'):
-    """
-    Create a new tool with data from request and add it to database.
-    """
-    if request.method == 'POST':
-        shed = ShedCreateForm(data=request.POST);
-        shed.owner = request.user.id;
-        shed.toolLimit = request.toolLimit;
-        shed.save();
-        return redirect('user_home')#go to home page
-    else:
-        form = ShedCreateForm()
+#def create_shed(request, template_name='sheds/create_shed.html'):
+
+  #  if request.method == 'POST':
+    #    shed = ShedCreateForm(data=request.POST);
+      #  shed.owner = request.user.id;
+       # shed.toolLimit = request.toolLimit;
+       # shed.save();
+        #return redirect('user_home')#go to home page
+    #else:
+     #   form = ShedCreateForm()
         
-    return render(request, template_name, {'form': form})# no shed created
+    #return render(request, template_name, {'form': form})# no shed created
 
-def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
-    """
-    Update shed info with data from request 
-    """
-    shed = get_object_or_404(Shed,pk=shed_id);
-    if request.method == 'POST':
-        shed.name = request.POST['name']
-        shed.owner = request.user
-        shed.toolLimit = request.toolLimit
-        shed.state = request.POST['state']
-        shed.zipcode=request.POST['postal_code']
-        shed.street=request.POST['postal_code']
-        shed.save();
-    return render(request, template_name, {'shed':shed})#go back to sheds page
-
+@login_required
 def share_zone(request, template_name='sheds/share_zone.html'):
     """
     Display table with all sheds in share zone
@@ -138,4 +136,4 @@ def share_zone(request, template_name='sheds/share_zone.html'):
     shed_list = Shed.objects.filter(postal_code=request.user.get_profile().postal_code)
     return render(request, template_name, {'shed_list':shed_list})
 
-
+share_zone = login_required(share_zone)

@@ -7,18 +7,17 @@ from profiles import  views as ProfileView
 from users.forms import AccountForm
 from registration.backends.simple.views import RegistrationView
 
+@login_required
 def user_home(request):
     """
     send user home or to login screen
     """
-    if request.user.is_authenticated(): #redirect logged in user to their profile 
-        return  redirect(reverse(ProfileView.profile_detail, args=[request.user.username]))
-    else:
-        return redirect('auth_login')
+    return  redirect(reverse(ProfileView.profile_detail, args=[request.user.username]))
+user_home = login_required(user_home)
 
 class CustomRegistrationView(RegistrationView):
     """
-    Custom get_success_url
+    Override get_success_url for RegistrationView
     """
     def get_success_url(self, request, user):
         return (user.profile.get_absolute_url(), (), {})
