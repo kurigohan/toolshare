@@ -38,5 +38,8 @@ urlpatterns = patterns('',
     url(r'^tool/edit_tool/(?P<tool_id>\w+)/$', ShareView.edit_tool, name='edit_tool'),
     url(r'^tool/borrow_tool/(?P<tool_id>\w+)/$', ShareView.borrow_tool, name='borrow_tool'),
     url(r'^tool/return_tool/(?P<tool_id>\w+)/$', ShareView.return_tool, name='return_tool'),
+	url(r'^help/', TemplateView.as_view(
+                            template_name='static/help.html'), 
+                            name='help_page'),
     )
 
