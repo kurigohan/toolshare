@@ -94,4 +94,56 @@
 		{% else %}
 		<div class="text-center"><h2 class="text-muted">None</h2></div>
 		{% endif %}
+
+
+          {% if borrow_list %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <!--<th class="{sorter:false}"></th>
+                        <th class="{sorter:false}"></th>-->
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+        
+
+                    {% for tool in borrow_list %}
+
+                        <tr>
+        
+                            <td>
+                            {{tool.name}}
+                            </td>
+                            <td>
+                            {{tool.description}}
+                            </td>
+                            <td>
+                            {{tool.category}}
+                            </td>
+                            <td>
+                            {{tool.shed.name}}
+                            </td>
+                            <td>
+                            {{tool.status}}
+                            </td>
+                            <td class="but-col">
+                                <a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center"><h2 class="text-muted">None</h2></div>
+        {% endif %}
 {% endblock %}

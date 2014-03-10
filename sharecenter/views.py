@@ -32,9 +32,10 @@ def my_tools(request, template_name='tools/my_tools.html'):
     """
     Display a table containing the user's tools. 
     """
-    tool_list = request.user.get_profile().tool_owned.all()
-
-    return render(request, template_name, {'tool_list':tool_list})
+    user = request.user.get_profile()
+    tool_list = user.tool_owned.all()
+    borrow_list = Tool.objects.filter(borrower=user.id)
+    return render(request, template_name, {'tool_list':tool_list, 'borrow_list':borrow_list})
 
 def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     tool=get_object_or_404(Tool, pk=tool_id)
