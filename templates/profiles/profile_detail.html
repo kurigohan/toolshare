@@ -4,7 +4,14 @@
 
 {% block content %} 
     {{ block.super }}
-    <h1 class="page-header">Profile <small>{{ profile.user.username }}</small></h1>
+    <h1 class="page-header">
+    {% if profile.user == user %}
+    My Profile 
+    {% else %}
+    Profile
+    {% endif %}
+
+    <small>{{ profile.user.username }}</small></h1>
         <div class="row">
             <div class="col-md-6 text-right">
                 <img class="img-circle profile-img" alt="170x170" src="{% static 'img/profileplaceholder.png' %}">
@@ -31,7 +38,7 @@
                   </tr>
                   <tr>
                     <td class="text-muted">Total Tools: </td>
-                    <td>{{ profile.tool_count }}</td>
+                    <td>{{ user.tool_owned.all.count }}</td>
                   </tr>
                 </tbody>
               </table>

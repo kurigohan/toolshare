@@ -9,8 +9,10 @@
 
 
 {% if form.errors %}
+<div class="text-center">
 <p>{% blocktrans %}Your username and password didn't match. Please try again.{% endblocktrans %}</p>
 {% endif %}
+</div>
 
 <div class="container">
     <form  class="form-signin" role="form" method="post" action="{% url 'auth_login' %}">{% csrf_token %}

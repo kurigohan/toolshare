@@ -8,7 +8,7 @@ class Shed(models.Model):
     Shed is a shed with name, owner, tool limit, and address.
     """
     name = models.CharField(max_length=30)
-    owner = models.ForeignKey(UserProfile, related_name='shed_owned')
+    owner = models.ForeignKey(User, related_name='shed_owned')
     tool_limit = models.IntegerField(verbose_name='tool limit', default=20)
     street = models.CharField(max_length=30, blank=True)
     city = models.CharField(max_length=30, blank=True)
@@ -53,8 +53,8 @@ class Tool(models.Model):
     name = models.CharField(max_length=30)
     description = models.CharField(max_length=250)
     shed = models.ForeignKey(Shed, related_name='shed_tools')
-    owner = models.ForeignKey(UserProfile, related_name='tool_owned')
-    borrower = models.ForeignKey(UserProfile,  related_name='tool_borrowed', null=True)
+    owner = models.ForeignKey(User, related_name='tool_owned')
+    borrower = models.ForeignKey(User,  related_name='tool_borrowed', null=True)
     category = models.CharField(max_length=30)
     date_borrowed = models.DateTimeField(verbose_name='borrow date', null=True)
     time_limit = models.IntegerField(verbose_name='time limit', default=7)

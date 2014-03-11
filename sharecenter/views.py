@@ -13,13 +13,12 @@ def create_tool(request, template_name='tools/create_tool.html'):
     if request.method == 'POST':
         form = ToolCreateForm(data=request.POST)
         if form.is_valid():
-            user_profile = request.user.profile
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
                 description=form.cleaned_data['description'],
-                owner=user_profile,
-                shed=user_profile.shed_owned.all()[0]
+                owner=request.user,
+                shed=request.user.shed_owned.all()[0]
             )
             tool.save()
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
@@ -35,9 +34,8 @@ def my_tools(request, template_name='tools/my_tools.html'):
     """
     Display a table containing the user's tools. 
     """
-    user = request.user.profile
-    tool_list = user.tool_owned.all()
-    borrow_list = Tool.objects.filter(borrower=user.id)
+    tool_list = request.user.tool_owned.all()
+    borrow_list = Tool.objects.filter(borrower=request.user.id)
     return render(request, template_name, {'tool_list':tool_list, 'borrow_list':borrow_list})
 my_tools = login_required(my_tools)
 
@@ -47,7 +45,7 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     Update tool info with data from request
     """
     tool=get_object_or_404(Tool, pk=tool_id)
-    if request.user == tool.owner.user:
+    if request.user == tool.owner:
         if request.method == 'POST':
             form = ToolCreateForm(data=request.POST, instance=tool)
             if form.is_valid:  
@@ -56,9 +54,10 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
                 return HttpResponseRedirect(url)
         else:
             form = ToolCreateForm(instance=tool)
-        return render(request, template_name, {'form':form}) #no editing done
+        return render(request, template_name, {'form':form, 'tool':tool}) #no editing done
     else:
-        raise Http404 #can only edit own tools
+        url = reverse('tool_detail', kwargs={'tool_id':tool.id})
+        return HttpResponseRedirect(url)
 edit_tool = login_required(edit_tool)
 
 @login_required
@@ -68,7 +67,7 @@ def borrow_tool(request, tool_id):
     """
     tool = get_object_or_404(Tool, pk=tool_id)
     if tool.is_available():
-        tool.borrow_tool(request.user.profile)
+        tool.borrow_tool(request.user)
         tool.save()
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
@@ -80,7 +79,7 @@ def return_tool(request, tool_id):
     Set selected tool as returned
     """
     tool = get_object_or_404(Tool, pk=tool_id)
-    if tool.borrower.user == request.user:
+    if tool.borrower == request.user:
         tool.return_tool()
         tool.save()
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
@@ -101,7 +100,7 @@ def my_sheds(request, template_name='sheds/my_sheds.html'):
     """
     Display table containing user's sheds. 
     """
-    shed_list = request.user.profile.shed_owned.all()
+    shed_list = request.user.shed_owned.all()
     return render(request, template_name, {'shed_list':shed_list})
 my_sheds = login_required(my_sheds)
 

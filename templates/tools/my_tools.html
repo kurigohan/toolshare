@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<h2 class="page-header">Tools Owned </h2>
+<h1 class="page-header">My Tools </h1>
 
           <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
@@ -21,7 +21,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-              <a class="navbar-brand" href="#">Tool Management</a>
+              <span class="navbar-brand no-click">Tool Management</span>
               </div>
 
              
@@ -88,7 +88,7 @@
                                       Shared
                                       {% else %}
                                       Loaned 
-                                      (<a href="{% url 'profiles_profile_detail' username=tool.borrower.user.username %}">{{tool.borrower.user.username}}</a>)
+                                      (<a href="{% url 'profiles_profile_detail' username=tool.borrower.username %}">{{tool.borrower.username}}</a>)
                                       {% endif %}
 							</td>
 							<td class="but-col">
@@ -141,7 +141,7 @@
                             {{tool.shed.name}}
                             </td>
                             <td>
-                           <a href="{% url 'profiles_profile_detail' username=tool.owner.user.username %}"> {{tool.owner.user.username}}</a>
+                           <a href="{% url 'profiles_profile_detail' username=tool.owner.username %}"> {{tool.owner.username}}</a>
                             </td>
                             <td class="but-col">
                                 <a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>

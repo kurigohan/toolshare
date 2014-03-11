@@ -36,8 +36,8 @@
 							<td>
 							{{shed.name}}
 							</td>
-							<td>                   <a href="{% url 'shed_detail' shed_id=shed.id %}"> 
-							{{shed.owner.user.username}}</a>
+							<td>                   <a href="{% url 'profiles_profile_detail' username=shed.owner.username %}"> 
+							{{shed.owner.username}}</a>
 							</td>
 							<td class="label-col center-text">
 							{{shed.share_count}}

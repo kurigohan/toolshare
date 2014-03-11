@@ -110,5 +110,5 @@ LOGIN_REDIRECT_URL = '/profile/'
 
 
 # Display activation emails in the console ifi n debug mode
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#if DEBUG:
+ #   EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

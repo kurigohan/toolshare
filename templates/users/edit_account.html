@@ -6,15 +6,6 @@
 {{ block.super }}
 <h1 class="page-header">Edit Account</h1>
     <div class="col-sm-4 col-sm-offset-4">
-    {% if form.errors %}
-        {% for field, errors in form.errors.items %}
-            <ul class="errorlist">
-            {% for error in errors %}
-                <li>{{ error }}</li>         
-            {% endfor %}
-            </ul>
-        {% endfor %}
-    {% endif %}
     <form action="" method='POST' role='form'>{% csrf_token %}
         {{form.as_p}}
         <input class="btn btn-primary" id="submit" type="submit" name="submit" value="Update" />

@@ -35,8 +35,8 @@
                   </tr>
                   <tr>
                     <td class="text-muted">Owner: </td>
-                    <td><a href="{% url 'profiles_profile_detail' username=tool.owner.user.username %}">
-                      {{tool.owner.user.username}}
+                    <td><a href="{% url 'profiles_profile_detail' username=tool.owner.username %}">
+                      {{tool.owner.username}}
                     </a></td>
                   </tr>
 
@@ -44,7 +44,7 @@
                     <td class="text-muted">Borrower: </td>
                     <td>
                     {% if tool.borrower %}
-                    <a href="{% url 'profiles_profile_detail' username=tool.borrower.user.username %}">{{ tool.borrower.user.username }}
+                    <a href="{% url 'profiles_profile_detail' username=tool.borrower.username %}">{{ tool.borrower.username }}
                     </a>
                     {% else %}
                     None
@@ -59,16 +59,16 @@
                     <td>{{ tool.description }}</td>
                   </tr>
                   <tr>
-                    {% if user != tool.owner.user and user != tool.borrower.user and tool.shed.postal_code == user.profile.postal_code %}
+                    {% if user != tool.owner and user != tool.borrower and tool.shed.postal_code == user.profile.postal_code %}
                     <td>  <a class="btn btn-primary" href="{%url 'borrow_tool' tool_id=tool.id %}"><strong>Borrow</strong></a>
                     </td>
 
-                    {% elif user != tool.owner.user and user == tool.borrower.user %}
+                    {% elif user != tool.owner and user == tool.borrower %}
                     <td>  <a class="btn btn-primary" href="{%url 'return_tool' tool_id=tool.id %}"><strong>Return</strong></a>
                     </td>
                     {% endif %}
 
-                    {% if user == tool.owner.user %}
+                    {% if user == tool.owner %}
                     <td>
                       <a class="btn btn-primary" href="{%url 'edit_tool' tool_id=tool.id %}"><strong>Edit</strong></a>
                     </td>

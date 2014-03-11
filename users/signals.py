@@ -13,7 +13,7 @@ def user_registered_callback(sender, user, request, **kwargs):
     profile.save()
     shed = Shed( 
             name= "%s's home" % user.username,
-            owner=profile,
+            owner=user,
             postal_code = profile.postal_code
         )
     shed.save()

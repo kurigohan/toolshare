@@ -11,7 +11,7 @@
 
 
 {% block content %}
-<h2 class="sub-header">My Sheds</h2>
+<h1 class="page-header">My Sheds</h1>
 <div class="row">
     {% for shed in shed_list %}
     <a class="no-color" href="{% url 'shed_detail' shed_id=shed.id %}">
@@ -30,7 +30,7 @@
                                 </tr>
                                 <tr>
                                     <td class="text-muted label-col"><small>Owner:</small></td>
-                                    <td>{{shed.owner.user.username}}</td>
+                                    <td>{{shed.owner.username}}</td>
                                 </tr>
                                 {% if shed.street and shed.city and shed.state %}
                                 <tr>
