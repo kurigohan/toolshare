@@ -23,25 +23,25 @@
 
          
             <div class="col-sm-6 text-left">
-              <table class="table no-border detail-table">
+              <table class="table no-border table-condensed detail-table">
                 <tbody>
                   <tr>
-                    <td class="text-muted label-col">Name: </td>
+                    <td class="text-muted label-col">Name:</td>
                     <td>{{ tool.name }}</td>
                   </tr>
                   <tr>
-                    <td class="text-muted">Shed: </td>
+                    <td class="text-muted">Shed:</td>
                     <td><a href="{% url 'shed_detail' shed_id=tool.shed.id %}">{{ tool.shed.name }}</a></td>
                   </tr>
                   <tr>
-                    <td class="text-muted">Owner: </td>
+                    <td class="text-muted">Owner:</td>
                     <td><a href="{% url 'profiles_profile_detail' username=tool.owner.username %}">
                       {{tool.owner.username}}
                     </a></td>
                   </tr>
 
                   <tr>
-                    <td class="text-muted">Borrower: </td>
+                    <td class="text-muted">Borrower:</td>
                     <td>
                     {% if tool.borrower %}
                     <a href="{% url 'profiles_profile_detail' username=tool.borrower.username %}">{{ tool.borrower.username }}
@@ -51,13 +51,19 @@
                     {% endif %}</td>
                   </tr>
                   <tr>
-                    <td class="text-muted">Category: </td>
+                    <td class="text-muted">Category:</td>
                     <td>{{ tool.category }}</td>
                   </tr>
-				  <tr>
-                    <td class="text-muted">Description  </td>
+		      <tr>
+                    <td class="text-muted">Description:</td>
                     <td>{{ tool.description }}</td>
                   </tr>
+                  {% if tool.date_borrowed %}
+                  <tr>
+                    <td class="text-muted">Date Borrowed:</td>
+                    <td>{{ tool.date_borrowed }}</td>
+                  </tr>
+                  {% endif %}
                   <tr>
                     {% if user != tool.owner and user != tool.borrower and tool.shed.postal_code == user.profile.postal_code %}
                     <td>  <a class="btn btn-primary" href="{%url 'borrow_tool' tool_id=tool.id %}"><strong>Borrow</strong></a>

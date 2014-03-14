@@ -18,7 +18,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from profiles import utils
-from datetime import datetime
+
 
 @login_required
 def create_profile(request, form_class=None, success_url=None,
@@ -348,13 +348,15 @@ def profile_list(request, public_profile_field=None,
     return ListView.as_view(request, template_name=template_name, **kwargs)
 
 
-
-from django.utils.timezone import utc
+from datetime import datetime
+#from django.utils.timezone import utc
+from django.utils import timezone
 def timePassed(time):
     """
      Calculates time elapsed since last login.
     """
-    timeNow = datetime.utcnow().replace(tzinfo=utc) #set timezone to utc
+   # timeNow = datetime.utcnow().replace(tzinfo=utc) #set timezone to utc
+    timeNow = timezone.now()
     elapsedTime = (timeNow - time).total_seconds()
 
     if(elapsedTime >= 86400 ):
