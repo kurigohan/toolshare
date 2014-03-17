@@ -30,7 +30,9 @@
 		
 
 					{% for shed in shed_list %}
-						{% if shed.share_count > 0 %}
+					<!-- set share_count variable so share_count doesn't need to be calculated twice -->
+						{% with shed.share_count as share_count %}
+						{% if share_count > 0 %}
 						<tr>
 		
 							<td>
@@ -40,7 +42,7 @@
 							{{shed.owner.username}}</a>
 							</td>
 							<td class="label-col center-text">
-							{{shed.share_count}}
+							{{share_count}}
 							</td>
 							<td class="label-col center-text">
 							{{shed.borrow_count}}
@@ -51,6 +53,7 @@
 
 						</tr>
 						{% endif %}
+						{% endwith %}
 					{% endfor %}
 
 				</tbody>
