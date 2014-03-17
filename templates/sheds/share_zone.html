@@ -30,7 +30,7 @@
 		
 
 					{% for shed in shed_list %}
-
+						{% if shed.share_count > 0 %}
 						<tr>
 		
 							<td>
@@ -50,6 +50,7 @@
 							</td>
 
 						</tr>
+						{% endif %}
 					{% endfor %}
 
 				</tbody>
