@@ -5,9 +5,10 @@ class CustomRegistrationForm(RegistrationFormUniqueEmail):
     """
     RegistrationForm with additional fields 
     """
-    first_name = forms.CharField(label="First Name", error_messages={'required': 'No first name entered'})
-    last_name = forms.CharField(label="Last Name", error_messages={'required': 'No last name entered'})
-    postal_code = forms.CharField(label="Postal Code", error_messages={'required': 'No postal code entered'})
+
+    first_name = forms.CharField(label="First Name", max_length=30, error_messages={'required': 'No first name entered'}, widget=forms.TextInput(attrs={'class':'form-control input-inline'}))
+    last_name = forms.CharField(label="Last Name", max_length=30, error_messages={'required': 'No last name entered'}, widget=forms.TextInput(attrs={'class':'form-control input-inline'}))
+    postal_code = forms.CharField(label="Postal Code", max_length=10, error_messages={'required': 'No postal code entered'}, widget=forms.TextInput(attrs={'class':'form-control'}))
 
 
 from django.db import models

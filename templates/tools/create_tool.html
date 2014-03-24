@@ -7,13 +7,22 @@
 	<h1 class="page-header">Create a Tool</h1>
 	
 		<div class="row">
-		<div class="col-md-5 text-right">
+		<div class="col-sm-5 right-align">
 			<img  class="img-rounded" alt="image of tool" src="{% static 'img/toolplaceholder.png' %}" style="width: 200px; height:200px;">
 		</div>
-	
+	          <div class="col-sm-1"></div>
+
+        <div class="col-sm-6">
 	<form method='post' action='' role="form">{% csrf_token %}
-	
-	{% for field, errors in form.errors.items %}
+
+			{{form.as_p}}
+			<hr>
+
+			<input class="btn btn-primary" type="submit" value="Create Tool"/>
+
+	</form>
+            </div>
+        {% for field, errors in form.errors.items %}
             <ul class="errorlist">
             {% for error in errors %}
                 <li>{{ error }}</li>
@@ -21,12 +30,4 @@
             {% endfor %}
             </ul>
         {% endfor %}
-	       <div class="col-md-1"></div>
-		<div class="col-md-6 text-left">
-			{{form.as_p}}
-			<hr>
-
-			<input class="btn btn-primary" type="submit" value="Create Tool"/>
-		</div>
-	</form>
 {% endblock %}

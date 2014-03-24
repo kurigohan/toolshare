@@ -15,11 +15,11 @@
 <div class="row">
     {% for shed in shed_list %}
     <a class="no-color" href="{% url 'shed_detail' shed_id=shed.id %}">
-        <div class="col-md-6 shed-tile">
-            <div class="col-sm-6">
+        <div class="col-sm-6 shed-tile div-border">
+            <div class="col-md-6 right-align">
                 <img class="img-rounded shed-img" alt="shed thumbnail" src="{% static 'img/shedplaceholder.png' %}">
             </div>
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <table>
                     <tr><td>
       

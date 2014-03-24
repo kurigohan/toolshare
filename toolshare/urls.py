@@ -33,5 +33,6 @@ urlpatterns = patterns('',
 	#url(r'^aboutus/', TemplateView.as_view(
     #                        template_name='static/aboutus.html'), 
     #                        name='about_page'),
+    url(r'^messages/', include('django_messages.urls')),
     )
 

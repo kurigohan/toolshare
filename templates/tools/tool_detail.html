@@ -65,6 +65,7 @@
                   </tr>
                   {% endif %}
                   <tr>
+                  <!-- Buttons -->
                     {% if not tool.borrower and user != tool.owner and tool.shed.postal_code == user.profile.postal_code %}
                     <td>  <a class="btn btn-primary" href="{%url 'borrow_tool' tool_id=tool.id %}"><strong>Borrow</strong></a>
                     </td>

@@ -123,7 +123,13 @@ a.no-color:hover {
   color: inherit !important;
 }
 
+a.new-alert {
+  color: #8a6dcd !important;
+}
 
+.div-border{
+  border: 1px solid #eeeeee;
+}
 
 /*mytools table checbox align*/
 td.check {vertical-align: middle !important;}
@@ -140,7 +146,6 @@ ul.shed-detail{
 
 .shed-tile {
   padding-top: 20px;
-  border: 1px solid #eeeeee;
 }
 
 .tile-hover {
@@ -159,7 +164,8 @@ ul.shed-detail{
 
  
 .btn:hover{
-  background-color: #755cad;
+  background-color: #665098;
+  color: #FFF !important;
 }
 
 
@@ -170,13 +176,11 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 }
 
 /* Registration form input */
-.input-inline {
-  width: 173px !important;
+@media (min-width: 768px) {
+  .input-inline {
+    width: 173px !important;
+  }
 }
-.input-single{
-  width: 350px !important;
-}
-
 /*profile details*/
 .detail-table {
   width:  auto !important;
@@ -269,4 +273,15 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .center-list .nav > li {
     float: none;
     display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .right-align {
+    text-align: right;
+
+  }
+}
+
+.errorlist li {
+        color: red;
 }
