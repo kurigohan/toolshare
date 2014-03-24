@@ -7,10 +7,19 @@
 <h1 class="page-header">Edit Account</h1>
     <div class="col-sm-4 col-sm-offset-4">
     <form action="" method='POST' role='form'>{% csrf_token %}
-        {{form.as_p}}
+        {% for field in form %}
+        {{field.label_tag}}
+        <br>
+        {{field}}
+        {% endfor %}
+        <br>
         <input class="btn btn-primary" id="submit" type="submit" name="submit" value="Update" />
     </form>
     <br>
+    {% for key, value in form.errors.items %}
+    {{value}}
+    {% endfor %}
+
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}

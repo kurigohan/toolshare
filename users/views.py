@@ -24,12 +24,13 @@ def edit_account(request, template_name='users/edit_account.html'):
     if request.method == 'POST':
         form = AccountForm(data=request.POST)
         if form.is_valid():
-            request.user.first_name == form.cleaned_data['first_name']
-            request.user.last_name == form.cleaned_data['last_name']
-            request.user.email == form.cleaned_data['email']
-            request.user.profile.postal_code == form.cleaned_data['postal_code']
-            request.user.profile.save()
+            request.user.first_name = form.cleaned_data['first_name']
+            request.user.last_name = form.cleaned_data['last_name']
+            request.user.email = form.cleaned_data['email']
             request.user.save()
+            request.user.profile.postal_code = form.cleaned_data['postal_code']
+            request.user.profile.save()
+
             return  redirect(reverse(ProfileView.profile_detail, args=[request.user.username]))
     else:
         form = AccountForm(initial={'first_name': request.user.first_name, 'last_name':request.user.last_name, 
@@ -66,7 +67,7 @@ def password_change(request,
     return render(request, template_name, context)
 
 
-    class CustomRegistrationView(RegistrationView):
+class CustomRegistrationView(RegistrationView):
     """
     Override get_success_url for RegistrationView
     """
