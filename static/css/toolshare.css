@@ -251,10 +251,22 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 }
 
 
+/* Change link cursor and decoration */
+
 .no-click {
   text-decoration: none;
 
 }
 .no-click:hover {
   cursor: default;
+}
+
+.center-list .nav{
+  float: none;
+  text-align: center;
+}
+
+.center-list .nav > li {
+    float: none;
+    display: inline-block;
 }
