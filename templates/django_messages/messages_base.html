@@ -1,0 +1,13 @@
+{% extends "table_sortable.html" %} 
+{% load i18n %} 
+{% block content %} 
+
+  <nav class="navbar navbar-default center-list" role="navigation">
+        <ul class="nav navbar-nav">
+          <li><a href="{% url 'messages_compose' %}">Compose</a></li>
+          <li><a href="{% url 'messages_inbox' %}">Inbox</a></li>
+          <li><a href="{% url 'messages_outbox' %}">Outbox</a></li>
+        </ul>
+  </nav> 
+
+{% endblock %}

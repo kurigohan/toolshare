@@ -1,0 +1,45 @@
+{% extends "django_messages/messages_base.html" %} 
+{% load i18n %} 
+{% load url from future %}
+
+{% block content %}
+<h1 class="page-header">{% trans "View Message" %}</h1>
+{{block.super}}
+<div class="col-sm-8 col-sm-offset-2 div-border" style="padding: 10px; background-color: #f8f8f8">
+
+<table class="table no-border detail-table table-condensed">
+<tbody>
+    <tr>
+        <td><label>From:</label></td>
+        <td><a href="{% url 'profiles_profile_detail' username=message.sender %}">{{ message.sender }}</a></td>
+    </tr>
+    <tr>
+        <td><label>Subject:</label></td>
+        <td>{{ message.subject }}</td>
+    </tr>
+</tbody>
+</table>
+
+    {{ message.body }}
+
+<!--
+<dl class="message-headers">
+    <dt>{% trans "Subject" %}</dt>
+    <dd><strong>{{ message.subject }}</strong></dd>
+    <dt>{% trans "Sender" %}</dt>
+    <dd>{{ message.sender }}</dd>
+    <dt>{% trans "Date" %} </dt>
+    <dd>{{ message.sent_at|date:_("DATETIME_FORMAT")}}</dd>
+    <dt>{% trans "Recipient" %}</dt>
+    <dd>{{ message.recipient }}</dd>
+</dl>
+{{ message.body|linebreaksbr }}
+ -->
+<br><br><br>
+
+{% ifequal message.recipient.pk user.pk %}
+<a class="btn btn-primary" href="{% url 'messages_reply' message.id %}">{% trans "Reply" %}</a>
+{% endifequal %}
+<a class="btn btn-primary" href="{% url 'messages_delete' message.id %}">{% trans "Delete" %}</a>
+</div>
+{% endblock %}
