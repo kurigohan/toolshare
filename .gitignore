@@ -2,5 +2,5 @@
 *.sqlite3
 #ignore python byte code files
 *.pyc
-#ignore temp html files
-*.html~
+#ignore temp files
+*\~*
