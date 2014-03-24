@@ -27,7 +27,6 @@ def create_tool(request, template_name='tools/create_tool.html'):
         form = ToolCreateForm()
 
     return render(request, template_name, {'form': form})#no tool created
-create_tool = login_required(create_tool)
 
 @login_required
 def my_tools(request, template_name='tools/my_tools.html'):
@@ -37,7 +36,6 @@ def my_tools(request, template_name='tools/my_tools.html'):
     tool_list = request.user.tool_owned.all()
     borrow_list = Tool.objects.filter(borrower=request.user.id)
     return render(request, template_name, {'tool_list':tool_list, 'borrow_list':borrow_list})
-my_tools = login_required(my_tools)
 
 @login_required
 def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
@@ -58,7 +56,6 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     else:
         url = reverse('tool_detail', kwargs={'tool_id':tool.id})
         return HttpResponseRedirect(url)
-edit_tool = login_required(edit_tool)
 
 @login_required
 def borrow_tool(request, tool_id):
@@ -71,7 +68,6 @@ def borrow_tool(request, tool_id):
         tool.save()
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
-borrow_tool = login_required(borrow_tool)
 
 @login_required
 def return_tool(request, tool_id):
@@ -84,7 +80,6 @@ def return_tool(request, tool_id):
         tool.save()
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
-return_tool = login_required(return_tool)
 
 @login_required
 def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
@@ -93,7 +88,6 @@ def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
     """
     tool = get_object_or_404(Tool, pk=tool_id)
     return render(request, template_name, {'tool':tool})
-tool_detail = login_required(tool_detail)
 
 @login_required
 def my_sheds(request, template_name='sheds/my_sheds.html'):
@@ -102,7 +96,6 @@ def my_sheds(request, template_name='sheds/my_sheds.html'):
     """
     shed_list = request.user.shed_owned.all()
     return render(request, template_name, {'shed_list':shed_list})
-my_sheds = login_required(my_sheds)
 
 @login_required
 def shed_detail(request, shed_id, template_name='sheds/shed_detail.html'):
@@ -112,7 +105,6 @@ def shed_detail(request, shed_id, template_name='sheds/shed_detail.html'):
     shed = get_object_or_404(Shed, pk=shed_id)
     tool_list = shed.shed_tools.all()
     return render(request, template_name, {'shed':shed, 'tool_list':tool_list})
-shed_detail = login_required(shed_detail)
 
 #def create_shed(request, template_name='sheds/create_shed.html'):
 
@@ -134,5 +126,3 @@ def share_zone(request, template_name='sheds/share_zone.html'):
     """
     shed_list = Shed.objects.filter(postal_code=request.user.profile.postal_code)
     return render(request, template_name, {'shed_list':shed_list})
-
-share_zone = login_required(share_zone)

@@ -121,7 +121,6 @@ def create_profile(request, form_class=None, success_url=None,
     return render_to_response(template_name,
                               { 'form': form }, 
                               context_instance=context)
-create_profile = login_required(create_profile)
 
 @login_required
 def edit_profile(request, form_class=None, success_url=None,
@@ -214,7 +213,6 @@ def edit_profile(request, form_class=None, success_url=None,
                               { 'form': form,
                                 'profile': profile_obj, }, 
                               context_instance=context)
-edit_profile = login_required(edit_profile)
 
 @login_required
 def profile_detail(request, username, public_profile_field=None,
@@ -292,7 +290,6 @@ def profile_detail(request, username, public_profile_field=None,
     return render_to_response(template_name,
                               { 'profile': profile_obj, 'auth_user': request.user, 'login_ago':  login_ago, },
                               context_instance=context)
-profile_detail = login_required(profile_detail)
 
 
 def profile_list(request, public_profile_field=None,
