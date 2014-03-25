@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from users.models import UserProfile
+from profiles.models import UserProfile
 from django.utils import timezone
 
 class Shed(models.Model):

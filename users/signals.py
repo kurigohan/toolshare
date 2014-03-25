@@ -1,4 +1,4 @@
-from users.models import UserProfile
+from profiles.models import UserProfile
 from sharecenter.models import Shed
 
 def user_registered_callback(sender, user, request, **kwargs):

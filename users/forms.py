@@ -14,7 +14,7 @@ class CustomRegistrationForm(RegistrationFormUniqueEmail):
 from django.db import models
 from django.forms import ModelForm
 from django.core.files.images import get_image_dimensions
-from users.models import UserProfile
+from profiles.models import UserProfile
 from django.contrib.auth.models import User
 
 
