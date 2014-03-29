@@ -17,13 +17,46 @@
                 
             {% if user.is_authenticated %}
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="{% if notifications_count > 0 %}new-alert{% endif %}" href="#"><span class="glyphicon glyphicon-bell"></span> {{notifications_count}}</a></li>
-                <li><a class="{% if messages_inbox_count > 0 %}new-alert{% endif %}"href="{% url 'messages_inbox' %}"><span class="glyphicon glyphicon-envelope"></span> {{messages_inbox_count}}</a></li>
+
+                <li>
+                {% if notifications_count > 0 %}
+                 <a id="drop2" href="#" role="button" class="dropdown-toggle alert-new" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-bell"></span>  {{notifications_count}}
+                  </a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                    {% for notification in notification_list%}
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">{{notification}}</a></li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <a href="#">
+                    <span class="glyphicon glyphicon-bell"></span>  0
+                  </a>
+                {% endif %}
+                </li>
+
+
+                <li>
+                {% if messages_inbox_count > 0 %}
+                 <a id="drop2" href="#" role="button" class="dropdown-toggle alert-new" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-envelope"></span>  {{messages_inbox_count}}
+                  </a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                    {% for message in inbox_preview%}
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'messages_detail' message_id=message.id %}">{{message.subject}}</a></li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <a href="{% url 'messages_inbox' %}">
+                    <span class="glyphicon glyphicon-envelope"></span>  0
+                  </a>
+                {% endif %}
+                 
+                </li>
                 <li class="dropdown">
                     <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ user.username }}<b class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'profiles_profile_detail' username=user.username %} ">Profile</a></li>
-                       <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'password_change' %}">Change Password</a></li> -->
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'edit_account' %}">Account Info</a></li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'help_page' %}">Help</a></li>
