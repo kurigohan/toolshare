@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'users',
     'sharecenter',
     'django_messages',
+    'notifications'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -70,7 +71,8 @@ WSGI_APPLICATION = 'toolshare.wsgi.application'
 
 
 from django.conf import global_settings
-TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + ('django_messages.context_processors.inbox',)
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + \
+    ('django_messages.context_processors.inbox','notifications.context_processors.notifications_count')
 
 # Activation time limit for new accounts
 ACCOUNT_ACTIVATION_DAYS = 7

@@ -17,10 +17,6 @@ class UserProfile(models.Model):
         return ('profiles_profile_detail', (), { 'username': self.user.username })
     get_absolute_url = models.permalink(get_absolute_url)
 
-    @property
-    def tool_count(self):
-        #return number of tools
-        return self.tool_owned.all().count()
 
 #    class Meta:
       #  app_label = 'toolshare'

@@ -17,6 +17,7 @@
                 
             {% if user.is_authenticated %}
             <ul class="nav navbar-nav navbar-right">
+                <li><a class="{% if notifications_count > 0 %}new-alert{% endif %}" href="#"><span class="glyphicon glyphicon-bell"></span> {{notifications_count}}</a></li>
                 <li><a class="{% if messages_inbox_count > 0 %}new-alert{% endif %}"href="{% url 'messages_inbox' %}"><span class="glyphicon glyphicon-envelope"></span> {{messages_inbox_count}}</a></li>
                 <li class="dropdown">
                     <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ user.username }}<b class="caret"></b></a>
