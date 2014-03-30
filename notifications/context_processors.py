@@ -1,12 +1,12 @@
 from notifications.models import Notification
 
-def notifications_count(request):
+def notifications_new_count(request):
     if request.user.is_authenticated():
-        return {'notifications_count': Notification.objects.notification_count(request.user)}
+        return {'notifications_new_count': len(Notification.objects.filter(recipient=request.user, is_new=True))}
     else:
         return {}
-def notification_list(request):
+def notifications_new(request):
     if request.user.is_authenticated():
-        return {'notification_list': Notification.objects.notifications_for(request.user)}
+        return {'notifications_new': Notification.objects.filter(recipient=request.user, is_new=True)}
     else:
         return {}

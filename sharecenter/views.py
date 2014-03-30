@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.http import Http404, HttpResponseRedirect
 from sharecenter.forms import ToolCreateForm
 from sharecenter.models import Tool, Shed
-from django.http import Http404, HttpResponseRedirect
+from notifications.models import Notification
 
 @login_required
 def create_tool(request, template_name='tools/create_tool.html'):
@@ -13,20 +14,26 @@ def create_tool(request, template_name='tools/create_tool.html'):
     if request.method == 'POST':
         form = ToolCreateForm(data=request.POST)
         if form.is_valid():
+            shed = request.user.shed_owned.all()[0]
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
                 description=form.cleaned_data['description'],
                 owner=request.user,
-                shed=request.user.shed_owned.all()[0]
+                shed=shed
             )
             tool.save()
+            Notification.objects.create(recipient=request.user, 
+                                                    sender=request.user,
+                                                    tool=tool,
+                                                    shed=shed,
+                                                    action="add")                                        
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
     else: 
         form = ToolCreateForm()
 
-    return render(request, template_name, {'form': form})#no tool created
+    return render(request, template_name, {'form': form})
 
 @login_required
 def my_tools(request, template_name='tools/my_tools.html'):
