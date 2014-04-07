@@ -4,8 +4,6 @@ from sharecenter.models import Tool, Shed
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 class NotificationManager(models.Manager):
-    def notifications_for(self, user):
-        return self.filter(recipient=user)
     def notification_count(self, user):
         return len(self.notifications_for(user))
     def create(self, action, recipient, sender=None, 
