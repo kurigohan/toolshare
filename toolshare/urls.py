@@ -35,7 +35,7 @@ urlpatterns = patterns('',
     #                        template_name='static/aboutus.html'), 
     #                        name='about_page'),
     url(r'^messages/', include('django_messages.urls')),
-    url(r'^notifications/', NotificationView.view_notifications, name='view_notifications'),
+    url(r'^notifications/$', NotificationView.view_notifications, name='view_notifications'),
     url(r'^notifications/delete/(?P<notification_id>\d+)/$', NotificationView.delete_notification, name='delete_notification'),
     )
 
