@@ -64,28 +64,28 @@
                     <td>{{ tool.date_borrowed }}</td>
                   </tr>
                   {% endif %}
-                  <tr>
-                  <!-- Buttons -->
-                    {% if not tool.borrower and user != tool.owner and tool.shed.postal_code == user.profile.postal_code %}
-                    <td>  <a class="btn btn-primary" href="{%url 'borrow_tool' tool_id=tool.id %}"><strong>Borrow</strong></a>
-                    </td>
-
-                    {% elif user != tool.owner and user == tool.borrower %}
-                    <td>  <a class="btn btn-primary" href="{%url 'return_tool' tool_id=tool.id %}"><strong>Return</strong></a>
-                    </td>
-                    {% endif %}
-
-                    {% if user == tool.owner %}
-                    <td>
-                      <a class="btn btn-primary" href="{%url 'edit_tool' tool_id=tool.id %}"><strong>Edit</strong></a>
-                    </td>
-                    {% endif %}
-                  </tr>
-                  {% if error_msg %}
-                  <tr>{{error_msg}}</tr>
-                  {% endif %}
                 </tbody>
               </table>
+
+               <!-- Buttons -->
+                    {% if not tool.borrower and user != tool.owner and tool.shed.postal_code == user.profile.postal_code %}
+                    <a class="btn btn-primary" href="{%url 'borrow_tool' tool_id=tool.id %}"><strong>Borrow</strong></a>
+                    {% elif user != tool.owner and user == tool.borrower %}
+                    <a class="btn btn-primary" href="{%url 'return_tool' tool_id=tool.id %}"><strong>Return</strong></a>
+                    {% endif %}
+
+                   {% if user == tool.owner %}
+                      <a class="btn btn-primary" href="{% url 'edit_tool' tool_id=tool.id %}"><strong>Edit</strong></a>
+                  
+                      {% if tool.is_available %}
+                      
+                        <a class="btn btn-primary" href="{% url 'delete_tool' tool_id=tool.id %}"><strong>Delete</strong></a>
+                      
+                      {% endif %}
+                    {% endif %}
+                  {% if error_msg %}
+                    {{error_msg}}
+                  {% endif %}
             </div>
           </div>
 

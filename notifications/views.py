@@ -10,7 +10,7 @@ def view_notifications(request, template_name="notifications/view_notifications.
 
 @login_required
 def delete_notification(request, notification_id):
-#    notification = get_object_or_404(Notification, pk=notification_id)
-  #  notification.delete()
-    Notification.objects.filter(pk=notification_id).delete()
+    notification = get_object_or_404(Notification, pk=notification_id)
+    if  request.user == notification.recipient:
+        notification.delete()
     return  redirect('view_notifications')

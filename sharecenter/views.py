@@ -36,6 +36,14 @@ def create_tool(request, template_name='tools/create_tool.html'):
     return render(request, template_name, {'form': form})
 
 @login_required
+def delete_tool(request, tool_id):
+    tool = get_object_or_404(Tool, pk=tool_id)
+    if request.user == tool.owner and tool.is_available():
+        tool.delete()
+    return redirect('my_tools')
+
+
+@login_required
 def my_tools(request, template_name='tools/my_tools.html'):
     """
     Display a table containing the user's tools. 
@@ -49,7 +57,7 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     """
     Update tool info with data from request
     """
-    tool=get_object_or_404(Tool, pk=tool_id)
+    tool = get_object_or_404(Tool, pk=tool_id)
     if request.user == tool.owner:
         if request.method == 'POST':
             form = ToolCreateForm(data=request.POST, instance=tool)
