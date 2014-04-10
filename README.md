@@ -23,5 +23,7 @@ Current-Progress:
 - Tool profiles: completed
 - Tool management: R1 completed
 - Shed profiles: R1 completed
-- Share Zone: R1 completed 
+- Share Zone: R1 completed
+- Private Messaging: completed
+- Notifications: in-progress 
 - Shed management: in-progress
