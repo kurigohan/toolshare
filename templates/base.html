@@ -25,7 +25,7 @@
                   </a>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
                     {% for notification in notifications_new%}
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'view_notifications' %}"> {{ notification }}</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'view_notifications' %}"> {{ notification.action_message }}</a></li>
                     {% endfor %}
                   </ul>
                 {% else %}

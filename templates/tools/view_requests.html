@@ -1,14 +1,14 @@
 {% extends "table_sortable.html" %} 
 
 {% block content %}
-{{ block.super }} 
-<h1 class="page-header">My Notifications</h1>
+{{ block.super }}
+<h1 class="page-header">My Requests</h1>
 <table class="table table-hover sort-table">
     <thead>
         <tr>
-            <th>Message</th>
+            <th>Request</th>
             <th>Date</th>
-            <th class="{sorter: false}"></th>
+            <th class="{sorter: false}">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +26,7 @@
 {% endblock %}
 
 {% block js_ready %}
+
     $(".sort-table").tablecloth({
           theme: "default",
     });
