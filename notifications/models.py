@@ -65,5 +65,5 @@ class Notification(models.Model):
             tool_url = reverse('tool_detail', args=[self.tool.id])
             shed_url = reverse('shed_detail', args=[self.shed.id])
             return '<a href="%s" > %s </a> %s <a href="%s">%s</a> (<a href="%s">%s</a>)' \
-                        % (sender_url, self.sender, self.action, tool_url, self.tool.name, shed_url, self.shed.name) 
+                        % (sender_url, self.sender.username, self.action, tool_url, self.tool.name, shed_url, self.shed.name) 
 

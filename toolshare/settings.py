@@ -53,7 +53,8 @@ INSTALLED_APPS = (
     'users',
     'sharecenter',
     'django_messages',
-    'notifications'
+    'notifications',
+    'borrow_requests',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -75,7 +76,8 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + \
     ('django_messages.context_processors.inbox',
         'django_messages.context_processors.inbox_preview',
         'notifications.context_processors.notifications_new_count', 
-        'notifications.context_processors.notifications_new')
+        'notifications.context_processors.notifications_new',
+        'borrow_requests.context_processors.borrow_request_status',)
 
 # Activation time limit for new accounts
 ACCOUNT_ACTIVATION_DAYS = 7
