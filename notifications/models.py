@@ -58,12 +58,14 @@ class Notification(models.Model):
         return "%s %s %s (%s)" % (self.sender, self.action, self.tool.name, self.shed.name)
 
     def html(self):
-        if self.message:
+        sender_url = reverse('profiles_profile_detail', args=[self.sender.username])
+        tool_url = reverse('tool_detail', args=[self.tool.id])
+        act = self.action;
+        if self.notice_type == NoticeType.SYSTEM:
             return self.message
-        else:
-            sender_url = reverse('profiles_profile_detail', args=[self.sender.username])
-            tool_url = reverse('tool_detail', args=[self.tool.id])
-            shed_url = reverse('shed_detail', args=[self.shed.id])
-            return '<a href="%s" > %s </a> %s <a href="%s">%s</a> (<a href="%s">%s</a>)' \
-                        % (sender_url, self.sender.username, self.action, tool_url, self.tool.name, shed_url, self.shed.name) 
+        elif self.notice_type == NoticeType.REQUEST:
+            act = "sent a %s request for"
+
+        return '<a href="%s" > %s </a> %s <a href="%s">%s</a> (<a href="%s">%s</a>)' \
+                        % (sender_url, self.sender.username, act, tool_url, self.tool.name, shed_url, self.shed.name) 
 

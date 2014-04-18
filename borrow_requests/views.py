@@ -77,7 +77,7 @@ def sender_cancel_request(request, br_id):
     return redirect('view_requests')
 
 @login_required
-def sender_delete_request(request, br_id):
+def delete_sender_request(request, br_id):
     """
     Set s_deleted to true. The borrow request will no longer appear in the user's 'sent requests' list
     - If s_deleted and r_deleted are both true, then the borrow request will be
@@ -95,7 +95,7 @@ def sender_delete_request(request, br_id):
     return  redirect('view_requests')
 
 @login_required
-def recipient_delete_request(request, br_id):
+def delete_recipient_request(request, br_id):
     """
     Set r_deleted to true. The borrow request will no longer appear in the user's 'recieved requests' list
     - If s_deleted and r_deleted are both true, then the borrow request will be

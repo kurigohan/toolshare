@@ -84,10 +84,17 @@ def borrow_tool(request, tool_id):
     Set selected tool as borrowed
     """
     tool = get_object_or_404(Tool, pk=tool_id)
-    if tool.is_available():
-        tool.borrow_tool(request.user)
-        tool.save()
-    # send borrow request
+    if request.user != tool.owner and tool.is_available():
+        #tool.borrow_tool(request.user)
+        #tool.save()
+        # send borrow request
+        BorrowRequest.objects.create(recipient=tool.owner, sender=request.user, tool=tool)
+        # send notification to tool owner
+        Notification.objects.create(recipient=tool.owner, 
+                                                        sender=request.user,
+                                                        tool=tool,
+                                                        notice_type=NoticeType.ALERT,
+                                                        action="borrow")                            
 
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
