@@ -5,7 +5,18 @@ from sharecenter.models import Tool, Shed
 from notifications.models import Notification
 from borrow_requests.models import BorrowRequest
 import notifications.NoticeType as NoticeType
-import sharecenter.RequestStatus as RequestStatus
+import borrow_requests.RequestStatus as RequestStatus  
+
+
+@login_required
+def view_requests(request, template_name="borrow_requests/view_requests.html"):
+    """
+    View received and sent borrow requests
+    """
+    br_sent = BorrowRequest.objects.filter(sender=request.user.id)
+    br_received = BorrowRequest.objects.filter(recipient=request.user.id)
+
+    return render(request, template_name, {'recipient_request_list':br_received, 'sender_request_list': br_sent})
 
 @login_required
 def approve_borrow_request(request, br_id):

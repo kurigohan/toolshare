@@ -8,6 +8,7 @@ from profiles import views as ProfileView
 from users import views as UserView 
 from sharecenter import views as ShareView
 from notifications import views as NotificationView
+from borrow_requests import views as BRView
 
 urlpatterns = patterns('',
     url(r'^$', UserView.user_home, name='home'),
@@ -36,6 +37,9 @@ urlpatterns = patterns('',
     #                        name='about_page'),
     url(r'^messages/', include('django_messages.urls')),
     url(r'^notifications/$', NotificationView.view_notifications, name='view_notifications'),
-    url(r'^notifications/delete/(?P<notification_id>\d+)/$', NotificationView.delete_notification, name='delete_notification'),
+    url(r'^notifications/delete/(?P<notification_id>\d+)/$', NotificationView.delete_notification, 
+        name='delete_notification'),
+    url(r'^requests/$',  BRView.view_requests, name='view_requests'),
+
     )
 

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from sharecenter.models import Tool, Shed
 from django.core.urlresolvers import reverse
 from django.utils import timezone
-
+import notifications.NoticeType as NoticeType
 
 class NotificationManager(models.Manager):
     def notification_count(self, user):
@@ -60,6 +60,7 @@ class Notification(models.Model):
     def html(self):
         sender_url = reverse('profiles_profile_detail', args=[self.sender.username])
         tool_url = reverse('tool_detail', args=[self.tool.id])
+        shed_url = reverse('shed_detail', args=[self.shed.id])
         act = self.action;
         if self.notice_type == NoticeType.SYSTEM:
             return self.message
