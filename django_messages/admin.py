@@ -27,7 +27,7 @@ class MessageAdminForm(forms.ModelForm):
         self.fields['recipient'].required = True
 
     def _get_group_choices(self):
-        return [('', u'---------'), ('all', _('All users'))] + \
+        return [('', '---------'), ('all', _('All users'))] + \
             [(group.pk, group.name) for group in Group.objects.all()]
 
     class Meta:

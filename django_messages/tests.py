@@ -131,15 +131,15 @@ class IntegrationTestCase(TestCase):
         self.assertEquals(response.context['form'].initial['body'], 
                 format_quote(self.user_1, self.T_MESSAGE_DATA[0]['body']))
         self.assertEqual(response.context['form'].initial['subject'],
-                u"Re: %(subject)s"%{'subject': self.T_MESSAGE_DATA[0]['subject']})
+                "Re: %(subject)s"%{'subject': self.T_MESSAGE_DATA[0]['subject']})
                      
 class FormatTestCase(TestCase):
     """ some tests for helper functions """
     def testSubject(self):
         """ test that reply counting works as expected """
-        self.assertEquals(format_subject(u"foo bar"), u"Re: foo bar")
-        self.assertEquals(format_subject(u"Re: foo bar"), u"Re[2]: foo bar")
-        self.assertEquals(format_subject(u"Re[2]: foo bar"), u"Re[3]: foo bar")
-        self.assertEquals(format_subject(u"Re[10]: foo bar"), u"Re[11]: foo bar")
+        self.assertEquals(format_subject("foo bar"), "Re: foo bar")
+        self.assertEquals(format_subject("Re: foo bar"), "Re[2]: foo bar")
+        self.assertEquals(format_subject("Re[2]: foo bar"), "Re[3]: foo bar")
+        self.assertEquals(format_subject("Re[10]: foo bar"), "Re[11]: foo bar")
         
         
