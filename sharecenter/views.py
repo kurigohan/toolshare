@@ -17,7 +17,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
     Create a new tool with data from request and add it to database.
     """
     if request.method == 'POST':
-        form = ToolCreateForm(data=request.POST)
+        form = ToolCreateForm(request.POST, request.FILES)
         if form.is_valid():
             shed = request.user.shed_owned.all()[0]
             tool = Tool(
@@ -25,7 +25,8 @@ def create_tool(request, template_name='tools/create_tool.html'):
                 category=form.cleaned_data['category'],
                 description=form.cleaned_data['description'],
                 owner=request.user,
-                shed=shed
+                shed=shed,
+                image=request.FILES['image']
             )
             tool.save()
             activity_msg = "added %s to %s" % (tool.name, tool.shed.name)

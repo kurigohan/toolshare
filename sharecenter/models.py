@@ -45,6 +45,7 @@ class Tool(models.Model):
     category = models.CharField(max_length=30)
     date_borrowed = models.DateTimeField(verbose_name='borrow date', null=True)
     time_limit = models.IntegerField(verbose_name='time limit', default=7)
+    image = models.ImageField(upload_to='tool_img/')
     #objects = ToolManager()
 
     def is_available(self):
