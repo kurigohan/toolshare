@@ -29,13 +29,13 @@ class NotificationManager(models.Manager):
         return notification
 
 class Notification(models.Model):
-    recipient = models.ForeignKey(User, related_name="notification_recipient")
-    sender = models.ForeignKey(User, null=True, related_name="notification_sender")
+    recipient = models.ForeignKey(User, related_name="notification_received")
+    sender = models.ForeignKey(User, null=True, related_name="notification_sent")
     date = models.DateTimeField()
     notice_type = models.SmallIntegerField()
     action = models.CharField(max_length=20, blank=True)
-    tool = models.ForeignKey(Tool, null=True)
-    shed = models.ForeignKey(Shed, null=True)
+    tool = models.ForeignKey(Tool, null=True, related_name="tool_notification")
+    shed = models.ForeignKey(Shed, null=True, related_name="shed_notification")
     message = models.CharField(max_length=50, blank=True)
     is_new = models.BooleanField(default=True)
     objects = NotificationManager()

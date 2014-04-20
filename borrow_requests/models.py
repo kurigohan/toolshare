@@ -26,8 +26,8 @@ class BorrowRequest(models.Model):
     - The status field indicates if the request was approved or denied, or niether
     - When r_deleted and s_deleted are set to true, the borrow request should be deleted.    
     """
-    recipient = models.ForeignKey(User, related_name="b_request_recipient")
-    sender = models.ForeignKey(User, null=True, related_name="b_request_sender")
+    recipient = models.ForeignKey(User, related_name="request_received")
+    sender = models.ForeignKey(User, null=True, related_name="request_sent")
     tool = models.ForeignKey(Tool);
     status = models.SmallIntegerField(default=RequestStatus.PENDING)
     date = models.DateTimeField()
