@@ -27,7 +27,7 @@ class BorrowRequest(models.Model):
     - When r_deleted and s_deleted are set to true, the borrow request should be deleted.    
     """
     recipient = models.ForeignKey(User, related_name="request_received")
-    sender = models.ForeignKey(User, null=True, related_name="request_sent")
+    sender = models.ForeignKey(User, related_name="request_sent")
     tool = models.ForeignKey(Tool);
     status = models.SmallIntegerField(default=RequestStatus.PENDING)
     date = models.DateTimeField()
