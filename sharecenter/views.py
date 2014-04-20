@@ -126,7 +126,21 @@ def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
     Display tool info
     """
     tool = get_object_or_404(Tool, pk=tool_id)
-    return render(request, template_name, {'tool':tool})
+    permissions = {"borrow": False, "return":False, "delete":False, "edit":False}
+    if request.user == tool.owner:
+        permissions["edit"] = True
+        if tool.is_available(): #tool cannot be deleted if its borrowed
+            permissions["delete"] = True
+    elif tool.shed.postal_code == request.user.profile.postal_code:
+        if not tool.is_available() and tool.borrower == request.user:
+            permissions["return"] = True
+        else:
+            #check if the the user has a pending borrow request for the tool
+            has_request = (BorrowRequest.objects.filter(sender=request.user,
+                                                    status=RequestStatus.PENDING).count() > 0)
+            if not has_request:
+                permissions["borrow"] = True
+    return render(request, template_name, {'tool':tool, 'permissions':permissions})
 
 @login_required
 def my_sheds(request, template_name='sheds/my_sheds.html'):

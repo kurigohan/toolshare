@@ -10,7 +10,7 @@ def view_notifications(request, template_name="notifications/view_notifications.
     notification_list = Notification.objects.filter(recipient=request.user, 
                                                                             notice_type=NoticeType.ALERT)
     notification_list.update(is_new=False)
-    return render(request, template_name, {"notification_list":notification_list})
+    return render(request, template_name, {"notification_list": notification_list})
 
 
 @login_required
