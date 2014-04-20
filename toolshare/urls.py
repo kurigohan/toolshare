@@ -3,8 +3,8 @@ from django.views.generic import RedirectView
 from django.contrib import admin
 admin.autodiscover()
 from django.views.generic import TemplateView
-from users.forms import CustomRegistrationForm, ProfileForm, CustomPasswordChangeForm
-from users import views as UserView 
+from users.forms import CustomRegistrationForm
+from users import views as UserView
 
 urlpatterns = patterns('',
     url(r'^$', UserView.user_home, name='home'),
