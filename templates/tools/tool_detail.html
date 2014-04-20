@@ -7,7 +7,7 @@
     <h2 class="page-header">Tool <small>{{ tool.name }}</small></h2>
         <div class="row">
             <div class="col-sm-6 text-right">
-                <img class="img-rounded tool-img" alt="170x170" src="{% static 'img/toolplaceholder.png' %}">
+               <img class="img-rounded tool-img" alt="170x170" src="{% static 'img/toolplaceholder.png' %}"> 
             </div>
                 
 
@@ -75,8 +75,7 @@
                     {% endif %}
 
                    {% if permissions.edit %}
-                      <a class="btn btn-primary" href="{% url 'edit_tool' tool_id=tool.id %}"><strong>Edit</strong></a>
-                  
+                      <a class="btn btn-primary" href="{% url 'edit_tool' tool_id=tool.id %}"><strong>Edit</strong></a>                  
                       {% if permissions.delete %}
                         <a class="btn btn-primary confirm" href="{% url 'delete_tool' tool_id=tool.id %}" >
                           <strong>Delete</strong></a>

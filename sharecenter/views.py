@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
-from sharecenter.forms import ToolCreateForm
+from sharecenter.forms import ToolCreateForm, ShedCreateForm
 from sharecenter.models import Tool, Shed
 
 from notifications.models import Notification
