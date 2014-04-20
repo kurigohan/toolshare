@@ -79,7 +79,8 @@
                   
                       {% if tool.is_available %}
                       
-                        <a class="btn btn-primary" href="{% url 'delete_tool' tool_id=tool.id %}"><strong>Delete</strong></a>
+                        <a class="btn btn-primary confirm-btn" href="{% url 'delete_tool' tool_id=tool.id %}" >
+                          <strong>Delete</strong></a>
                       
                       {% endif %}
                     {% endif %}
@@ -89,4 +90,15 @@
             </div>
           </div>
 
+{% endblock %}
+
+{% block js_ready %}
+        $(".confirm-btn").click(function(e){
+          e.preventDefault();
+          bootbox.confirm("Are you sure?", function(result){
+            if(result){
+              window.location.href = "{% url 'delete_tool' tool_id=tool.id %}";
+            }
+          });
+        });
 {% endblock %}

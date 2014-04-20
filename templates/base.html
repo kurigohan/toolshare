@@ -115,19 +115,18 @@
 
         <script type="text/javascript" src="{% static 'js/jquery-1.11.0.min.js' %}"></script> 
         <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bootbox.min.js' %}"></script>
  {% block js %}{% endblock %}
         <script type="text/javascript">
-   
-      $(document).ready(function(){
-        $(".dash-btn").click( function() {
-          $("#dashboard").slideToggle()
-          $(".dash-btn").toggleClass("opened closed")
-
-
+        $(document).ready(function(){
+          $(".dash-btn").click( function() {
+            $("#dashboard").slideToggle()
+            $(".dash-btn").toggleClass("opened closed")
         });
-                  {% block js_ready %}{% endblock %}
-      });
 
+        {% block js_ready %}{% endblock %}
+      
+      });
       </script>
 
     
