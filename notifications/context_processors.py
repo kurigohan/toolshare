@@ -1,13 +1,21 @@
+from django.db.models import Q
 from notifications.models import Notification
 import notifications.NoticeType as NoticeType
 
 def notifications_new_count(request):
     if request.user.is_authenticated():
-        return {'notifications_new_count': len(Notification.objects.filter(recipient=request.user, notice_type=NoticeType.ALERT, is_new=True))}
+        notification_list = Notification.objects.filter(Q(recipient=request.user), 
+                                                Q(notice_type=NoticeType.ALERT)  | Q(notice_type=NoticeType.REQUEST), 
+                                                Q(is_new=True))
+        return {'notifications_new_count': len(notification_list)}
     else:
         return {}
 def notifications_new(request):
     if request.user.is_authenticated():
-        return {'notifications_new': Notification.objects.filter(recipient=request.user, notice_type=NoticeType.ALERT, is_new=True)}
+        notification_list = Notification.objects.filter(Q(recipient=request.user), 
+                                                Q(notice_type=NoticeType.ALERT)  | Q(notice_type=NoticeType.REQUEST), 
+                                                Q(is_new=True))
+        notification_list.filter(is_new=True)
+        return {'notifications_new': notification_list}
     else:
         return {}

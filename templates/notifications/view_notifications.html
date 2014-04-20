@@ -3,6 +3,7 @@
 {% block content %}
 {{ block.super }} 
 <h1 class="page-header">My Notifications</h1>
+{% if notification_list %}
 <table class="table table-hover sort-table">
     <thead>
         <tr>
@@ -23,6 +24,9 @@
 {% endfor %}
     </tbody>
 </table>
+{% else %}
+<div class="text-center"><h2 class="text-muted">None</h2></div>
+{% endif %}
 {% endblock %}
 
 {% block js_ready %}

@@ -58,7 +58,15 @@ class Notification(models.Model):
         """
         Returns string containing notification sender, action, tool name, and shed name
         """
-        return "%s %s %s (%s)" % (self.sender, self.action, self.tool.name, self.shed.name)
+        action = self.action
+        tool_name = shed_name = ""
+        if self.notice_type == NoticeType.REQUEST:
+            action = "sent a borrow request for"
+        if self.tool and self.shed:
+            tool_name = self.tool.name
+            shed_name = self.shed.name
+
+        return "%s %s %s (%s)" % (self.sender, action, tool_name, shed_name)
 
     def html(self):
         """
@@ -66,15 +74,15 @@ class Notification(models.Model):
         Returns empty string otherwise.
         """
         if self.notice_type != NoticeType.ACTIVITY and self.notice_type != NoticeType.SYSTEM:
-            act = self.action;
+            action = self.action;
             if self.notice_type == NoticeType.REQUEST:
-                act = "sent a %s request for"
+                action = "sent a borrow request for"
             sender_url = reverse('profiles_profile_detail', args=[self.sender.username])
             tool_url = reverse('tool_detail', args=[self.tool.id])
             shed_url = reverse('shed_detail', args=[self.shed.id])
 
             return '<a href="%s" > %s </a> %s <a href="%s">%s</a> (<a href="%s">%s</a>)' \
-                            % (sender_url, self.sender.username, act, tool_url, self.tool.name, shed_url, self.shed.name) 
+                            % (sender_url, self.sender.username, action, tool_url, self.tool.name, shed_url, self.shed.name) 
         else:
             return "";
 

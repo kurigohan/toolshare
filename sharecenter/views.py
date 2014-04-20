@@ -95,7 +95,7 @@ def borrow_tool(request, tool_id):
         Notification.objects.create(recipient=tool.owner, 
                                                         sender=request.user,
                                                         tool=tool,
-                                                        notice_type=NoticeType.ALERT,
+                                                        notice_type=NoticeType.REQUEST,
                                                         action="borrow")                            
 
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
@@ -136,7 +136,7 @@ def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
             permissions["return"] = True
         else:
             #check if the the user has a pending borrow request for the tool
-            has_request = (BorrowRequest.objects.filter(sender=request.user,
+            has_request = (BorrowRequest.objects.filter(sender=request.user, tool=tool,
                                                     status=RequestStatus.PENDING).count() > 0)
             if not has_request:
                 permissions["borrow"] = True

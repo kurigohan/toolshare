@@ -1,14 +1,13 @@
 {% extends "django_messages/messages_base.html" %} 
-{% load i18n %} 
 
 {% block content %}
-<h1 class="page-header">{% trans "Inbox" %}</h1>
+<h1 class="page-header">My Inbox</h1>
 {{block.super}}
 <div class="table-responsive">
 
 <table class="table sort-table table-hover messages">
     <thead>
-        <tr><th>{% trans "Sender" %}</th><th>{% trans "Subject" %}</th><th>{% trans "Received" %}</th><th class="{sorter: false}">{% trans "Action" %}</th></tr>
+        <tr><th>Sender</th><th>Subject</th><th>Received</th><th class="{sorter: false}">Action</th></tr>
     </thead>
     <tbody>
 {% for message in message_list %} 
@@ -21,14 +20,14 @@
             {% if message.replied %}</em>{% endif %}
             {% if message.new %}</strong>{% endif %}</td>
         <td>{{ message.sent_at|date:_("DATETIME_FORMAT") }}</td>
-        <td><a href="{% url 'messages_delete' message.id %}">{% trans "delete" %}</a></td>
+        <td><a href="{% url 'messages_delete' message.id %}">delete</a></td>
     </tr>
 {% endfor %}
     </tbody>
 </table>
 </div>
 {% if not message_list %}
-<h3 class="text-muted text-center">{% trans "No messages" %}</h3>
+<h3 class="text-muted text-center">No messages</h3>
 {% endif %}  
 
 {% if messages %}

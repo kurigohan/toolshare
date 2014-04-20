@@ -77,7 +77,7 @@ def sender_cancel_request(request, br_id):
     """
     borrow_request  = get_object_or_404(BorrowRequest, pk=br_id)
     if borrow_request.sender== request.user and borrow_request.status == RequestStatus.PENDING:
-        borrow_request.update(status=RequestStatus.CANCELED)
+        borrow_request.status = RequestStatus.CANCELED
         borrow_request.save()
         Notification.objects.create(recipient=borrow_request.recipient, 
                                                     sender=request.user,
