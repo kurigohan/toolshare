@@ -23,10 +23,10 @@
             <td>{{ br.status_str }}</td>
             <td>
                 {% if br.status == br_status.PENDING %}
-                    <a href="#" class="btn btn-primary">Approve</a>
-                    <a href="#" class="btn btn-primary">Deny</a>
+                    <a href="{% url 'approve_request' br_id=br.id %}" class="btn btn-primary">Approve</a>
+                    <a href="{% url 'deny_request' br_id=br.id %}" class="btn btn-primary">Deny</a>
                 {% else %}
-                    <a href="#" class="btn btn-primary">Delete</a>
+                    <a href="{% url 'recipient_delete_request' br_id=br.id %}" class="btn btn-primary">Delete</a>
                 {% endif %}
             </td>
         </tr>
@@ -60,9 +60,9 @@
             <td>{{ br.status_str }}</td>
             <td>
                 {% if br.status == br_status.PENDING %}
-                    <a href="#" class="btn btn-primary">Cancel</a>
+                    <a href="{% url 'cancel_request' br_id=br.id %}" class="btn btn-primary">Cancel</a>
                 {% else %}
-                    <a href="#" class="btn btn-primary">Delete</a>
+                    <a href="{% url 'sender_delete_request' br_id=br.id %}" class="btn btn-primary">Delete</a>
                 {% endif %}
             </td>
         </tr>
