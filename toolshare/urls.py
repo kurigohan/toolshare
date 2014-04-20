@@ -39,7 +39,7 @@ urlpatterns = patterns('',
     url(r'^notifications/$', NotificationView.view_notifications, name='view_notifications'),
     url(r'^notifications/delete/(?P<notification_id>\d+)/$', NotificationView.delete_notification, 
         name='delete_notification'),
-    url(r'^requests/$',  BRView.view_requests, name='view_requests'),
+    url(r'^requests/',  include('borrow_requests.urls')),
 
     )
 
