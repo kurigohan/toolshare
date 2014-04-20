@@ -49,13 +49,13 @@ class BorrowRequest(models.Model):
         """
         Convert RequestStatus constant to relevant string.
         """
-        s = "unknown"
+        s = "Unknown"
         if self.status == RequestStatus.PENDING:
-            s = "pending"
+            s = "Pending"
         elif self.status == RequestStatus.APPROVED:
-            s = "approved"
+            s = "Approved"
         elif self.status == RequestStatus.DENIED:
-            s = "denied"
+            s = "Denied"
         elif self.status == RequestStatus.CANCELED:
-            s = "canceled"
+            s = "Canceled"
         return s
