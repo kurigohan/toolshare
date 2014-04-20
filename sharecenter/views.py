@@ -86,6 +86,26 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
         return HttpResponseRedirect(url)
 
 @login_required
+def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
+    """
+    Update tool info with data from request
+    """
+    shed = get_object_or_404(Tool, pk=shed_id)
+    if request.user == shed.owner:
+        if request.method == 'POST':
+            form = ShedCreateForm(data=request.POST, instance=tool)
+            if form.is_valid:  
+                form.save()
+                url = reverse('shed_detail', kwargs={'shed_id':shed.id})
+                return HttpResponseRedirect(url)
+        else:
+            form = ToolCreateForm(instance=tool)
+        return render(request, template_name, {'form':form, 'shed':shed}) #no editing done
+    else:
+        url = reverse('shed_detail', kwargs={'shed_id':shed.id})
+        return HttpResponseRedirect(url)
+
+@login_required
 def add_tool_shed(request, sid ,template_name='tools/create_tool.html'):
     """
     Create a new tool with data from request and add it to database.
