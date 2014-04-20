@@ -55,18 +55,26 @@ class Notification(models.Model):
 
 
     def action_message(self):
+        """
+        Returns string containing notification sender, action, tool name, and shed name
+        """
         return "%s %s %s (%s)" % (self.sender, self.action, self.tool.name, self.shed.name)
 
     def html(self):
-        sender_url = reverse('profiles_profile_detail', args=[self.sender.username])
-        tool_url = reverse('tool_detail', args=[self.tool.id])
-        shed_url = reverse('shed_detail', args=[self.shed.id])
-        act = self.action;
-        if self.notice_type == NoticeType.SYSTEM:
-            return self.message
-        elif self.notice_type == NoticeType.REQUEST:
-            act = "sent a %s request for"
+        """
+        Returns string formatted with html link tags if the notice type is activity or alert.
+        Returns empty string otherwise.
+        """
+        if self.notice_type != NoticeType.ACTIVITY and self.notice_type != NoticeType.SYSTEM:
+            act = self.action;
+            if self.notice_type == NoticeType.REQUEST:
+                act = "sent a %s request for"
+            sender_url = reverse('profiles_profile_detail', args=[self.sender.username])
+            tool_url = reverse('tool_detail', args=[self.tool.id])
+            shed_url = reverse('shed_detail', args=[self.shed.id])
 
-        return '<a href="%s" > %s </a> %s <a href="%s">%s</a> (<a href="%s">%s</a>)' \
-                        % (sender_url, self.sender.username, act, tool_url, self.tool.name, shed_url, self.shed.name) 
+            return '<a href="%s" > %s </a> %s <a href="%s">%s</a> (<a href="%s">%s</a>)' \
+                            % (sender_url, self.sender.username, act, tool_url, self.tool.name, shed_url, self.shed.name) 
+        else:
+            return "";
 
