@@ -20,6 +20,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
         form = ToolCreateForm(request.POST, request.FILES)
         if form.is_valid():
             shed = request.user.shed_owned.all()[0]
+            form.clean_image()
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
