@@ -28,12 +28,11 @@ def create_tool(request, template_name='tools/create_tool.html'):
                 shed=shed
             )
             tool.save()
+            activity_msg = "added %s to %s" % (tool.name, tool.shed.name)
             Notification.objects.create(recipient=request.user, 
                                                     sender=request.user,
-                                                    tool=tool,
-                                                    shed=shed,
-                                                    notice_type=NoticeType.ALERT,
-                                                    action="created")                                        
+                                                    notice_type=NoticeType.ACTIVITY,
+                                                    message=activity_msg)                                        
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
     else: 
@@ -45,7 +44,12 @@ def create_tool(request, template_name='tools/create_tool.html'):
 def delete_tool(request, tool_id):
     tool = get_object_or_404(Tool, pk=tool_id)
     if request.user == tool.owner and tool.is_available():
+        activity_msg = "deleted %s from %s" % (tool.name, tool.shed.name)
         tool.delete()
+        Notification.objects.create(recipient=request.user, 
+                                                sender=request.user,
+                                                notice_type=NoticeType.ACTIVITY,
+                                                message=activity_msg)         
     return redirect('my_tools')
 
 
@@ -85,8 +89,6 @@ def borrow_tool(request, tool_id):
     """
     tool = get_object_or_404(Tool, pk=tool_id)
     if request.user != tool.owner and tool.is_available():
-        #tool.borrow_tool(request.user)
-        #tool.save()
         # send borrow request
         BorrowRequest.objects.create(recipient=tool.owner, sender=request.user, tool=tool)
         # send notification to tool owner
@@ -108,6 +110,13 @@ def return_tool(request, tool_id):
     if tool.borrower == request.user:
         tool.return_tool()
         tool.save()
+    # send notification to tool owner
+    Notification.objects.create(recipient=tool.owner, 
+                                            sender=request.user,
+                                            tool=tool,
+                                            notice_type=NoticeType.ALERT,
+                                            action="returned")                            
+
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
 
@@ -135,19 +144,6 @@ def shed_detail(request, shed_id, template_name='sheds/shed_detail.html'):
     shed = get_object_or_404(Shed, pk=shed_id)
     tool_list = shed.shed_tools.all()
     return render(request, template_name, {'shed':shed, 'tool_list':tool_list})
-
-#def create_shed(request, template_name='sheds/create_shed.html'):
-
-  #  if request.method == 'POST':
-    #    shed = ShedCreateForm(data=request.POST);
-      #  shed.owner = request.user.id;
-       # shed.toolLimit = request.toolLimit;
-       # shed.save();
-        #return redirect('user_home')#go to home page
-    #else:
-     #   form = ShedCreateForm()
-        
-    #return render(request, template_name, {'form': form})# no shed created
 
 @login_required
 def share_zone(request, template_name='sheds/share_zone.html'):
