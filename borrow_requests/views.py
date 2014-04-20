@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from sharecenter.models import Tool, Shed
 from notifications.models import Notification
 from borrow_requests.models import BorrowRequest
@@ -13,8 +14,8 @@ def view_requests(request, template_name="borrow_requests/view_requests.html"):
     """
     View received and sent borrow requests
     """
-    br_sent = BorrowRequest.objects.filter(sender=request.user.id)
-    br_received = BorrowRequest.objects.filter(recipient=request.user.id)
+    br_sent = request.user.request_sent.all().exclude(s_deleted=True)
+    br_received = request.user.request_received.all().exclude(r_deleted=True)
 
     return render(request, template_name, {'recipient_request_list':br_received, 'sender_request_list': br_sent})
 
@@ -37,7 +38,7 @@ def approve_borrow_request(request, br_id):
                                                         tool=tool,
                                                         notice_type=NoticeType.REQUEST,
                                                         action="approved") 
-            borrow_request.update(status=RequestStatus.APPROVED)
+            borrow_request.status = RequestStatus.APPROVED
             borrow_request.save()
         else:
             messages.error(request, 'Request could not be approved.')  
@@ -63,7 +64,7 @@ def deny_borrow_request(request, br_id):
                                                         tool=tool,
                                                         notice_type=NoticeType.REQUEST,
                                                         action="denied") 
-            borrow_request.update(status=RequestStatus.DENIED)
+            borrow_request.status = RequestStatus.DENIED
             borrow_request.save()
         else:
             messages.error(request, 'Request could not be denied.')  
@@ -95,11 +96,11 @@ def delete_sender_request(request, br_id):
     deleted. 
     """
     borrow_request  = get_object_or_404(BorrowRequest, pk=br_id)
-    if borrow_request.recipient == request.user:
+    if borrow_request.sender == request.user:
         if borrow_request.r_deleted:
             borrow_request.delete()
         else:
-            borrow_request.update(s_deleted=True)
+            borrow_request.s_deleted = True
             borrow_request.save()
     else:
         messages.error(request, 'Request could not be deleted.')  
@@ -117,7 +118,7 @@ def delete_recipient_request(request, br_id):
         if borrow_request.s_deleted:
             borrow_request.delete()
         else:
-            borrow_request.update(r_deleted=True)
+            borrow_request.r_deleted = True
             borrow_request.save()
     else:
         messages.error(request, 'Request could not be deleted.')  
