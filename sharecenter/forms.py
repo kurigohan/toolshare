@@ -38,12 +38,12 @@ class ToolCreateForm(ModelForm):
         model = Tool
         fields = ('name', 'category', 'description')
 
-    def clean_image(self):
-        content = self.cleaned_data.get('image')
-        content_type = content.content_type.split('/')[0]
-        if content_type in settings.CONTENT_TYPES:
-            if content._size > settings.MAX_UPLOAD_SIZE:
-                raise forms.ValidationError(('File size must be under %s. Current filesize %s') % (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(content._size)))
-        else:
-            raise forms.ValidationError('File type is not supported')
-        return content
+#    def clean_image(self):
+  #      content = self.cleaned_data.get('image')
+    #    content_type = content.content_type.split('/')[0]
+      #  if content_type in settings.CONTENT_TYPES:
+        #    if content._size > settings.MAX_UPLOAD_SIZE:
+          #      raise forms.ValidationError(('File size must be under %s. Current filesize %s') % (filesizeformat(settings.MAX_UPLOAD_SIZE), filesizeformat(content._size)))
+        #else:
+          #  raise forms.ValidationError('File type is not supported')
+        #return content
