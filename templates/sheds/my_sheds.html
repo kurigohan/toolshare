@@ -12,24 +12,23 @@
 
 {% block content %}
 <h1 class="page-header">My Sheds</h1>
- <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-              <span class="navbar-brand no-click">Shed Management</span>
-                <ul class="nav navbar-nav navbar-right">
-                  <li><a href="{% url 'create_shed' %}"><strong>Create Shed</strong></a></li>
-                </ul>
-
-            </div>
-          </nav> 
 <div class="row">
-    {% for shed in shed_list %}
+<a class="btn btn-primary confirm" href="{% url 'create_shed' %}"><strong>Create</strong></a>
+    <table>  <tbody><col span ="1">
+    {% for shed in shed_list %}<br><tr></tr><tr><td>
     <a class="no-color" href="{% url 'shed_detail' shed_id=shed.id %}">
-        <div class="col-sm-6 shed-tile div-border">
-            <div class="col-md-6 right-align">
+       
+        
+          <br>
+           
+              
                 <img class="img-rounded shed-img" alt="shed thumbnail" src="{% static 'img/shedplaceholder.png' %}">
-            </div>
-            <div class="col-md-6">
-                <table>
+              
+            
+         <br></td>
+            
+                </tr>
+                 <tr><td><table>
                     <tr><td>
       
                          <table class="table no-border table-condensed">
@@ -60,12 +59,12 @@
                                     <td>{{shed.borrow_count}}</td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table></td></tr>
                    
-            </div>
-        </div>
+            
+        
     </a>
-    {% endfor %}
+    {% endfor %}</col></tbody></table>
 </div>
 
 
@@ -87,6 +86,3 @@
 
 </script>
 {% endblock %}
-
-
-
