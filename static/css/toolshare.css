@@ -157,18 +157,22 @@ ul.shed-detail{
 }*/
 
 
-.btn, .btn-primary {
+.btn-primary {
   background-color: #8a6dcd;
   border-color: #8a6dcd;
 }
 
- 
-.btn:hover{
+.btn-primary:hover{
   background-color: #665098;
   color: #FFF !important;
 }
 
+.modal-footer button.btn-primary{
+    background-color: #8a6dcd !important;
+    color: #FFF !important;
+}
 
+/* Input box outline */
 textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
     border-color: rgba(138, 109, 205, 0.8);
     box-shadow: 0 1px 1px rgba(138, 109, 205, 0.075) inset, 0 0 8px rgba(138, 109, 205, 0.6);
