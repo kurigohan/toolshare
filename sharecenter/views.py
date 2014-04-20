@@ -86,7 +86,7 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
         return HttpResponseRedirect(url)
 
 @login_required
-def edit_tool(request, shed_id, template_name='sheds/edit_shed.html'):
+def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
     """
     Update tool info with data from request
     """
