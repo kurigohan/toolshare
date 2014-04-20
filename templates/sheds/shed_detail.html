@@ -43,9 +43,16 @@
             </tr>
             </tbody>
         </table>
-        {% if shed.owner == user and shed.share_count == 0 %}
-        <a class="btn btn-primary confirm" href="{% url 'delete_shed' shed_id=shed.id %}" >
-        <strong>Delete</strong></a>
+        {% if shed.owner == user and shed.share_count == 0 and shed.borrow_count==0 %}
+       
+ <a class="btn btn-primary confirm" href="{% url 'delete_shed' shed_id=shed.id %}" >
+                          <strong>Delete</strong></a>
+{% endif %}
+{% if shed.owner == user %}
+ <align=RIGHT>
+ <a class="btn btn-primary confirm" href="{% url 'add_tool_shed' sid=shed.id %}" >
+                          <strong>Add Tool</strong></a> </align> 
+
         {% endif %}
     </div>
  </div>

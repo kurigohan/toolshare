@@ -42,6 +42,37 @@ def create_tool(request, template_name='tools/create_tool.html'):
 
     return render(request, template_name, {'form': form})
 
+
+
+@login_required
+def add_tool_shed(request, sid ,template_name='tools/create_tool.html'):
+    """
+    Create a new tool with data from request and add it to database.
+    """
+    shed = get_object_or_404(Shed, pk=sid)
+    if request.method == 'POST':
+        form = ToolCreateForm(data=request.POST)
+        if form.is_valid():
+            tool = Tool(
+                name=form.cleaned_data['name'],
+                category=form.cleaned_data['category'],
+                description=form.cleaned_data['description'],
+                owner=request.user,
+                shed=shed
+            )
+            tool.save()
+            activity_msg = "added %s to %s" % (tool.name, tool.shed.name)
+            Notification.objects.create(recipient=request.user, 
+                                                    sender=request.user,
+                                                    notice_type=NoticeType.ACTIVITY,
+                                                    message=activity_msg)                                        
+            url = reverse('tool_detail', kwargs={'tool_id':tool.id})
+            return HttpResponseRedirect(url)
+    else: 
+        form = ToolCreateForm()
+
+
+
 @login_required
 def delete_tool(request, tool_id):
     tool = get_object_or_404(Tool, pk=tool_id)
@@ -192,6 +223,8 @@ def create_shed(request, template_name='sheds/create_shed.html'):
 def delete_shed(request, shed_id):
     shed = get_object_or_404(Shed, pk=shed_id)
     if request.user == shed.owner and shed.share_count() == 0 and request.user.shed_owned.all().count() > 1:
+        for tool in shed.shed_tools.all():
+            tool.delete();
         shed.delete();
         activity_msg = "deleted %s" % (shed.name,)
         Notification.objects.create(recipient=request.user, 
