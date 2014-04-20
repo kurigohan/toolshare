@@ -86,6 +86,33 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
         return HttpResponseRedirect(url)
 
 @login_required
+def add_tool_shed(request, sid ,template_name='tools/create_tool.html'):
+    """
+    Create a new tool with data from request and add it to database.
+    """
+    shed = get_object_or_404(Shed, pk=sid)
+    if request.method == 'POST':
+        form = ToolCreateForm(data=request.POST)
+        if form.is_valid():
+            tool = Tool(
+                name=form.cleaned_data['name'],
+                category=form.cleaned_data['category'],
+                description=form.cleaned_data['description'],
+                owner=request.user,
+                shed=shed
+            )
+            tool.save()
+            activity_msg = "added %s to %s" % (tool.name, tool.shed.name)
+            Notification.objects.create(recipient=request.user, 
+                                                    sender=request.user,
+                                                    notice_type=NoticeType.ACTIVITY,
+                                                    message=activity_msg)                                        
+            url = reverse('tool_detail', kwargs={'tool_id':tool.id})
+            return HttpResponseRedirect(url)
+    else: 
+        form = ToolCreateForm()
+
+@login_required
 def borrow_tool(request, tool_id):
     """
     Set selected tool as borrowed
