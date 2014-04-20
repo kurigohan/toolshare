@@ -162,6 +162,45 @@ def shed_detail(request, shed_id, template_name='sheds/shed_detail.html'):
     return render(request, template_name, {'shed':shed, 'tool_list':tool_list})
 
 @login_required
+def create_shed(request, template_name='sheds/create_shed.html'):
+    """
+    Create a new shed with data from request and add it to database.
+    """
+    
+    if request.method == 'POST':
+        form = ShedCreateForm(data=request.POST)
+        if form.is_valid():
+            shed = Shed(
+                name=form.cleaned_data['name'],
+                street=form.cleaned_data['street'],
+                state=form.cleaned_data['state'],
+                postal_code = form.cleaned_data['postal_code'],
+                owner=request.user,
+                
+            )
+            shed.save()
+                            
+            url = reverse('shed_detail', kwargs={'shed_id':shed.id})
+            return HttpResponseRedirect(url)
+    else: 
+        form = ShedCreateForm()
+
+    return render(request, template_name, {'form': form})
+
+
+@login_required
+def delete_shed(request, shed_id):
+    shed = get_object_or_404(Shed, pk=shed_id)
+    if request.user == shed.owner and shed.share_count() == 0 and request.user.shed_owned.all().count() > 1:
+        shed.delete();
+        activity_msg = "deleted %s" % (shed.name,)
+        Notification.objects.create(recipient=request.user, 
+                                                sender=request.user,
+                                                notice_type=NoticeType.ACTIVITY,
+                                                message=activity_msg)
+    return redirect('my_sheds')
+
+@login_required
 def share_zone(request, template_name='sheds/share_zone.html'):
     """
     Display table with all sheds in share zone

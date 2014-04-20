@@ -17,10 +17,15 @@ class Shed(models.Model):
 
          
     def share_count(self):
-        #return number of tools used
+        """
+        Returns number of tools in the shed
+        """
         return self.shed_tools.all().count()
 
     def borrow_count(self):
+        """
+        Returns number of tools in the shed are being borrowed
+        """
         return self.shed_tools.all().exclude(borrower=None).count()
 
     def location(self):

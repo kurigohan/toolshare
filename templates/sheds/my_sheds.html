@@ -12,6 +12,15 @@
 
 {% block content %}
 <h1 class="page-header">My Sheds</h1>
+ <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+              <span class="navbar-brand no-click">Shed Management</span>
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="{% url 'create_shed' %}"><strong>Create Shed</strong></a></li>
+                </ul>
+
+            </div>
+          </nav> 
 <div class="row">
     {% for shed in shed_list %}
     <a class="no-color" href="{% url 'shed_detail' shed_id=shed.id %}">
