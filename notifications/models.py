@@ -8,7 +8,7 @@ import notifications.NoticeType as NoticeType
 class NotificationManager(models.Manager):
     def notification_count(self, user):
         return len(self.notifications_for(user))
-    def create(self, notice_type, recipient, action=None, sender=None, 
+    def create(self, notice_type, recipient, action="", sender=None, 
                                     tool=None, shed=None, message="", date=None):
         if not date: # set date to current datetime if none provided
             date = timezone.now()
