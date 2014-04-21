@@ -1,5 +1,5 @@
 from profiles.models import UserProfile
-from sharecenter.models import Shed
+from sharecenter.models import Shed, Stats
 
 def user_registered_callback(sender, user, request, **kwargs):
     """
@@ -15,4 +15,7 @@ def user_registered_callback(sender, user, request, **kwargs):
         )
     shed.save()
     profile = UserProfile(user=user, home_shed=shed)
+    stats = Stats()
+    stats.save()
+    profile.stats = stats
     profile.save()

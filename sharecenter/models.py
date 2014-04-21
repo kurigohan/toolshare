@@ -93,3 +93,16 @@ class Tool(models.Model):
         if len(descrip) > 30:
             descrip = descrip[:30] + "..." 
         return descrip
+
+
+class Stats(models.Model):
+    """
+    The Stats class is associated with a User and tracks
+    a number of statistic values of the User.
+    Current stats tracked:
+        Tools borrow - How many tools has the User borrowed total
+        Tools shared - How many tools has the User shared total
+    """
+    total_borrowed = models.IntegerField(default = 0)
+    total_shared = models.IntegerField(default = 0)
+    

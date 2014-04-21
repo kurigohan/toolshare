@@ -10,17 +10,37 @@
 
 {% block content %}
 {{block.super}}
-<h1 class="page-header">Share Zone </h1>
+<h1 class="page-header">Share Zone <small class="text-muted">{{user.profile.home_shed.postal_code}}</small> </h1>
               
    <nav class="navbar navbar-default" role="navigation">
+
+      	<span class="navbar-brand">
+      	Statistics:
+      	</span>
+   	<span class="navbar-brand">
+   		
+   		<small>Most Active Borrower: 
+		<a href="{% url 'profiles_profile_detail' username=stats.most_active_borrower.user.username %}">
+   		{{ stats.most_active_borrower.user.username }}
+   		</a>
+   		</small>
+   		
+   	</span>
+   	<span class="navbar-brand">
+   		
+   		<small> Most Active Lender: 
+		<a href="{% url 'profiles_profile_detail' username=stats.most_active_lender.user.username %}">
+   		{{ stats.most_active_lender.user.username }}
+		</a>
+   		</small>
+   	</span>
             <div class="container-fluid">
                 <form class="navbar-form navbar-right" action role="search" method="get">
- 
                   <div class="form-group">
-                    <input type="text" class="form-control" id="id_term" maxlength="30" name="term" placeholder="Search">
+                    <input type="text" class="form-control" id="id_q" maxlength="30" name="q" placeholder="Search">
                   </div>
                   <input type="submit" class="btn btn-default" value="Submit">
-                   <a href="#" class="btn btn-default clear-search">Clear</a>
+                  <a href="#" class="btn btn-default clear-search">Clear</a>
                 </form>
 
             </div>

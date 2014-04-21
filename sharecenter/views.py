@@ -13,6 +13,8 @@ import notifications.NoticeType as NoticeType
 from borrow_requests.models import BorrowRequest
 import borrow_requests.RequestStatus as RequestStatus
 
+from profiles.models import UserProfile
+
 @login_required
 def create_tool(request, template_name='tools/create_tool.html'):
     """
@@ -40,7 +42,10 @@ def create_tool(request, template_name='tools/create_tool.html'):
             Notification.objects.create(recipient=request.user, 
                                                     sender=request.user,
                                                     notice_type=NoticeType.ACTIVITY,
-                                                    message=activity_msg)                                        
+                                                    message=activity_msg)
+            request.user.profile.stats.total_borrowed += 1
+            request.user.profile.stats.save()                                        
+            
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
     else: 
@@ -140,7 +145,8 @@ def borrow_tool(request, tool_id):
                                                         tool=tool,
                                                         notice_type=NoticeType.REQUEST,
                                                         action="borrow")                            
-
+        request.user.profile.stats.total_borrowed += 1
+        request.user.profile.stats.save()
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
 
@@ -272,22 +278,6 @@ def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
 
 
 @login_required
-def share_zone(request, template_name='sheds/share_zone.html'):
-    """
-    Display table with all sheds in share zone
-    """
-    shed_list = Shed.objects.filter(postal_code=request.user.profile.postal_code)
-    qset = Tool.objects.none()
-    for shed in shed_list:
-        qset = qset | shed.shed_tools.all()
-    if request.method == 'GET' and 'q' in request.GET:
-        search_term = request.GET.get('term', False)
-        qset = qset.filter(Q(name__icontains=search_term))
-    return render(request, template_name, {'results':qset})#{'shed_list':shed_list})
-
-
-
-@login_required
 def set_home_shed(request, shed_id):
     shed = get_object_or_404(Shed, pk=shed_id)
     if request.user == shed.owner:
@@ -296,5 +286,32 @@ def set_home_shed(request, shed_id):
     url = reverse('shed_detail', kwargs={'shed_id':shed.id})
     return HttpResponseRedirect(url)
 
+@login_required
+def share_zone(request, template_name='community/share_zone.html'):
+    """
+    Display table with all sheds in share zone
+    """
 
+    results = Tool.objects.filter(shed__postal_code=request.user.profile.postal_code)
+  #  if request.method == 'GET' and 'q' in request.GET:
+    if request.method == 'GET' and 'q' in request.GET:
+        search_term = request.GET.get('q', False)
+        results = results.filter(Q(name__icontains=search_term))
+    stats = get_community_stats( request.user )
+    return render(request, template_name, {'results':results, 'stats':stats})
 
+def get_community_stats( user ):
+    """
+    Returns the profile of the most active borrower and lender for the user's share zone
+    """
+    profile_list = UserProfile.objects.filter(home_shed__postal_code=user.profile.postal_code)
+    most_active_borrower = profile_list[0]
+    most_active_lender = profile_list[0]
+    for p in profile_list:
+        if p.stats.total_borrowed > most_active_borrower.stats.total_borrowed:
+            most_active_borrower = p
+        if p.stats.total_shared > most_active_lender.stats.total_shared:
+            most_active_lender = p
+    stats = { 'most_active_borrower' : most_active_borrower, 'most_active_lender': 
+                                                                                most_active_lender }
+    return stats

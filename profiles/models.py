@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from sharecenter.models import Shed
+from sharecenter.models import Shed, Stats
 
 class UserProfile(models.Model):
     """
@@ -11,6 +11,7 @@ class UserProfile(models.Model):
 #    postal_code = models.CharField(verbose_name='postal code', max_length=10)
     home_shed = models.OneToOneField(Shed)
     avatar = models.ImageField(upload_to='avatar/', null=True, blank=True)
+    stats = models.OneToOneField(Stats, related_name='user_stats')
 
     def __unicode__(self):
         return self.user.username + ' (' + self.user.email + ')'
