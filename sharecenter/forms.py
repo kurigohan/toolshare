@@ -19,7 +19,7 @@ class ShedForm(ModelForm):
                                             widget=forms.Select(attrs={'class':'form-control',}, ),)
     postal_code = forms.CharField(label='Postal Code', max_length=30, 
                                             widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),)
-    image = forms.FileField()
+    image = forms.FileField(widget=forms.FileInput)
 
     class Meta: 
         model = Shed 
@@ -55,7 +55,7 @@ class ToolForm(ModelForm):
     category = forms.ChoiceField(choices=categories, 
                                                     widget=forms.Select(attrs={'class':'form-control',} ),)
     
-    image = forms.FileField()
+    image = forms.FileField(widget=forms.FileInput)
 
     class Meta:
         model = Tool
