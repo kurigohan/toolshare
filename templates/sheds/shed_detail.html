@@ -45,7 +45,7 @@
         </table>
 
 {% if permissions.add_tool %}
-     <a class="btn btn-primary confirm" href="{% url 'add_tool_shed' shed_id=shed.id %}" >
+     <a class="btn btn-primary confirm" href="{% url 'create_tool_to_shed' shed_id=shed.id %}" >
         <strong>Add Tool</strong>
     </a> 
 {% endif %}

@@ -23,6 +23,8 @@ def create_tool(request, template_name='tools/create_tool.html'):
           #  shed = request.user.shed_owned.all()[0]
             if not form.cleaned_data['image']:
                 image=None;
+            else:
+                image=form.cleaned_data['image']
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
@@ -89,20 +91,25 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
 
 
 @login_required
-def add_tool_shed(request, sid ,template_name='tools/create_tool.html'):
+def create_tool_to_shed(request, shed_id ,template_name='tools/create_tool.html'):
     """
-    Create a new tool with data from request and add it to database.
+    Create a new tool with the specified shed selected by default in the form.
     """
-    shed = get_object_or_404(Shed, pk=sid)
+    shed = get_object_or_404(Shed, pk=shed_id)
     if request.method == 'POST':
         form = ToolForm(data=request.POST)
+        if not form.cleaned_data['image']:
+            image=None;
+        else:
+            image=form.cleaned_data['image']
         if form.is_valid():
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
                 description=form.cleaned_data['description'],
                 owner=request.user,
-                shed=shed
+                shed=shed,
+                image=image,
             )
             tool.save()
             activity_msg = "added %s to %s" % (tool.name, tool.shed.name)
@@ -113,7 +120,8 @@ def add_tool_shed(request, sid ,template_name='tools/create_tool.html'):
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
     else: 
-        form = ToolForm()
+        form = ToolForm(user=request.user, initial={'shed':shed})
+    return render(request, template_name, {'form': form})
 
 @login_required
 def borrow_tool(request, tool_id):
