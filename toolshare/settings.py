@@ -19,7 +19,7 @@ TEMPLATE_DIRS = (
 MEDIA_ROOT = BASE_DIR + '/media/'
 MEDIA_URL = '/media/'
 
-CONTENT_TYPES = ['image',]
+CONTENT_TYPES = ['image','jpg']
 # 2.5MB - 2621440
 # 5MB - 5242880
 # 10MB - 10485760
