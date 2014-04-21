@@ -26,13 +26,7 @@
                   </a>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
                     {% for notification in notifications_new%}
-                    {% if notification.notice_type == notice_type.ALERT %}
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'view_notifications' %}"> {{ notification.action_message }}</a></li>
-                    {% else %}
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'view_requests' %}"> {{ notification.action_message }}</a></li>
-
-                    {% endif %}
-
                     {% endfor %}
                   </ul>
                 {% else %}
