@@ -3,6 +3,7 @@ toolshare
 
 Team 4 Toolshare Project SE261
 by: Andy Nguyen, Raymond Bremmer, Cody Tinker, Arron Reed, Ransom Quinn
+Test liason: Andy - agn3691@rit.edu
 
 Required:
 Django 1.6.x
