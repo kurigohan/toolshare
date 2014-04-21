@@ -1,9 +1,9 @@
 #Constant names for tool categories
 
 STRIKING = 'Striking Tools'
-SCREWDRIVERS = 'Screwdrivers'
-WRENCHES = 'Wrenches'
+SCREWDRIVER = 'Screwdrivers'
+WRENCH = 'Wrenches'
 CUTTING = 'Cutting Tools'
-DRILLS = 'Drills'
-SAWS = 'Saws'
+DRILL = 'Drills'
+SAW = 'Saws'
 OTHER = 'Other'

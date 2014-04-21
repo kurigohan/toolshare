@@ -29,21 +29,36 @@ class ShedForm(ModelForm):
         model = Shed 
         fields = ('name', 'street', 'city', 'state', 'postal_code')
 
+import sharecenter.Categories as Category
 class ToolForm(ModelForm):
     """
     Form for editting account info.
     """
+    categories = (
+            (Category.STRIKING, Category.STRIKING),
+            (Category.SCREWDRIVER, Category.SCREWDRIVER),
+            (Category.WRENCH, Category.WRENCH),
+            (Category.CUTTING, Category.CUTTING),
+            (Category.DRILL, Category.DRILL),
+            (Category.SAW, Category.SAW),
+            (Category.OTHER, Category.OTHER),
+        )
+
     name = forms.CharField(label='Name', max_length=30, 
                                             widget=forms.TextInput(attrs={'class':'form-control form-group input-single',}),
                                             error_messages={'required': 'No tool name entered.'})
-    category = forms.CharField(label='Category', max_length=30, 
-                                                widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
-                                                error_messages={'required': 'No category was entered.'})
+    #category = forms.CharField(label='Category', max_length=30, 
+      #                                          widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
+        #                                        error_messages={'required': 'No category was entered.'})
+
     description = forms.CharField(label='Description', max_length=250, 
                                                     widget=forms.TextInput(attrs={'class':'form-control form-group input-single',} ),
                                                     error_messages={'required': 'No description was entered.'})
+    category = forms.ChoiceField(choices=categories, 
+                                                    widget=forms.Select(attrs={'class':'form-control',} ),
+                                                    error_messages={'required': 'No category was entered.'})
     image = forms.ImageField()
 
     class Meta:
         model = Tool
-        fields = ('name', 'category', 'description')
+        fields = ('name', 'description', 'category')
