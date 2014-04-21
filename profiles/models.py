@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from sharecenter.models import Shed
 
 class UserProfile(models.Model):
     """
@@ -7,7 +8,9 @@ class UserProfile(models.Model):
     about the user.
     """
     user = models.OneToOneField(User, related_name='profile') # Each User can have only 1 UserProfile
-    postal_code = models.CharField(verbose_name='postal code', max_length=10)
+#    postal_code = models.CharField(verbose_name='postal code', max_length=10)
+    home_shed = models.OneToOneField(Shed)
+    avatar = models.ImageField(upload_to='avatar/', null=True, blank=True)
 
     def __unicode__(self):
         return self.user.username + ' (' + self.user.email + ')'
@@ -17,10 +20,15 @@ class UserProfile(models.Model):
         return ('profiles_profile_detail', (), { 'username': self.user.username })
     get_absolute_url = models.permalink(get_absolute_url)
 
+    @property
+    def postal_code(self):
+        return self.home_shed.postal_code
+    @postal_code.setter
+    def postal_code(self, value):
+        self.home_shed.postal_code = value
+        self.home_shed.save()
+    
 
-#    class Meta:
-      #  app_label = 'toolshare'
-        
 
 from registration.signals import user_registered
 from users.signals import user_registered_callback

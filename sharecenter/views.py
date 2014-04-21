@@ -17,17 +17,19 @@ def create_tool(request, template_name='tools/create_tool.html'):
     Create a new tool with data from request and add it to database.
     """
     if request.method == 'POST':
-        form = ToolForm(request.POST, request.FILES)
+        form = ToolForm(request.user, request.POST, request.FILES)
         if form.is_valid():
          #   form.clean_image()
-            shed = request.user.shed_owned.all()[0]
+          #  shed = request.user.shed_owned.all()[0]
+            if not form.cleaned_data['image']:
+                image=None;
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
                 description=form.cleaned_data['description'],
                 owner=request.user,
-                shed=shed,
-                image=request.FILES['image']
+                shed=form.cleaned_data['shed'],
+                image=image
             )
             tool.save()
             activity_msg = "added %s to %s" % (tool.name, tool.shed.name)
@@ -38,7 +40,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
     else: 
-        form = ToolForm()
+        form = ToolForm(request.user)
 
     return render(request, template_name, {'form': form})
 
@@ -84,25 +86,7 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
         url = reverse('tool_detail', kwargs={'tool_id':tool.id})
         return HttpResponseRedirect(url)
 
-@login_required
-def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
-    """
-    Update tool info with data from request
-    """
-    shed = get_object_or_404(Tool, pk=shed_id)
-    if request.user == shed.owner:
-        if request.method == 'POST':
-            form = ShedForm(data=request.POST, instance=tool)
-            if form.is_valid:  
-                form.save()
-                url = reverse('shed_detail', kwargs={'shed_id':shed.id})
-                return HttpResponseRedirect(url)
-        else:
-            form = ShedForm(instance=tool)
-        return render(request, template_name, {'form':form, 'shed':shed}) #no editing done
-    else:
-        url = reverse('shed_detail', kwargs={'shed_id':shed.id})
-        return HttpResponseRedirect(url)
+
 
 @login_required
 def add_tool_shed(request, sid ,template_name='tools/create_tool.html'):
@@ -206,11 +190,14 @@ def shed_detail(request, shed_id, template_name='sheds/shed_detail.html'):
     """
     shed = get_object_or_404(Shed, pk=shed_id)
     tool_list = shed.shed_tools.all()
-    permissions = {'delete':False, 'edit':False, 'add_tool':False}
+    permissions = {'delete':False, 'edit':False, 'add_tool':False, 'set_home':False}
     if request.user == shed.owner:
         permissions['edit'] = permissions['add_tool'] = True
+        if request.user.profile.home_shed != shed:
+            permissions['set_home'] = True
         if shed.share_count() == 0 and request.user.shed_owned.all().count() > 1:
             permissions['delete'] = True
+
     return render(request, template_name, {'shed':shed, 'tool_list':tool_list, 'permissions':permissions})
 
 @login_required
@@ -235,7 +222,7 @@ def create_shed(request, template_name='sheds/create_shed.html'):
             url = reverse('shed_detail', kwargs={'shed_id':shed.id})
             return HttpResponseRedirect(url)
     else: 
-        form = ShedForm()
+        form = ShedForm(initial={'state':'NY'})
 
     return render(request, template_name, {'form': form})
 
@@ -254,6 +241,26 @@ def delete_shed(request, shed_id):
     return redirect('my_sheds')
 
 @login_required
+def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
+    """
+    Update shed info with data from request
+    """
+    shed = get_object_or_404(Shed, pk=shed_id)
+    if request.user == shed.owner:
+        if request.method == 'POST':
+            form = ShedForm(data=request.POST, instance=shed)
+            if form.is_valid:  
+                form.save()
+                url = reverse('shed_detail', kwargs={'shed_id':shed.id})
+                return HttpResponseRedirect(url)
+        else:
+            form = ShedForm(instance=shed)
+        return render(request, template_name, {'form':form, 'shed':shed}) #no editing done
+    else:
+        url = reverse('shed_detail', kwargs={'shed_id':shed.id})
+        return HttpResponseRedirect(url)
+
+@login_required
 def share_zone(request, template_name='sheds/share_zone.html'):
     """
     Display table with all sheds in share zone
@@ -263,4 +270,11 @@ def share_zone(request, template_name='sheds/share_zone.html'):
 
 
 
-
+@login_required
+def set_home_shed(request, shed_id):
+    shed = get_object_or_404(Shed, pk=shed_id)
+    if request.user == shed.owner:
+        request.user.profile.home_shed = shed
+        request.user.profile.save()
+    url = reverse('shed_detail', kwargs={'shed_id':shed.id})
+    return HttpResponseRedirect(url)

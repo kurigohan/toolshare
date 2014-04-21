@@ -6,10 +6,12 @@ from django.template.defaultfilters import filesizeformat
 from django.conf import settings
 
 
+import sharecenter.US_States as S
 class ShedForm(ModelForm):
     """
     Form for editing shed, meta for current model
     """
+    states = S.US_STATES
     name = forms.CharField(label='Shed Name', max_length=30, 
                                             widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
                                             error_messages={'required': 'No name was entered.'})
@@ -19,15 +21,22 @@ class ShedForm(ModelForm):
     city = forms.CharField(label='City', max_length=30, 
                                             widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
                                             error_messages={'required': 'No city was entered.'})
-    state = forms.CharField(label='State', max_length=30, 
-                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
-                                            error_messages={'required': 'No state was entered.'})
+    state = forms.ChoiceField(choices=states, 
+                                            widget=forms.Select(attrs={'class':'form-control',}, ),
+                                            error_messages={'required': 'No state was selected.'})
     postal_code = forms.CharField(label='Postal Code', max_length=30, 
                                             widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
                                             error_messages={'required': 'No postal code was entered.'})
     class Meta: 
         model = Shed 
         fields = ('name', 'street', 'city', 'state', 'postal_code')
+
+    def __init__(self, *args, **kwargs):
+        super(ShedForm, self).__init__(*args, **kwargs)
+        self.fields['street'].required = False
+        self.fields['city'].required = False
+        self.fields['state'].required = False
+
 
 import sharecenter.Categories as Category
 class ToolForm(ModelForm):
@@ -47,18 +56,22 @@ class ToolForm(ModelForm):
     name = forms.CharField(label='Name', max_length=30, 
                                             widget=forms.TextInput(attrs={'class':'form-control form-group input-single',}),
                                             error_messages={'required': 'No tool name entered.'})
-    #category = forms.CharField(label='Category', max_length=30, 
-      #                                          widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
-        #                                        error_messages={'required': 'No category was entered.'})
-
     description = forms.CharField(label='Description', max_length=250, 
                                                     widget=forms.TextInput(attrs={'class':'form-control form-group input-single',} ),
                                                     error_messages={'required': 'No description was entered.'})
     category = forms.ChoiceField(choices=categories, 
                                                     widget=forms.Select(attrs={'class':'form-control',} ),
-                                                    error_messages={'required': 'No category was entered.'})
+                                                    error_messages={'required': 'No category was selected.'})
+    
     image = forms.ImageField()
 
     class Meta:
         model = Tool
-        fields = ('name', 'description', 'category')
+        fields = ('name', 'description', 'category', 'shed', 'image')
+
+    def __init__(self,  user, *args, **kwargs):
+        super(ToolForm, self).__init__(*args, **kwargs)
+        self.fields['shed'] = forms.ModelChoiceField(queryset=Shed.objects.filter(owner=user), 
+                                                    widget=forms.Select(attrs={'class':'form-control',} ),
+                                                    error_messages={'required': 'No shed was selected.'})
+        self.fields['image'].required = False

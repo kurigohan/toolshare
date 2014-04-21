@@ -6,9 +6,15 @@ class CustomRegistrationForm(RegistrationFormUniqueEmail):
     RegistrationForm with additional fields 
     """
 
-    first_name = forms.CharField(label="First Name", max_length=30, error_messages={'required': 'No first name entered'}, widget=forms.TextInput(attrs={'class':'form-control input-inline'}))
-    last_name = forms.CharField(label="Last Name", max_length=30, error_messages={'required': 'No last name entered'}, widget=forms.TextInput(attrs={'class':'form-control input-inline'}))
-    postal_code = forms.CharField(label="Postal Code", max_length=10, error_messages={'required': 'No postal code entered'}, widget=forms.TextInput(attrs={'class':'form-control'}))
+    first_name = forms.CharField(label="First Name", max_length=30, 
+                                                error_messages={'required': 'No first name entered'}, 
+                                                widget=forms.TextInput(attrs={'class':'form-control input-inline'}))
+    last_name = forms.CharField(label="Last Name", max_length=30, 
+                                                error_messages={'required': 'No last name entered'}, 
+                                                    widget=forms.TextInput(attrs={'class':'form-control input-inline'}))
+    postal_code = forms.CharField(label="Postal Code", max_length=10, 
+                                                error_messages={'required': 'No postal code entered'}, 
+                                                widget=forms.TextInput(attrs={'class':'form-control'}))
 
 
 from django.db import models
@@ -26,7 +32,7 @@ class AccountForm(forms.Form):
     first_name = forms.CharField(label='First Name', max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
     last_name = forms.CharField(label='Last Name', max_length=30, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label='E-Mail', max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    postal_code = forms.CharField(label = "Postal Code", max_length=10, widget=forms.TextInput(attrs={'class': 'form-control'}))
+ #   postal_code = forms.CharField(label = "Postal Code", max_length=10, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
 #   def clean_email(self):
    #     if User.objects.filter(email__iexact=self.cleaned_data['email']):

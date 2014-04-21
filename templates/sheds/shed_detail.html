@@ -45,7 +45,7 @@
         </table>
 
 {% if permissions.add_tool %}
-     <a class="btn btn-primary confirm" href="{% url 'add_tool_shed' sid=shed.id %}" >
+     <a class="btn btn-primary confirm" href="{% url 'add_tool_shed' shed_id=shed.id %}" >
         <strong>Add Tool</strong>
     </a> 
 {% endif %}
@@ -59,6 +59,12 @@
 {% if permissions.delete %}       
      <a class="btn btn-primary confirm" href="{% url 'delete_shed' shed_id=shed.id %}" >
         <strong>Delete</strong>
+    </a>
+{% endif %}
+
+{% if permissions.set_home %}       
+     <a class="btn btn-primary confirm" href="{% url 'set_home' shed_id=shed.id %}" >
+        <strong>Set as home</strong>
     </a>
 {% endif %}
 

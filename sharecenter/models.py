@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from profiles.models import UserProfile
 from django.utils import timezone
 
 class Shed(models.Model):
@@ -14,7 +13,7 @@ class Shed(models.Model):
     city = models.CharField(max_length=30, blank=True)
     state = models.CharField(max_length=2, blank=True)
     postal_code = models.CharField(verbose_name='postal code', max_length=10, blank=True)
-
+    image = models.ImageField(upload_to='shed_img/', null=True, blank=True)
          
     def share_count(self):
         """
@@ -50,18 +49,20 @@ class Tool(models.Model):
     category = models.CharField(max_length=30)
     date_borrowed = models.DateTimeField(verbose_name='borrow date', null=True)
     time_limit = models.IntegerField(verbose_name='time limit', default=7)
-    image = models.ImageField(upload_to='tool_img/')
-    #objects = ToolManager()
+    image = models.ImageField(upload_to='tool_img/', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.name
 
     def is_available(self):
-        #return whether is borrowed(false when borrowed)
+        """
+        Return true if the tool does not have a borrower
+        """
         if self.borrower:
             return False
         else:
             return True
     
-    def __unicode__(self):
-        return self.name
     
     def borrow_tool(self, user):
         """
