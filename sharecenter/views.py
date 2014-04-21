@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
-from sharecenter.forms import ToolCreateForm, ShedCreateForm
+from sharecenter.forms import ToolForm,  ShedForm
 from sharecenter.models import Tool, Shed
 
 from notifications.models import Notification
@@ -17,11 +17,10 @@ def create_tool(request, template_name='tools/create_tool.html'):
     Create a new tool with data from request and add it to database.
     """
     if request.method == 'POST':
-        form = ToolCreateForm(request.POST, request.FILES)
+        form = ToolForm(request.POST, request.FILES)
         if form.is_valid():
+         #   form.clean_image()
             shed = request.user.shed_owned.all()[0]
-            request.FILES['image'].name=str(request.user.username+form.cleaned_data['name'])+'.png'
-          #  form.clean_image()
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
@@ -39,7 +38,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
     else: 
-        form = ToolCreateForm()
+        form = ToolForm()
 
     return render(request, template_name, {'form': form})
 
@@ -73,13 +72,13 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     tool = get_object_or_404(Tool, pk=tool_id)
     if request.user == tool.owner:
         if request.method == 'POST':
-            form = ToolCreateForm(data=request.POST, instance=tool)
+            form = ToolForm(data=request.POST, instance=tool)
             if form.is_valid:  
                 form.save()
                 url = reverse('tool_detail', kwargs={'tool_id':tool.id})
                 return HttpResponseRedirect(url)
         else:
-            form = ToolCreateForm(instance=tool)
+            form = ToolForm(instance=tool)
         return render(request, template_name, {'form':form, 'tool':tool}) #no editing done
     else:
         url = reverse('tool_detail', kwargs={'tool_id':tool.id})
@@ -93,13 +92,13 @@ def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
     shed = get_object_or_404(Tool, pk=shed_id)
     if request.user == shed.owner:
         if request.method == 'POST':
-            form = ShedCreateForm(data=request.POST, instance=tool)
+            form = ShedForm(data=request.POST, instance=tool)
             if form.is_valid:  
                 form.save()
                 url = reverse('shed_detail', kwargs={'shed_id':shed.id})
                 return HttpResponseRedirect(url)
         else:
-            form = ToolCreateForm(instance=tool)
+            form = ShedForm(instance=tool)
         return render(request, template_name, {'form':form, 'shed':shed}) #no editing done
     else:
         url = reverse('shed_detail', kwargs={'shed_id':shed.id})
@@ -112,7 +111,7 @@ def add_tool_shed(request, sid ,template_name='tools/create_tool.html'):
     """
     shed = get_object_or_404(Shed, pk=sid)
     if request.method == 'POST':
-        form = ToolCreateForm(data=request.POST)
+        form = ToolForm(data=request.POST)
         if form.is_valid():
             tool = Tool(
                 name=form.cleaned_data['name'],
@@ -130,7 +129,7 @@ def add_tool_shed(request, sid ,template_name='tools/create_tool.html'):
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
     else: 
-        form = ToolCreateForm()
+        form = ToolForm()
 
 @login_required
 def borrow_tool(request, tool_id):
@@ -216,7 +215,7 @@ def create_shed(request, template_name='sheds/create_shed.html'):
     """
     
     if request.method == 'POST':
-        form = ShedCreateForm(data=request.POST)
+        form = ShedForm(data=request.POST)
         if form.is_valid():
             shed = Shed(
                 name=form.cleaned_data['name'],
@@ -231,7 +230,7 @@ def create_shed(request, template_name='sheds/create_shed.html'):
             url = reverse('shed_detail', kwargs={'shed_id':shed.id})
             return HttpResponseRedirect(url)
     else: 
-        form = ShedCreateForm()
+        form = ShedForm()
 
     return render(request, template_name, {'form': form})
 
