@@ -2,6 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+import os
+def content_file_name(instance, filename):
+    ext = os.path.splitext(filename)[1]
+    model_name = instance.__class__.__name__.lower()
+    path = model_name + '_img/' + \
+        '_'.join([instance.owner.username, model_name])
+    path = path + ext
+    return path
+
 class Shed(models.Model):
     """
     Shed is a shed with name, owner, tool limit, and address.
@@ -13,7 +22,7 @@ class Shed(models.Model):
     city = models.CharField(max_length=30, blank=True)
     state = models.CharField(max_length=2, blank=True)
     postal_code = models.CharField(verbose_name='postal code', max_length=10, blank=True)
-    image = models.FileField(upload_to='shed_img/', null=True, blank=True)
+    image = models.FileField(upload_to=content_file_name, null=True, blank=True)
          
     def share_count(self):
         """
@@ -31,9 +40,15 @@ class Shed(models.Model):
         #return address as string
         return "%s \n %s %s" % (self.street, self.city, self.state) 
     
+    @property
+    def filename(self):
+        if self.image:
+            return 'media/shed_img/'+os.path.basename(self.image.name)
+        return 'img/shedplaceholder.png'
 
     def __unicode__(self):
         return self.name
+
     
 
 
@@ -49,7 +64,7 @@ class Tool(models.Model):
     category = models.CharField(max_length=30)
     date_borrowed = models.DateTimeField(verbose_name='borrow date', null=True)
     time_limit = models.IntegerField(verbose_name='time limit', default=7)
-    image = models.FileField(upload_to='tool_img/', null=True, blank=True)
+    image = models.FileField(upload_to=content_file_name, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -94,6 +109,12 @@ class Tool(models.Model):
             descrip = descrip[:30] + "..." 
         return descrip
 
+    @property
+    def filename(self):
+        if self.image:
+            return 'media/tool_img/'+os.path.basename(self.image.name)
+        return 'img/toolplaceholder.png'
+
 
 class Stats(models.Model):
     """
@@ -105,4 +126,5 @@ class Stats(models.Model):
     """
     total_borrowed = models.IntegerField(default = 0)
     total_shared = models.IntegerField(default = 0)
-    
+
+

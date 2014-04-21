@@ -14,7 +14,7 @@
 <h1 class="page-header">My Sheds</h1>
 <nav class="navbar navbar-default" role="navigation">
 <div class="container-fluid">
-  <span class="navbar-brand no-click">Shed Management</span>
+  <span class="navbar-brand no-click" title="Your home determines your share zone">Home: <a href="{% url 'shed_detail' shed_id=user.profile.home_shed.id %}">{{user.profile.home_shed.name}}</a></span>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="{% url 'create_shed' %}" class="btn btn-default"><strong>Create Shed</strong></a></li>
     </ul>
@@ -25,7 +25,7 @@
     <a class="no-color" href="{% url 'shed_detail' shed_id=shed.id %}">
         <div class="col-sm-6 shed-tile div-border">
             <div class="col-md-6 right-align">
-                <img class="img-rounded shed-img" alt="shed thumbnail" src="{% static 'img/shedplaceholder.png' %}">
+                <img class="img-rounded shed-img" alt="shed thumbnail" src="{% static shed.filename %}">
             </div>
             <div class="col-md-6">
     

@@ -14,7 +14,7 @@ from borrow_requests.models import BorrowRequest
 import borrow_requests.RequestStatus as RequestStatus
 
 from profiles.models import UserProfile
-
+import os
 @login_required
 def create_tool(request, template_name='tools/create_tool.html'):
     """
@@ -37,6 +37,9 @@ def create_tool(request, template_name='tools/create_tool.html'):
                 image=image
             )
             tool.save()
+            if image:
+                tool.image.name = rename_file(tool)
+                tool.save()
             activity_msg = "added %s to %s" % (tool.name, tool.shed.name)
             Notification.objects.create(recipient=request.user, 
                                                     sender=request.user,
@@ -56,8 +59,14 @@ def create_tool(request, template_name='tools/create_tool.html'):
 def delete_tool(request, tool_id):
     tool = get_object_or_404(Tool, pk=tool_id)
     if request.user == tool.owner and tool.is_available():
-        activity_msg = "deleted %s from %s" % (tool.name, tool.shed.name)
+        if tool.image:
+            try:
+                os.remove(tool.image.path) # remove image
+            except: pass
         tool.delete()
+
+        activity_msg = "deleted %s from %s" % (tool.name, tool.shed.name)
+
         Notification.objects.create(recipient=request.user, 
                                                 sender=request.user,
                                                 notice_type=NoticeType.ACTIVITY,
@@ -82,7 +91,10 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     tool = get_object_or_404(Tool, pk=tool_id)
     if request.user == tool.owner:
         if request.method == 'POST':
-            form = ToolForm( request.user, request.POST, request.FILES, instance=tool)
+            if not request.POST.get('shed'): # set tool to previous shed if none selected
+                request.POST = request.POST.copy()
+                request.POST['shed'] = tool.shed.id
+            form = ToolForm(request.user, request.POST, request.FILES, instance=tool)
             if form.is_valid:  
                 form.save()
                 url = reverse('tool_detail', kwargs={'tool_id':tool.id})
@@ -117,6 +129,9 @@ def create_tool_to_shed(request, shed_id ,template_name='tools/create_tool.html'
                 image=image,
             )
             tool.save()
+            if image:
+                tool.image.name = rename_file(tool)
+                tool.save()
             activity_msg = "added %s to %s" % (tool.name, tool.shed.name)
             Notification.objects.create(recipient=request.user, 
                                                     sender=request.user,
@@ -209,7 +224,7 @@ def shed_detail(request, shed_id, template_name='sheds/shed_detail.html'):
         permissions['edit'] = permissions['add_tool'] = True
         if request.user.profile.home_shed != shed:
             permissions['set_home'] = True
-        if shed.share_count() == 0 and request.user.shed_owned.all().count() > 1:
+        if shed.share_count() == 0 and request.user.profile.home_shed != shed:
             permissions['delete'] = True
 
     return render(request, template_name, {'shed':shed, 'tool_list':tool_list, 'permissions':permissions})
@@ -221,7 +236,7 @@ def create_shed(request, template_name='sheds/create_shed.html'):
     """
     
     if request.method == 'POST':
-        form = ShedForm(data=request.POST)
+        form = ShedForm(request.POST, request.FILES)
         if form.is_valid():
             image = None
             if form.cleaned_data['image']:
@@ -236,7 +251,9 @@ def create_shed(request, template_name='sheds/create_shed.html'):
                 image=image,
             )
             shed.save()
-                            
+            if image:
+                shed.image.name = rename_file(shed)
+                shed.save()
             url = reverse('shed_detail', kwargs={'shed_id':shed.id})
             return HttpResponseRedirect(url)
     else: 
@@ -249,7 +266,11 @@ def create_shed(request, template_name='sheds/create_shed.html'):
 def delete_shed(request, shed_id):
     shed = get_object_or_404(Shed, pk=shed_id)
     if request.user == shed.owner and shed.share_count() == 0 \
-                                 and request.user.shed_owned.all().count() > 1:
+                                 and request.user.profile.home_shed != shed:
+        if shed.image:
+            try:
+                os.remove(shed.image.path) # remove image
+            except: pass
         shed.delete();
         activity_msg = "deleted %s" % (shed.name,)
         Notification.objects.create(recipient=request.user, 
@@ -317,3 +338,15 @@ def get_community_stats( user ):
     stats = { 'most_active_borrower' : most_active_borrower, 'most_active_lender': 
                                                                                 most_active_lender }
     return stats
+
+
+def rename_file( instance ):
+    name, ext = os.path.splitext(instance.image.path)
+    name = name + '_' + str(instance.pk) + ext # add primary key (id) to name
+    try:
+        os.rename(instance.image.path, name)
+    except: 
+        name = None
+    instance.image.name = name
+    instance.save()
+    return name

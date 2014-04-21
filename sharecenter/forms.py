@@ -10,20 +10,15 @@ class ShedForm(ModelForm):
     """
     states = S.US_STATES
     name = forms.CharField(label='Shed Name', max_length=30, 
-                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
-                                            error_messages={'required': 'No name was entered.'})
+                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),)
     street = forms.CharField(label='Street', max_length=30, 
-                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
-                                            error_messages={'required': 'No street was entered.'})
+                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),)
     city = forms.CharField(label='City', max_length=30, 
-                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
-                                            error_messages={'required': 'No city was entered.'})
+                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),)
     state = forms.ChoiceField(choices=states, 
-                                            widget=forms.Select(attrs={'class':'form-control',}, ),
-                                            error_messages={'required': 'No state was selected.'})
+                                            widget=forms.Select(attrs={'class':'form-control',}, ),)
     postal_code = forms.CharField(label='Postal Code', max_length=30, 
-                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),
-                                            error_messages={'required': 'No postal code was entered.'})
+                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single', }),)
     image = forms.FileField()
 
     class Meta: 
@@ -54,14 +49,11 @@ class ToolForm(ModelForm):
         )
 
     name = forms.CharField(label='Name', max_length=30, 
-                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single',}),
-                                            error_messages={'required': 'No tool name entered.'})
+                                            widget=forms.TextInput(attrs={'class':'form-control form-group input-single',}),)
     description = forms.CharField(label='Description', max_length=250, 
-                                                    widget=forms.TextInput(attrs={'class':'form-control form-group input-single',} ),
-                                                    error_messages={'required': 'No description was entered.'})
+                                                    widget=forms.TextInput(attrs={'class':'form-control form-group input-single',} ),)
     category = forms.ChoiceField(choices=categories, 
-                                                    widget=forms.Select(attrs={'class':'form-control',} ),
-                                                    error_messages={'required': 'No category was selected.'})
+                                                    widget=forms.Select(attrs={'class':'form-control',} ),)
     
     image = forms.FileField()
 
@@ -72,6 +64,5 @@ class ToolForm(ModelForm):
     def __init__(self,  user, *args, **kwargs):
         super(ToolForm, self).__init__(*args, **kwargs)
         self.fields['shed'] = forms.ModelChoiceField(queryset=Shed.objects.filter(owner=user), 
-                                                    widget=forms.Select(attrs={'class':'form-control',} ),
-                                                    error_messages={'required': 'No shed was selected.'})
+                                                    widget=forms.Select(attrs={'class':'form-control',} ),)
         self.fields['image'].required = False

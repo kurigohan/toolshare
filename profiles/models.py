@@ -24,10 +24,17 @@ class UserProfile(models.Model):
     @property
     def postal_code(self):
         return self.home_shed.postal_code
+
     @postal_code.setter
     def postal_code(self, value):
         self.home_shed.postal_code = value
         self.home_shed.save()
+
+    @property
+    def filename(self):
+        if self.image:
+            return 'media/avatar/'+os.path.basename(self.image.name)
+        return 'img/profileplaceholder.png'
     
 
 
