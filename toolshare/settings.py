@@ -115,7 +115,7 @@ STATICFILES_DIRS = (
 )
 
 # Media files (Placed in static for development and debuging)
-MEDIA_ROOT = os.path.join(BASE_DIR, "static");#BASE_DIR + '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "static/media");#BASE_DIR + '/media/'
 MEDIA_URL = '/media/'
 
 # Used by profiles app

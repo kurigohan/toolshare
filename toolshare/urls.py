@@ -5,6 +5,7 @@ admin.autodiscover()
 from django.views.generic import TemplateView
 from users.forms import CustomRegistrationForm
 from users import views as UserView
+from django.conf import settings
 
 urlpatterns = patterns('',
     url(r'^$', UserView.user_home, name='home'),
@@ -24,6 +25,6 @@ urlpatterns = patterns('',
     url(r'^messages/', include('django_messages.urls')),
     url(r'^notifications/', include('notifications.urls')),
     url(r'^requests/',  include('borrow_requests.urls')),
-
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
     )
 

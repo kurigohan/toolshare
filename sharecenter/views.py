@@ -25,10 +25,9 @@ def create_tool(request, template_name='tools/create_tool.html'):
         if form.is_valid():
          #   form.clean_image()
           #  shed = request.user.shed_owned.all()[0]
-            if not form.cleaned_data['image']:
-                image=None;
-            else:
-                image=form.cleaned_data['image']
+            image = None
+            if form.cleaned_data['image']:
+                image = form.cleaned_data['image']
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
@@ -83,7 +82,7 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
     tool = get_object_or_404(Tool, pk=tool_id)
     if request.user == tool.owner:
         if request.method == 'POST':
-            form = ToolForm(data=request.POST, instance=tool)
+            form = ToolForm( request.user, request.POST, request.FILES, instance=tool)
             if form.is_valid:  
                 form.save()
                 url = reverse('tool_detail', kwargs={'tool_id':tool.id})
@@ -105,10 +104,9 @@ def create_tool_to_shed(request, shed_id ,template_name='tools/create_tool.html'
     shed = get_object_or_404(Shed, pk=shed_id)
     if request.method == 'POST':
         form = ToolForm(data=request.POST)
-        if not form.cleaned_data['image']:
-            image=None;
-        else:
-            image=form.cleaned_data['image']
+        image = None
+        if form.cleaned_data['image']:
+            image = form.cleaned_data['image']
         if form.is_valid():
             tool = Tool(
                 name=form.cleaned_data['name'],
@@ -225,9 +223,8 @@ def create_shed(request, template_name='sheds/create_shed.html'):
     if request.method == 'POST':
         form = ShedForm(data=request.POST)
         if form.is_valid():
-            if not form.cleaned_data['image']:
-                image=None;
-            else:
+            image = None
+            if form.cleaned_data['image']:
                 image=form.cleaned_data['image']
             shed = Shed(
                 name=form.cleaned_data['name'],
