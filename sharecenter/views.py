@@ -46,7 +46,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
                                                     sender=request.user,
                                                     notice_type=NoticeType.ACTIVITY,
                                                     message=activity_msg)
-            request.user.profile.stats.total_borrowed += 1
+            request.user.profile.stats.total_borrowed = request.user.profile.stats.total_borrowed + 1
             request.user.profile.stats.save()                                        
             
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})

@@ -77,6 +77,7 @@ TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + \
         'django_messages.context_processors.inbox_preview',
         'notifications.context_processors.notifications_new_count', 
         'notifications.context_processors.notifications_new',
+        'notifications.context_processors.notification_types',
         'borrow_requests.context_processors.borrow_request_status',)
 
 # Activation time limit for new accounts

@@ -10,6 +10,7 @@ def notifications_new_count(request):
         return {'notifications_new_count': len(notification_list)}
     else:
         return {}
+        
 def notifications_new(request):
     if request.user.is_authenticated():
         notification_list = Notification.objects.filter(Q(recipient=request.user), 
@@ -19,3 +20,7 @@ def notifications_new(request):
         return {'notifications_new': notification_list}
     else:
         return {}
+
+def notification_types(request):
+    notice_type = { 'ALERT': NoticeType.ALERT, 'REQUEST': NoticeType.REQUEST, 'SYSTEM':NoticeType.SYSTEM}
+    return notice_type

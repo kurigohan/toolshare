@@ -14,6 +14,7 @@ def view_requests(request, template_name="borrow_requests/view_requests.html"):
     """
     View received and sent borrow requests
     """
+    Notification.objects.filter(recipient=request.user, notice_type=NoticeType.REQUEST).update(is_new=False)
     br_sent = request.user.request_sent.all().exclude(s_deleted=True)
     br_received = request.user.request_received.all().exclude(r_deleted=True)
 
@@ -32,7 +33,7 @@ def approve_borrow_request(request, br_id):
         if tool.owner == request.user and tool.is_available():
             tool.borrow_tool(borrow_request.sender);
             tool.save();
-            request.user.profile.stats.total_borrowed += 1
+            request.user.profile.stats.total_borrowed = request.user.profile.stats.total_borrowed+1
             request.user.profile.stats.save()
             # notify requester that the request was approved
             Notification.objects.create(recipient=borrow_request.sender, 
