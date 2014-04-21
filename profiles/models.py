@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile') # Each User can have only 1 UserProfile
 #    postal_code = models.CharField(verbose_name='postal code', max_length=10)
     home_shed = models.OneToOneField(Shed)
-    avatar = models.ImageField(upload_to='avatar/', null=True, blank=True)
+    avatar = models.FileField(upload_to='media/avatar/', null=True, blank=True)
     stats = models.OneToOneField(Stats, related_name='user_stats')
 
     def __unicode__(self):

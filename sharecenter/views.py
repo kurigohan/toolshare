@@ -89,7 +89,7 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
                 url = reverse('tool_detail', kwargs={'tool_id':tool.id})
                 return HttpResponseRedirect(url)
         else:
-            form = ToolForm(instance=tool)
+            form = ToolForm(user=request.user, instance=tool)
         return render(request, template_name, {'form':form, 'tool':tool}) #no editing done
     else:
         url = reverse('tool_detail', kwargs={'tool_id':tool.id})
@@ -225,13 +225,18 @@ def create_shed(request, template_name='sheds/create_shed.html'):
     if request.method == 'POST':
         form = ShedForm(data=request.POST)
         if form.is_valid():
+            if not form.cleaned_data['image']:
+                image=None;
+            else:
+                image=form.cleaned_data['image']
             shed = Shed(
                 name=form.cleaned_data['name'],
                 street=form.cleaned_data['street'],
+                city=form.cleaned_data['city'],
                 state=form.cleaned_data['state'],
                 postal_code = form.cleaned_data['postal_code'],
                 owner=request.user,
-                
+                image=image,
             )
             shed.save()
                             

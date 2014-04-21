@@ -13,7 +13,7 @@ class Shed(models.Model):
     city = models.CharField(max_length=30, blank=True)
     state = models.CharField(max_length=2, blank=True)
     postal_code = models.CharField(verbose_name='postal code', max_length=10, blank=True)
-    image = models.ImageField(upload_to='shed_img/', null=True, blank=True)
+    image = models.FileField(upload_to='media/shed_img/', null=True, blank=True)
          
     def share_count(self):
         """
@@ -49,7 +49,7 @@ class Tool(models.Model):
     category = models.CharField(max_length=30)
     date_borrowed = models.DateTimeField(verbose_name='borrow date', null=True)
     time_limit = models.IntegerField(verbose_name='time limit', default=7)
-    image = models.ImageField(upload_to='tool_img/', null=True, blank=True)
+    image = models.FileField(upload_to='media/tool_img/', null=True, blank=True)
 
     def __unicode__(self):
         return self.name

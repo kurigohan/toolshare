@@ -16,20 +16,6 @@ TEMPLATE_DIRS = (
     BASE_DIR + '/templates', 
 )
 
-MEDIA_ROOT = BASE_DIR + '/media/'
-MEDIA_URL = '/media/'
-
-CONTENT_TYPES = ['image','jpg']
-# 2.5MB - 2621440
-# 5MB - 5242880
-# 10MB - 10485760
-# 20MB - 20971520
-# 50MB - 5242880
-# 100MB 104857600
-# 250MB - 214958080
-# 500MB - 429916160
-MAX_UPLOAD_SIZE = 2621440
-
 #TEMPLATE_LOADERS = (
    # 'django.template.loaders.filesystem.Loader',
     #'django.template.loaders.app_directories.Loader',
@@ -127,6 +113,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+# Media files (Placed in static for development and debuging)
+MEDIA_ROOT = os.path.join(BASE_DIR, "static");#BASE_DIR + '/media/'
+MEDIA_URL = '/media/'
 
 # Used by profiles app
 AUTH_PROFILE_MODULE = 'users.UserProfile'
