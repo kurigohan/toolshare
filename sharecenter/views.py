@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
 from django.db.models import Q
+from django.contrib import messages
 
 from sharecenter.forms import ToolForm,  ShedForm
 from sharecenter.models import Tool, Shed
@@ -158,8 +159,7 @@ def borrow_tool(request, tool_id):
                                                         tool=tool,
                                                         notice_type=NoticeType.REQUEST,
                                                         action="borrow")                            
-        request.user.profile.stats.total_borrowed += 1
-        request.user.profile.stats.save()
+        messages.success(request, "Borrow request sent.")
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
 

@@ -32,12 +32,14 @@ def approve_borrow_request(request, br_id):
         if tool.owner == request.user and tool.is_available():
             tool.borrow_tool(borrow_request.sender);
             tool.save();
+            request.user.profile.stats.total_borrowed += 1
+            request.user.profile.stats.save()
             # notify requester that the request was approved
             Notification.objects.create(recipient=borrow_request.sender, 
                                                         sender=request.user,
                                                         tool=tool,
-                                                        notice_type=NoticeType.REQUEST,
-                                                        action="approved") 
+                                                        notice_type=NoticeType.ALERT,
+                                                        action="approved request for") 
             borrow_request.status = RequestStatus.APPROVED
             borrow_request.save()
         else:
@@ -62,8 +64,8 @@ def deny_borrow_request(request, br_id):
             Notification.objects.create(recipient=borrow_request.sender, 
                                                         sender=request.user,
                                                         tool=tool,
-                                                        notice_type=NoticeType.REQUEST,
-                                                        action="denied") 
+                                                        notice_type=NoticeType.ALERT,
+                                                        action="denied request for") 
             borrow_request.status = RequestStatus.DENIED
             borrow_request.save()
         else:
@@ -82,8 +84,8 @@ def sender_cancel_request(request, br_id):
         Notification.objects.create(recipient=borrow_request.recipient, 
                                                     sender=request.user,
                                                     tool=borrow_request.tool,
-                                                    notice_type=NoticeType.REQUEST,
-                                                    action="canceled") 
+                                                    notice_type=NoticeType.ALERT,
+                                                    action="canceled request for") 
     else:
         messages.error(request, 'Request cannot be canceled.')
     return redirect('view_requests')

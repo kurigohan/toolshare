@@ -86,6 +86,11 @@
                   {% if error_msg %}
                     {{error_msg}}
                   {% endif %}
+                  <ul>
+                  {% for msg in messages %}
+                    <li>{{msg.success}}</li>
+                  {% endfor %}
+                  </ul>
             </div>
           </div>
 
