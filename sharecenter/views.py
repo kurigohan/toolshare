@@ -206,7 +206,12 @@ def shed_detail(request, shed_id, template_name='sheds/shed_detail.html'):
     """
     shed = get_object_or_404(Shed, pk=shed_id)
     tool_list = shed.shed_tools.all()
-    return render(request, template_name, {'shed':shed, 'tool_list':tool_list})
+    permissions = {'delete':False, 'edit':False, 'add_tool':False}
+    if request.user == shed.owner:
+        permissions['edit'] = permissions['add_tool'] = True
+        if shed.share_count() == 0 and request.user.shed_owned.all().count() > 1:
+            permissions['delete'] = True
+    return render(request, template_name, {'shed':shed, 'tool_list':tool_list, 'permissions':permissions})
 
 @login_required
 def create_shed(request, template_name='sheds/create_shed.html'):
@@ -238,7 +243,8 @@ def create_shed(request, template_name='sheds/create_shed.html'):
 @login_required
 def delete_shed(request, shed_id):
     shed = get_object_or_404(Shed, pk=shed_id)
-    if request.user == shed.owner and shed.share_count() == 0 and request.user.shed_owned.all().count() > 1:
+    if request.user == shed.owner and shed.share_count() == 0 \
+                                 and request.user.shed_owned.all().count() > 1:
         shed.delete();
         activity_msg = "deleted %s" % (shed.name,)
         Notification.objects.create(recipient=request.user, 
