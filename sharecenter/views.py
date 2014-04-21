@@ -316,6 +316,7 @@ def share_zone(request, template_name='community/share_zone.html'):
     """
 
     results = Tool.objects.filter(shed__postal_code=request.user.profile.postal_code)
+    results = results.exclude(owner=request.user)
   #  if request.method == 'GET' and 'q' in request.GET:
     if request.method == 'GET' and 'q' in request.GET:
         search_term = request.GET.get('q', False)
