@@ -85,5 +85,11 @@ class Tool(models.Model):
             return True
         else:
             return False
-
-
+    def short_descrip(self):
+        """
+        Returns description up to a certain length
+        """
+        descrip = self.description
+        if len(descrip) > 30:
+            descrip = descrip[:30] + "..." 
+        return descrip

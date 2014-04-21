@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect
+from django.db.models import Q
+
 from sharecenter.forms import ToolForm,  ShedForm
 from sharecenter.models import Tool, Shed
 
@@ -268,13 +270,20 @@ def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
         url = reverse('shed_detail', kwargs={'shed_id':shed.id})
         return HttpResponseRedirect(url)
 
+
 @login_required
 def share_zone(request, template_name='sheds/share_zone.html'):
     """
     Display table with all sheds in share zone
     """
     shed_list = Shed.objects.filter(postal_code=request.user.profile.postal_code)
-    return render(request, template_name, {'shed_list':shed_list})
+    qset = Tool.objects.none()
+    for shed in shed_list:
+        qset = qset | shed.shed_tools.all()
+    if request.method == 'GET' and 'q' in request.GET:
+        search_term = request.GET.get('term', False)
+        qset = qset.filter(Q(name__icontains=search_term))
+    return render(request, template_name, {'results':qset})#{'shed_list':shed_list})
 
 
 
@@ -286,3 +295,6 @@ def set_home_shed(request, shed_id):
         request.user.profile.save()
     url = reverse('shed_detail', kwargs={'shed_id':shed.id})
     return HttpResponseRedirect(url)
+
+
+
