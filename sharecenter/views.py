@@ -116,11 +116,11 @@ def create_tool_to_shed(request, shed_id ,template_name='tools/create_tool.html'
     """
     shed = get_object_or_404(Shed, pk=shed_id)
     if request.method == 'POST':
-        form = ToolForm(data=request.POST)
+        form = ToolForm(request.user, request.POST, request.FILES)
         image = None
-        if form.cleaned_data['image']:
-            image = form.cleaned_data['image']
         if form.is_valid():
+            if form.cleaned_data['image']:
+                image = form.cleaned_data['image']
             tool = Tool(
                 name=form.cleaned_data['name'],
                 category=form.cleaned_data['category'],
