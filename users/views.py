@@ -28,7 +28,8 @@ def edit_account(request, template_name='users/edit_account.html'):
             request.user.last_name = form.cleaned_data['last_name']
             request.user.email = form.cleaned_data['email']
             request.user.save()
-            return  redirect(reverse(ProfileView.profile_detail, args=[request.user.username]))
+            messages.success(request, 'Account updated')
+            return  redirect('edit_account')
     else:
         form = AccountForm(initial={'first_name': request.user.first_name, 'last_name':request.user.last_name, 
                                                     'email': request.user.email})

@@ -95,10 +95,13 @@
         $(".confirm").click(function(e){
           e.preventDefault();
           var url = $(this).attr("href");
-          bootbox.confirm("Are you sure?", function(result){
+          var msg = $(this).attr("data-msg");
+          if (!msg){
+            msg = "Are you sure?"
+          }
+          bootbox.confirm(msg, function(result){
             if(result){
-            window.location.replace(url);
-            //  window.location.href = url;
+                window.location.replace(url);
             }
           });
         });
