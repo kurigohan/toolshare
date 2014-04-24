@@ -8,7 +8,7 @@
 	
 		<div class="row">
 		<div class="col-sm-5 right-align">
-			<img  class="img-rounded" alt="image of shed" src="{% static 'img/shedplaceholder.png' %}" style="width: 200px; height:200px;">
+			<img  id="img-preview" class="img-rounded" alt="image of shed" src="{% static 'img/shedplaceholder.png' %}" style="width: 200px; height:200px;">
 		</div>
 	          <div class="col-sm-1"></div>
 
@@ -30,4 +30,30 @@
             {% endfor %}
             </ul>
         {% endfor %} -->
+{% endblock %}
+
+
+{% block js_ready %}
+{{block.super}}
+    function handleFileSelect(evt) {
+        var files = evt.target.files; // FileList object
+        // Only process image files.
+        f = files[0]
+        if (f.type.match('image.*')) {
+
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function(theFile) {
+            return function(e) {
+              // Render thumbnail.
+            $('#img-preview').attr('src', e.target.result)
+            };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+        }
+    }
+    document.getElementById('id_image').addEventListener('change', handleFileSelect, false);
 {% endblock %}

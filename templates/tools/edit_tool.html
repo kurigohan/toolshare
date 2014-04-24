@@ -8,7 +8,7 @@
 	
 		<div class="row">
 		<div class="col-md-5 text-right">
-			<img  class="img-rounded" alt="image of tool" src="{% static tool.filename %}" style="width: 200px; height:200px;">
+			<img  id="img-preview" class="img-rounded" alt="image of tool" src="{% static tool.filename %}" style="width: 200px; height:200px;">
 		</div>
 	
 	<form method='post' action='' role="form">{% csrf_token %}
@@ -29,4 +29,28 @@
 			<input class="btn btn-primary" type="submit" value="Save Changes"/>
 		</div>
 	</form>
+{% endblock %}
+{% block js_ready %}
+{{block.super}}
+    function handleFileSelect(evt) {
+        var files = evt.target.files; // FileList object
+        // Only process image files.
+        f = files[0]
+        if (f.type.match('image.*')) {
+
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function(theFile) {
+            return function(e) {
+              // Render thumbnail.
+            $('#img-preview').attr('src', e.target.result)
+            };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+        }
+    }
+    document.getElementById('id_image').addEventListener('change', handleFileSelect, false);
 {% endblock %}
