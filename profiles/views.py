@@ -18,7 +18,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from profiles import utils
-
+from users.forms import ProfileForm
 
 @login_required
 def create_profile(request, form_class=None, success_url=None,
@@ -123,7 +123,7 @@ def create_profile(request, form_class=None, success_url=None,
                               context_instance=context)
 
 @login_required
-def edit_profile(request, form_class=None, success_url=None,
+def edit_profile(request, form_class=ProfileForm, success_url=None,
                  template_name='profiles/edit_profile.html',
                  extra_context=None):
     """

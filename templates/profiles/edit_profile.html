@@ -1,11 +1,52 @@
-
 {% extends "base.html" %}
+{% load staticfiles %}
 {% block title %}Edit Profile -  {{ user.username }} {% endblock %}
  
+
+ {% block css %}
+ <style>
+    .upload-btn{
+        position: relative;
+        left: 50px;
+        top:10px;
+    }
+
+ </style>
+ {% endblock %}
 {% block content %}
-<h1>Edit contact info for {{ user.username }}</h1>
-<form action="" method="POST">{% csrf_token %}
-{{ form.as_p}}
-<input id="submit" type="submit" name="submit" value="Update" />
-</form>
+<h1>Change your profile image</h1>
+<div class="col-sm-4 col-sm-offset-4" style="text-align:center">
+    <img id="img-preview" class="img-circle profile-img" alt="170x170" src="{% static user.profile.filename %}">
+    <form action="" role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+    <br>
+    {{form.as_p}}
+    </br>
+    <input id="submit" class="btn btn-primary" type="submit" name="submit" value="Update" />
+    </form>
+</div>
 {% endblock content %}
+
+{% block js_ready %}
+{{block.super}}
+    function handleFileSelect(evt) {
+        var files = evt.target.files; // FileList object
+        // Only process image files.
+        f = files[0]
+        if (f.type.match('image.*')) {
+
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function(theFile) {
+            return function(e) {
+              // Render thumbnail.
+            $('#img-preview').attr('src', e.target.result)
+            };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+        }
+    }
+    document.getElementById('id_image').addEventListener('change', handleFileSelect, false);
+{% endblock %}

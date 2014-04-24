@@ -11,7 +11,7 @@
 			<img  id="img-preview" class="img-rounded" alt="image of tool" src="{% static tool.filename %}" style="width: 200px; height:200px;">
 		</div>
 	
-	<form method='post' action='' role="form">{% csrf_token %}
+	<form method='post' action='' role="form" enctype="multipart/form-data">{% csrf_token %}
 	
 	{% for field, errors in form.errors.items %}
             <ul class="errorlist">

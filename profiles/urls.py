@@ -37,6 +37,7 @@ urlpatterns = patterns('',
                        url(r'^(?P<username>\w+)/$',
                            ProfileView.profile_detail,
                            name='profile_detail'),
+            
                        #url(r'^$',
                           # ProfileView.profile_list,
                            #name='profiles_profile_list'),

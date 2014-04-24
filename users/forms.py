@@ -44,11 +44,13 @@ class ProfileForm(ModelForm):
     """
     Form for editting profile info.
     """
-    postal_code = forms.CharField(label = "Postal Code")
+    image = forms.FileField(label='Profile Picture', widget=forms.FileInput(attrs={'class':'upload-btn'}))
 
     class Meta:
         model = UserProfile
+        fields = ('image',)
         #exclude = ('field1','field2','field3',)
+
 
 from django.contrib.auth.forms import PasswordChangeForm
 class CustomPasswordChangeForm(PasswordChangeForm):

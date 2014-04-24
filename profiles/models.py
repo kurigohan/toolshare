@@ -1,6 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from sharecenter.models import Shed, Stats
+from toolshare.storage import OverwriteStorage
+
+import os
+def content_file_name(instance, filename):
+    ext = os.path.splitext(filename)[1]
+    model_name = instance.__class__.__name__.lower()
+    path = model_name + '_img/' + \
+        '_'.join([instance.user.username, 'image'])
+    if instance.pk:
+          path = path + '_' + str(instance.pk) # add primary key (id) to name
+    path = path + ext
+    return path
 
 class UserProfile(models.Model):
     """
@@ -10,7 +22,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile') # Each User can have only 1 UserProfile
 #    postal_code = models.CharField(verbose_name='postal code', max_length=10)
     home_shed = models.OneToOneField(Shed)
-    avatar = models.FileField(upload_to='avatar/', null=True, blank=True)
+    image = models.FileField(upload_to=content_file_name, null=True, blank=True, storage=OverwriteStorage())
     stats = models.OneToOneField(Stats, related_name='user_stats')
 
     def __unicode__(self):
@@ -32,8 +44,8 @@ class UserProfile(models.Model):
 
     @property
     def filename(self):
-        if self.avatar:
-            return 'media/avatar/'+os.path.basename(self.avatar.name)
+        if self.image:
+            return 'media/userprofile_img/'+os.path.basename(self.image.name)
         return 'img/profileplaceholder.png'
     
 

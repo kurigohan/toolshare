@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from toolshare.storage import OverwriteStorage
 
 import os
 def content_file_name(instance, filename):
@@ -8,6 +9,8 @@ def content_file_name(instance, filename):
     model_name = instance.__class__.__name__.lower()
     path = model_name + '_img/' + \
         '_'.join([instance.owner.username, model_name])
+    if instance.pk: # add primary key (id) to name if available
+          path = path + '_' + str(instance.pk) 
     path = path + ext
     return path
 
@@ -22,7 +25,7 @@ class Shed(models.Model):
     city = models.CharField(max_length=30, blank=True)
     state = models.CharField(max_length=2, blank=True)
     postal_code = models.CharField(verbose_name='postal code', max_length=10, blank=True)
-    image = models.FileField(upload_to=content_file_name, null=True, blank=True)
+    image = models.FileField(upload_to=content_file_name, null=True, blank=True, storage=OverwriteStorage())
          
     def share_count(self):
         """
@@ -64,7 +67,7 @@ class Tool(models.Model):
     category = models.CharField(max_length=30)
     date_borrowed = models.DateTimeField(verbose_name='borrow date', null=True)
     time_limit = models.IntegerField(verbose_name='time limit', default=7)
-    image = models.FileField(upload_to=content_file_name, null=True, blank=True)
+    image = models.FileField(upload_to=content_file_name, null=True, blank=True, storage=OverwriteStorage())
 
     def __unicode__(self):
         return self.name

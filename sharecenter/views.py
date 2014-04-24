@@ -96,7 +96,7 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
                 request.POST = request.POST.copy()
                 request.POST['shed'] = tool.shed.id
             form = ToolForm(request.user, request.POST, request.FILES, instance=tool)
-            if form.is_valid:  
+            if form.is_valid:
                 form.save()
                 url = reverse('tool_detail', kwargs={'tool_id':tool.id})
                 return HttpResponseRedirect(url)
@@ -287,7 +287,7 @@ def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
     shed = get_object_or_404(Shed, pk=shed_id)
     if request.user == shed.owner:
         if request.method == 'POST':
-            form = ShedForm(data=request.POST, instance=shed)
+            form = ShedForm(request.POST, request.FILES, instance=shed)
             if form.is_valid:  
                 form.save()
                 url = reverse('shed_detail', kwargs={'shed_id':shed.id})
