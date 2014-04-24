@@ -18,7 +18,7 @@ class UserProfile(models.Model):
 
     def get_absolute_url(self):
         #generate and return absolute URL to profile
-        return ('profiles_profile_detail', (), { 'username': self.user.username })
+        return ('profile_detail', (), { 'username': self.user.username })
     get_absolute_url = models.permalink(get_absolute_url)
 
     @property
@@ -32,8 +32,8 @@ class UserProfile(models.Model):
 
     @property
     def filename(self):
-        if self.image:
-            return 'media/avatar/'+os.path.basename(self.image.name)
+        if self.avatar:
+            return 'media/avatar/'+os.path.basename(self.avatar.name)
         return 'img/profileplaceholder.png'
     
 

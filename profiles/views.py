@@ -96,7 +96,7 @@ def create_profile(request, form_class=None, success_url=None,
     #
     
     if success_url is None:
-        success_url = reverse('profiles_profile_detail',
+        success_url = reverse('profile_detail',
                               kwargs={ 'username': request.user.username })
     if form_class is None:
         form_class = utils.get_profile_form()
@@ -191,7 +191,7 @@ def edit_profile(request, form_class=None, success_url=None,
     #
     
     if success_url is None:
-        success_url = reverse('profiles_profile_detail',
+        success_url = reverse('profile_detail',
                               kwargs={ 'username': request.user.username })
     if form_class is None:
         form_class = utils.get_profile_form()

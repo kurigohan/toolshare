@@ -3,7 +3,7 @@
 {% block title %}My Tools - {{user.username}}{% endblock %}
 
 {% block nav_item_2 %}
-<a href="{% url 'profiles_profile_detail' username=user.username %}"><img alt="profile icon" class="img-circle dashboard-icon" src="{% static 'img/profileplaceholder.png' %}">
+<a href="{% url 'profile_detail' username=user.username %}"><img alt="profile icon" class="img-circle dashboard-icon" src="{% static 'img/profileplaceholder.png' %}">
 <h4>Profile</h4></a>
 <span class="text-muted">View your profile</span>
 {% endblock %}
@@ -20,7 +20,7 @@
    	<span class="navbar-brand">
    		
    		<small>Most Active Borrower: 
-		<a href="{% url 'profiles_profile_detail' username=stats.most_active_borrower.user.username %}">
+		<a href="{% url 'profile_detail' username=stats.most_active_borrower.user.username %}">
    		{{ stats.most_active_borrower.user.username }}
    		</a>
    		</small>
@@ -29,7 +29,7 @@
    	<span class="navbar-brand">
    		
    		<small> Most Active Lender: 
-		<a href="{% url 'profiles_profile_detail' username=stats.most_active_lender.user.username %}">
+		<a href="{% url 'profile_detail' username=stats.most_active_lender.user.username %}">
    		{{ stats.most_active_lender.user.username }}
 		</a>
    		</small>
@@ -74,7 +74,7 @@
 						{{tool.category}}
 						</td>
 						<td>                   
-							<a href="{% url 'profiles_profile_detail' username=tool.owner.username %}"> 
+							<a href="{% url 'profile_detail' username=tool.owner.username %}"> 
 							{{tool.owner.username}}
 							</a>
 						</td>
@@ -134,7 +134,7 @@
 							<td>
 							{{shed.name}}
 							</td>
-							<td>                   <a href="{% url 'profiles_profile_detail' username=shed.owner.username %}"> 
+							<td>                   <a href="{% url 'profile_detail' username=shed.owner.username %}"> 
 							{{shed.owner.username}}</a>
 							</td>
 							<td class="label-col center-text">

@@ -62,7 +62,7 @@
                 <li class="dropdown">
                     <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">{{ user.username }}<b class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'profiles_profile_detail' username=user.username %} ">Profile</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'profile_detail' username=user.username %} ">Profile</a></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'edit_account' %}">Account Info</a></li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="{% url 'help_page' %}">Help</a></li>
@@ -128,7 +128,7 @@
           $(".dash-btn").click( function() {
             $("#dashboard").slideToggle()
             $(".dash-btn").toggleClass("opened closed")
-        });
+          });
 
         {% block js_ready %}{% endblock %}
       

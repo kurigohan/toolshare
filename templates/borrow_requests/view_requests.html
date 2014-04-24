@@ -18,7 +18,7 @@
 {% for br in recipient_request_list %}
         <tr>
             <td><a href="{% url 'tool_detail' tool_id=br.tool.id %}">{{ br.tool.name }}</a></td>
-            <td><a href="{% url 'profiles_profile_detail' username=br.sender.username %}">{{ br.sender.username }}</a></td>
+            <td><a href="{% url 'profile_detail' username=br.sender.username %}">{{ br.sender.username }}</a></td>
             <td>{{ br.date }}</td>
             <td>{{ br.status_str }}</td>
             <td>
@@ -55,7 +55,7 @@
 
         <tr>
             <td><a href="{% url 'tool_detail' tool_id=br.tool.id %}">{{ br.tool.name }}</a></td>
-            <td><a href="{% url 'profiles_profile_detail' username=br.sender.username %}">{{ br.sender.username }}</a></td>
+            <td><a href="{% url 'profile_detail' username=br.sender.username %}">{{ br.sender.username }}</a></td>
             <td>{{ br.date }}</td>
             <td>{{ br.status_str }}</td>
             <td>

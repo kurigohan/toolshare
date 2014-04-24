@@ -77,7 +77,7 @@
                                       Shared
                                       {% else %}
                                       Loaned 
-                                      (<a href="{% url 'profiles_profile_detail' username=tool.borrower.username %}">{{tool.borrower.username}}</a>)
+                                      (<a href="{% url 'profile_detail' username=tool.borrower.username %}">{{tool.borrower.username}}</a>)
                                       {% endif %}
 							</td>
 							<td class="but-col">
@@ -130,7 +130,7 @@
                             {{tool.shed.name}}
                             </td>
                             <td>
-                           <a href="{% url 'profiles_profile_detail' username=tool.owner.username %}"> {{tool.owner.username}}</a>
+                           <a href="{% url 'profile_detail' username=tool.owner.username %}"> {{tool.owner.username}}</a>
                             </td>
                             <td class="but-col">
                                 <a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>

@@ -36,7 +36,7 @@
                   </tr>
                   <tr>
                     <td class="text-muted">Owner:</td>
-                    <td><a href="{% url 'profiles_profile_detail' username=tool.owner.username %}">
+                    <td><a href="{% url 'profile_detail' username=tool.owner.username %}">
                       {{tool.owner.username}}
                     </a></td>
                   </tr>
@@ -45,7 +45,7 @@
                     <td class="text-muted">Borrower:</td>
                     <td>
                     {% if tool.borrower %}
-                    <a href="{% url 'profiles_profile_detail' username=tool.borrower.username %}">{{ tool.borrower.username }}
+                    <a href="{% url 'profile_detail' username=tool.borrower.username %}">{{ tool.borrower.username }}
                     </a>
                     {% else %}
                     None

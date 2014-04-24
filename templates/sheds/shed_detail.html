@@ -18,7 +18,7 @@
             <tr>
                 <td class="text-muted label-col">Owner: </td>
                 <td>
-                    <a href="{% url 'profiles_profile_detail' username=shed.owner.username %}">
+                    <a href="{% url 'profile_detail' username=shed.owner.username %}">
                       {{shed.owner.username}}
                     </a>
                 </td>
@@ -99,14 +99,14 @@
                     {{tool.category}}
                 </td>
                 <td>
-                    <a href="{% url 'profiles_profile_detail' username=tool.owner.username %}">  {{tool.owner.username}}</a>
+                    <a href="{% url 'profile_detail' username=tool.owner.username %}">  {{tool.owner.username}}</a>
                 </td>
                 <td>
                     {% if tool.is_available %}
                     Shared
                     {% else %}
                     Loaned 
-                    (<a href="{% url 'profiles_profile_detail' username=tool.borrower.username %}">{{tool.borrower.username}}</a>)
+                    (<a href="{% url 'profile_detail' username=tool.borrower.username %}">{{tool.borrower.username}}</a>)
                     {% endif %}
                 </td>
                 <td class="but-col">

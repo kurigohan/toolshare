@@ -77,7 +77,7 @@ class Notification(models.Model):
             action = self.action;
             if self.notice_type == NoticeType.REQUEST:
                 action = "sent a borrow request for"
-            sender_url = reverse('profiles_profile_detail', args=[self.sender.username])
+            sender_url = reverse('profile_detail', args=[self.sender.username])
             tool_url = reverse('tool_detail', args=[self.tool.id])
             shed_url = reverse('shed_detail', args=[self.shed.id])
 

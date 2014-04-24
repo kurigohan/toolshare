@@ -10,7 +10,7 @@
 <tbody>
     <tr>
         <td><label>From:</label></td>
-        <td><a href="{% url 'profiles_profile_detail' username=message.sender %}">{{ message.sender }}</a></td>
+        <td><a href="{% url 'profile_detail' username=message.sender %}">{{ message.sender }}</a></td>
     </tr>
     <tr>
         <td><label>Subject:</label></td>
