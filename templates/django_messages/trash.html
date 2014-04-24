@@ -1,12 +1,12 @@
 {% extends "django_messages/messages_base.html" %} 
-{% load i18n %} 
 
 {% block content %} 
-<h1 class="page-header">{% trans "Deleted Messages" %}</h1>
-{% if message_list %} 
-<table class="messages">
+<h1 class="page-header">Deleted Messages</h1>
+{{block.super}}
+<div class="table-responsive">
+<table class="table sort-table table-hover messages">
     <thead>
-        <tr><th>{% trans "Sender" %}</th><th>{% trans "Subject" %}</th><th>{% trans "Date" %}</th><th>{% trans "Action" %}</th></tr>
+        <tr><th>Sender</th><th>Subject</th><th>Date</th><th>Action</th></tr>
     </thead>
     <tbody>
 {% for message in message_list %} 
@@ -16,14 +16,19 @@
         {{ message.subject }}
         </td>
         <td>{{ message.sent_at|date:_("DATETIME_FORMAT") }}</td>
-        <td><a href="{% url 'messages_undelete' message.id %}">{% trans "undelete" %}</a></td>
+        <td><a href="{% url 'messages_undelete' message.id %}">undelete</a></td>
     </tr>
 {% endfor %}
+
     </tbody>
+
 </table>
-{% else %}
-<p>{% trans "No messages." %}</p>
-{% endif %}   
+</div> 
+
+ {% if not message_list %}
+<h3 class="text-muted text-center">No messages</h3>
+{% endif %}  
+
 <br />
-<p>{% trans "Deleted Messages are removed from the trash at unregular intervals, don't rely on this feature for long-time storage." %}</p>
+<p class="text-center text-muted">Note: Deleted Messages are removed from the trash at unregular intervals, don't rely on this feature for long-time storage.</p>
 {% endblock %}
