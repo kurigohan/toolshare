@@ -4,32 +4,26 @@
 {% block title %}Create Tool{% endblock %}
  
 {% block content %}
-	<h1 class="page-header">Create a Tool</h1>
-	
-		<div class="row">
-		<div class="col-sm-5 right-align">
-			<img id="img-preview" class="img-rounded" alt="image of tool" src="{% static 'img/toolplaceholder.png' %}" style="width: 200px; height:200px;">
-		</div>
-	          <div class="col-sm-1"></div>
+<h1 class="page-header">Create a Tool</h1>
 
-        <div class="col-sm-6">
-	<form method='post' action='' role="form" enctype="multipart/form-data">{% csrf_token %}
+<div class="row">
+    <div class="col-sm-5 right-align">
+    	<img id="img-preview" class="img-rounded" alt="image of tool" src="{% static 'img/toolplaceholder.png' %}" style="width: 200px; height:200px;">
+    </div>
 
-			{{form.as_p}}
-			<hr>
+    <div class="col-sm-1"></div>
 
-			<input class="btn btn-primary" type="submit" value="Create Tool"/>
+    <div class="col-sm-6">
+        <form method='post' action='' role="form" enctype="multipart/form-data">{% csrf_token %}
 
-	</form>
-            </div>
-        <!--{% for field, errors in form.errors.items %}
-            <ul class="errorlist">
-            {% for error in errors %}
-                <li>{{ error }}</li>
-                
-            {% endfor %}
-            </ul>
-        {% endfor %} -->
+		{{form.as_p}}
+		<hr>
+
+		<input class="btn btn-primary" type="submit" value="Create Tool"/>
+
+        </form>
+    </div>
+</div>
 {% endblock %}
 
 {% block js_ready %}

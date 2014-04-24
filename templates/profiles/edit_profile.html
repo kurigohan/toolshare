@@ -14,15 +14,25 @@
  </style>
  {% endblock %}
 {% block content %}
-<h1>Change your profile image</h1>
+<h1 class="page-header">Profile Image Upload</h1>
 <div class="col-sm-4 col-sm-offset-4" style="text-align:center">
     <img id="img-preview" class="img-circle profile-img" alt="170x170" src="{% static user.profile.filename %}">
     <form action="" role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
     <br>
     {{form.as_p}}
-    </br>
+    <br>
+    <p class="text-muted">
+    JPEG (.jpg), GIF(.gif), or PNG (.png) <br>
+    1280x1280 (750kB) maximum <br>
+    200x200 recommended <br>
+    64x64 minimum <br>
+    (Not enforced yet)
+    </p>
+    <hr>
     <input id="submit" class="btn btn-primary" type="submit" name="submit" value="Update" />
+
     </form>
+
 </div>
 {% endblock content %}
 
