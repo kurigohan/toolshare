@@ -2,7 +2,7 @@
 
 {% block content %}
 {{ block.super }}
-<h2 class="page-header">My Borrow Requests</h2>
+<h1 class="page-header">My Borrow Requests</h1>
 {% if recipient_request_list %}
 <table class="table table-hover sort-table">
     <thead>
@@ -23,10 +23,10 @@
             <td>{{ br.status_str }}</td>
             <td>
                 {% if br.status == br_status.PENDING %}
-                    <a href="{% url 'approve_request' br_id=br.id %}" class="">Approve</a> | 
-                    <a href="{% url 'deny_request' br_id=br.id %}" class="">Deny</a>
+                    <a href="{% url 'approve_request' br_id=br.id %}" class="btn btn-default">Approve</a> | 
+                    <a href="{% url 'deny_request' br_id=br.id %}" class="btn btn-default">Deny</a>
                 {% else %}
-                    <a href="{% url 'recipient_delete_request' br_id=br.id %}" class="">Delete</a>
+                    <a href="{% url 'recipient_delete_request' br_id=br.id %}" class="btn btn-default">Delete</a>
                 {% endif %}
             </td>
         </tr>
@@ -38,7 +38,7 @@
 <div class="text-center"><h2 class="text-muted">None</h2></div>
 {% endif %}
 
-<h2 class="page-header">Sent Borrow Requests</h2>
+<h2 class="page-header">Requests Sent</h2>
 {% if sender_request_list %}
 <table class="table table-hover sort-table">
     <thead>
@@ -60,9 +60,9 @@
             <td>{{ br.status_str }}</td>
             <td>
                 {% if br.status == br_status.PENDING %}
-                    <a href="{% url 'cancel_request' br_id=br.id %}" class="">Cancel</a>
+                    <a href="{% url 'cancel_request' br_id=br.id %}" class="btn btn-default">Cancel</a>
                 {% else %}
-                    <a href="{% url 'sender_delete_request' br_id=br.id %}" class="">Delete</a>
+                    <a href="{% url 'sender_delete_request' br_id=br.id %}" class="btn btn-default">Delete</a>
                 {% endif %}
             </td>
         </tr>
