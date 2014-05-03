@@ -1,3 +1,6 @@
 from django.contrib import admin
+from sharecenter.models import Tool, Shed, Stats
 
-# Register your models here.
+admin.site.register(Tool)
+admin.site.register(Shed)
+admin.site.register(Stats)

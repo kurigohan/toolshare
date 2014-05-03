@@ -7,11 +7,7 @@ from django.contrib.auth.models import Group
 from django_messages.utils import get_user_model
 User = get_user_model()
 
-if "notification" in settings.INSTALLED_APPS:
-    from notification import models as notification
-else:
-    notification = None
-    
+
 from django_messages.models import Message
 
 class MessageAdminForm(forms.ModelForm):

@@ -43,7 +43,6 @@ class Shed(models.Model):
         #return address as string
         return "%s \n %s %s" % (self.street, self.city, self.state) 
     
-    @property
     def filename(self):
         if self.image:
             return 'media/shed_img/'+os.path.basename(self.image.name)
@@ -112,7 +111,6 @@ class Tool(models.Model):
             descrip = descrip[:30] + "..." 
         return descrip
 
-    @property
     def filename(self):
         if self.image:
             return 'media/tool_img/'+os.path.basename(self.image.name)

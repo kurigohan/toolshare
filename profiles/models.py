@@ -42,7 +42,6 @@ class UserProfile(models.Model):
         self.home_shed.postal_code = value
         self.home_shed.save()
 
-    @property
     def filename(self):
         if self.image:
             return 'media/userprofile_img/'+os.path.basename(self.image.name)
