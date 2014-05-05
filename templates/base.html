@@ -14,11 +14,10 @@
        
               <a class="navbar-brand" href="{% url 'user_home' %}">Toolshare</a>
 
-                
+              <ul class="nav navbar-nav navbar-right">
+            {% block navbar_right %}{% endblock %}
             {% if user.is_authenticated %}
-            <ul class="nav navbar-nav navbar-right">
-
-
+          
                 <li>
                 {% if notifications_new_count > 0 %}
                  <a id="drop2" href="#" role="button" class="dropdown-toggle alert-new" data-toggle="dropdown">
@@ -71,10 +70,10 @@
                     </ul>
                 </li>
                 <li style="margin-right: 50px"></li>
-            </ul>
 
           {% endif %}
 
+            </ul>
 
 
 

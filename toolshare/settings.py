@@ -120,6 +120,8 @@ AUTH_PROFILE_MODULE = 'users.UserProfile'
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/profile/'
 
+#TOOL_LIMIT = 100
+#SHED_LIMIT = 10
 
 # Display activation emails in the console ifi n debug mode
 #if DEBUG:

@@ -1,7 +1,9 @@
 {% extends "base.html" %}
-{% load i18n %}
-
-{% block navbar-right %}
+{% load staticfiles %}
+{% block css%}
+<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
-
-{% block dashboard %} {% endblock %}
+{% block dashboard %}{% endblock %}
+{% block navbar_right %}
+<li><a href="{% url 'about_page' %}">About Us</a></li>
+{% endblock %}

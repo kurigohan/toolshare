@@ -15,6 +15,7 @@ from borrow_requests.models import BorrowRequest
 import borrow_requests.RequestStatus as RequestStatus
 
 from profiles.models import UserProfile
+
 import os
 @login_required
 def create_tool(request, template_name='tools/create_tool.html'):
@@ -46,7 +47,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
                                                     sender=request.user,
                                                     notice_type=NoticeType.ACTIVITY,
                                                     message=activity_msg)
-            request.user.profile.stats.total_borrowed = request.user.profile.stats.total_borrowed + 1
+            request.user.profile.stats.total_shared +=  1
             request.user.profile.stats.save()                                        
             
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
@@ -96,7 +97,7 @@ def edit_tool(request, tool_id, template_name='tools/edit_tool.html'):
                 request.POST = request.POST.copy()
                 request.POST['shed'] = tool.shed.id
             form = ToolForm(request.user, request.POST, request.FILES, instance=tool)
-            if form.is_valid:
+            if form.is_valid():
                 form.save()
                 url = reverse('tool_detail', kwargs={'tool_id':tool.id})
                 return HttpResponseRedirect(url)
@@ -137,7 +138,9 @@ def create_tool_to_shed(request, shed_id ,template_name='tools/create_tool.html'
             Notification.objects.create(recipient=request.user, 
                                                     sender=request.user,
                                                     notice_type=NoticeType.ACTIVITY,
-                                                    message=activity_msg)                                        
+                                                    message=activity_msg)     
+            request.user.profile.stats.total_shared +=  1
+            request.user.profile.stats.save()                                     
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
     else: 
@@ -288,7 +291,7 @@ def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
     if request.user == shed.owner:
         if request.method == 'POST':
             form = ShedForm(request.POST, request.FILES, instance=shed)
-            if form.is_valid:  
+            if form.is_valid():  
                 form.save()
                 url = reverse('shed_detail', kwargs={'shed_id':shed.id})
                 return HttpResponseRedirect(url)
