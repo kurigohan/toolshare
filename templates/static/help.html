@@ -5,42 +5,67 @@
 {% block title %}Fequently asked questions{% endblock %} 
 
 {% block content %} 
-    <h1 class="page-header">FAQ</h1>
-        <div class="row">
-            <div class="col-md-12 text-left">
-                <table class="table no-border detail-table">
-					<tbody>
-						<tr>
-							<td class="text-muted label-col">What is a shed?</td>
-							<td>
-								A shed is a place in which a user can store tools or borrow tools.
-								Each share zone has at least one shed. When a user creates an account
-								their home is a representative shed. A shed is a physical location that a user
-								can go to in order to receive their borrowed tools. 
-							</td>
-						</tr>
-						<tr>
-							<td class="text-muted label-col">What happens when I borrow?</td>
-							<td>
-								By borrowing you request from another user a specific tool they own.
-								If they approve you, then you can go to the shed that holds that tool
-								or the user home and receive it. If they do not approve you, then the tool remains with
-								the owner. At the end of a specific time period you must return the tool
-								to the shed or owner of the tool.
-							</td>
-						</tr>
-                                                <tr>
-							<td class="text-muted label-col">What is the difference between a shared tool and a loaned
-                                                                                          tool?</td>
-							<td>
-								A shared tool is a tool with no borrower; that is, a tool ready to share
-                                                                with any borrower. A loaned tool is currently on loan to some borrower.
-                                                                If you borrow a tool and return it, please hit the "Return" button on
-                                                                its description so others can see that it is available again.
-							</td>
-						</tr>
-					</tbody>
-				</table>
-            </div>
-          </div>
+<h1 class="page-header">FAQ</h1>
+<div class="row">
+    <div class="col-md-12 text-left">
+        <table class="table no-border detail-table">
+        <tbody>
+            <tr>
+                <td class="text-muted label-col">What is a shed?</td>
+                <td>
+                A shed is a place where a user can share tools or borrow tools.
+                Each share zone has at least one shed. A shed is also a physical location that a user
+                can go to in order to pickup borrowed tools. 
+                </td>
+            </tr>
+            <tr>
+                <td class="text-muted label-col">What is a home shed?</td>
+                <td>
+                Every user has a home shed. The zip code of your home shed determines your share zone.
+                You will always have a home shed,  
+                By default a home shed is created for you at registration, but you can set any of your sheds as a 
+                home shed.   Your designated home shed cannot be deleted.
+                </td>
+            </tr>
+            <tr>
+                <td class="text-muted label-col">What is share zone?</td>
+                <td>
+                The share zone is the area where you can find tools shared by other users who have the same zip code as you.
+                You can only borrow a tool from within your share zone. 
+                </td>
+            </tr>
+            <tr>
+                <td class="text-muted label-col">How do I borrow a tool?</td>
+                <td>
+                Once you have found an available tool you'd like to borrow in your share zone, you can select 'Send Borrow Request'.
+                This will notify the tool's owner of your intent. It is up to the tool owner to approve or deny your borrow request. 
+                </td>
+            </tr>
+            <tr>
+                <td class="text-muted label-col">How do I view my borrow request?</td>
+                <td>
+               The circled exclamation point at the top-left corner of this page will take you to your borrow request page.
+                From there you can view, approve, or deny  borrow requests that were sent to you. You can also cancel any of the pending request you have sent.  
+                </td>
+            </tr>
+            <tr>
+                <td class="text-muted label-col">What is the difference between a shared tool and a loaned
+                tool?</td>
+                <td>
+                A shared tool is a tool with no borrower; that is, a tool ready to share
+                with any borrower. A loaned tool is currently on loan to some borrower.
+                If you borrow a tool and return it, please hit the "Return" button on
+                its description so others can see that it is available again.
+                </td>
+            </tr>
+            <tr>
+                <td class="text-muted label-col">How do I contact other users?</td>
+                <td>
+                The envelope icon on the top navigation bar will take you to your inbox. You can send other user's private messages from there.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

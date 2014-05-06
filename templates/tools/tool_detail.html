@@ -57,7 +57,7 @@
 
                <!-- Buttons -->
                     {% if permissions.borrow %}
-                    <a class="btn btn-primary confirm" href="{% url 'borrow_tool' tool_id=tool.id %}"><strong>Borrow</strong></a>
+                    <a class="btn btn-primary confirm" href="{% url 'borrow_tool' tool_id=tool.id %}"><strong>Send Borrow Request</strong></a>
                     {% elif permissions.return %}
                     <a class="btn btn-primary confirm" href="{% url 'return_tool' tool_id=tool.id %}"><strong>Return</strong></a>
                     {% endif %}
