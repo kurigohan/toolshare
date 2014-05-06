@@ -32,7 +32,7 @@ class Notification(models.Model):
     recipient = models.ForeignKey(User, related_name="notification_received")
     sender = models.ForeignKey(User, null=True, related_name="notification_sent")
     date = models.DateTimeField()
-    notice_type = models.SmallIntegerField()
+    notice_type = models.CharField(max_length=30)
     action = models.CharField(max_length=20, blank=True)
     tool = models.ForeignKey(Tool, null=True, related_name="tool_notification")
     shed = models.ForeignKey(Shed, null=True, related_name="shed_notification")
@@ -42,16 +42,7 @@ class Notification(models.Model):
 
    
     def __unicode__(self):
-        return "recipient: %s\n\
-                    sender:%s\n\
-                    notice_type:%i\n\
-                    action:%s\n\
-                    tool:%s\n\
-                    shed:%s\n\
-                    message:%s\n\
-                    date:%s" \
-                    %(self.recipient, self.sender, self.notice_type, self.action, self.tool.name, 
-                                                self.shed, self.message, self.date)
+        return '%s Notification for %' % (self.notice_type, self.recipient.username)
 
 
     def action_message(self):
@@ -73,16 +64,36 @@ class Notification(models.Model):
         Returns string formatted with html link tags if the notice type is activity or alert.
         Returns empty string otherwise.
         """
-        if self.notice_type != NoticeType.ACTIVITY and self.notice_type != NoticeType.SYSTEM:
-            action = self.action;
-            if self.notice_type == NoticeType.REQUEST:
-                action = "sent a borrow request for"
-            sender_url = reverse('profile_detail', args=[self.sender.username])
-            tool_url = reverse('tool_detail', args=[self.tool.id])
-            shed_url = reverse('shed_detail', args=[self.shed.id])
 
-            return '<a href="%s" > %s </a> %s <a href="%s">%s</a> (<a href="%s">%s</a>)' \
-                            % (sender_url, self.sender.username, action, tool_url, self.tool.name, shed_url, self.shed.name) 
-        else:
-            return "";
+        action = self.action;
+        if self.notice_type == NoticeType.REQUEST:
+            action = "sent a borrow request for"
+        sender_url = reverse('profile_detail', args=[self.sender.username])
+        tool_url = reverse('tool_detail', args=[self.tool.id])
+        shed_url = reverse('shed_detail', args=[self.shed.id])
 
+        return '<a href="%s" > %s </a> %s <a href="%s">%s</a> (<a href="%s">%s</a>)' \
+                        % (sender_url, self.sender.username, action, tool_url, self.tool.name, shed_url, self.shed.name) 
+
+
+
+class ActivityManager(models.Manager):
+    def create(self, user, message, date=None):
+        if not date: # set date to current datetime if none provided
+            date = timezone.now()
+        activity = Activity(
+            user=user,
+            date=date,
+            message=message,
+            )
+        activity.save(force_insert=True)
+        return activity
+
+class Activity(models.Model):
+    user = models.ForeignKey(User, related_name="recent_activity")
+    date = models.DateTimeField()
+    message = models.CharField(max_length=255)
+    objects = ActivityManager()
+
+    def __unicode__(self):
+        return '%s activity: %s' % (self.user.username, self.message)

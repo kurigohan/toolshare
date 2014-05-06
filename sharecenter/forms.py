@@ -63,7 +63,7 @@ class ToolForm(ModelForm):
     name = forms.CharField(label='Name', max_length=30, 
                                             widget=forms.TextInput(attrs={'class':'form-control form-group input-single',}),)
     description = forms.CharField(label='Description', max_length=250, 
-                                                    widget=forms.TextInput(attrs={'class':'form-control form-group input-single',} ),)
+                                                    widget=forms.Textarea(attrs={'class':'form-control form-group input-single','rows':'4'} ),)
     category = forms.ChoiceField(choices=categories, 
                                                     widget=forms.Select(attrs={'class':'form-control',} ),)
     

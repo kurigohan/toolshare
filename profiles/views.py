@@ -19,6 +19,7 @@ from django.contrib.auth.models import User
 
 from profiles import utils
 from users.forms import ProfileForm
+from notifications.models import Activity
 
 @login_required
 def create_profile(request, form_class=None, success_url=None,
@@ -285,10 +286,13 @@ def profile_detail(request, username, public_profile_field=None,
     context = RequestContext(request)
     for key, value in extra_context.items():
         context[key] = callable(value) and value() or value
-    
 
+    # get 10 most recent activity of the user and delete all others 
+    recent_activity = Activity.objects.filter(user=request.user).order_by('-date')[:10]
+    old_activity = Activity.objects.exclude(pk__in=recent_activity).delete() 
+        
     return render_to_response(template_name,
-                              { 'profile': profile_obj, 'auth_user': request.user, 'login_ago':  login_ago, },
+                              { 'profile': profile_obj, 'auth_user': request.user, 'login_ago':  login_ago, 'recent_activity':recent_activity},
                               context_instance=context)
 
 

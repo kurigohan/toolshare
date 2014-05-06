@@ -199,10 +199,10 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   width: 50px;
 }
 
-/* image size */
+/* image sizes */
 .dashboard-icon {
-   width: 100px; 
-   height: 100px;
+   width: 70px; 
+   height:70px;
 }
 
 .shed-img {
@@ -219,6 +219,13 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   width: 200px;
   height: 200px;
 }
+
+.tool-thumbnail{
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+}
+
 
 /* Show/hide dashboard button*/
 .dash-btn-div{
@@ -289,3 +296,13 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .errorlist li {
         color: red;
 }
+
+
+.row-link{
+  cursor:pointer;
+}
+
+.row-link td {
+   vertical-align: middle !important;
+}
+

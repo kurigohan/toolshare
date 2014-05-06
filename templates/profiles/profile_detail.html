@@ -10,54 +10,66 @@
 </style>
 {% endblock %}
 {% block content %} 
-    {{ block.super }}
+{{ block.super }}
 <h1 class="page-header text-left">
-    {% if profile.user == user %}
-    My Profile 
-    {% else %}
-    Profile
-    {% endif %}
-
-    <small>{{ profile.user.username }}</small>
-    {% if profile.user == user %}
-    <a class="text-right text-muted" href="{% url 'edit_profile' %}" style="float:right; padding-top:2%; font-size:40%">edit profile</a>
-    {% endif %}
-    </h1> 
-        <div class="row">
-            <div class="col-sm-6 right-align">
-                <img class="img-circle profile-img"  src="{% static user.profile.filename %}">
-            </div>
-         
-            <div class="col-sm-6 ">
-              <table class="table no-border detail-table">
-                <tbody>
-                  <tr>
-                    <td class="text-muted label-col">Name: </td>
-                    <td>{{ profile.user.first_name }}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted">Last Online: </td>
-                    <td>{{ login_ago }}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted">Join Date: </td>
-                    <td>{{ profile.user.date_joined.date }}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted">Share Zone: </td>
-                    <td>{{ profile.postal_code }}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted">Total Tools: </td>
-                    <td>{{ user.tool_owned.all.count }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-{% if user == profile.user %}
-<!-- Display Recent Activity -->
+{% if profile.user == user %}
+My Profile 
+{% else %}
+Profile
 {% endif %}
 
+<small>{{ profile.user.username }}</small>
+{% if profile.user == user %}
+<a class="text-right text-muted" href="{% url 'edit_profile' %}" style="float:right; padding-top:2%; font-size:40%">edit profile</a>
+{% endif %}
+</h1> 
+<div class="row">
+    <div class="col-sm-6 right-align">
+        <img class="img-circle profile-img"  src="{% static user.profile.filename %}">
+    </div>
+ 
+    <div class="col-sm-6 ">
+      <table class="table no-border detail-table">
+        <tbody>
+          <tr>
+            <td class="text-muted label-col">Name: </td>
+            <td>{{ profile.user.first_name }}</td>
+          </tr>
+          <tr>
+            <td class="text-muted">Last Online: </td>
+            <td>{{ login_ago }}</td>
+          </tr>
+          <tr>
+            <td class="text-muted">Join Date: </td>
+            <td>{{ profile.user.date_joined.date }}</td>
+          </tr>
+          <tr>
+            <td class="text-muted">Share Zone: </td>
+            <td>{{ profile.postal_code }}</td>
+          </tr>
+          <tr>
+            <td class="text-muted">Total Tools: </td>
+            <td>{{ user.tool_owned.all.count }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% if user == profile.user %}
+<br>
+<h2>My Recent Activity</h2>
+<div class="row">
+    <table class="table table-striped text-center">
+          {% for activity in recent_activity %}
+            <tr>
+              <td>
+                {{activity.message}} on {{activity.date}}
+              </td>
+            </tr>
+          {% endfor %}
+    </table>
+
+</div>
+{% endif %}
 {% endblock %}
 

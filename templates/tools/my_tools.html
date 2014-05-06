@@ -36,63 +36,55 @@
             </div>
           </nav> 
           {% if tool_list %}
-		
-		
-		<div class="table-responsive">
-			<table class="table table-hover sort-table">
-				<thead>
-					<tr>
-						<!--<th class="{sorter:false}"></th>
-						<th class="{sorter:false}"></th>-->
-						<th>Name</th>
-						<th>Description</th>
-						<th>Category</th>
-						<th>Location</th>
-						<th>Status</th>
-						<th class="{sorter:false}"></th>
-					</tr>
-				</thead>
-				
-				<tbody>
-		
+    
+    
+    <div class="table-responsive">
+      <table class="table table-hover sort-table">
+        <thead>
+          <tr>
+            <!--<th class="{sorter:false}"></th>
+            <th class="{sorter:false}"></th>-->
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        
+        <tbody>
+    
 
-					{% for tool in tool_list %}
+          {% for tool in tool_list %}
 
-						<tr>
-		
-							<td>
-							{{tool.name}}
-							</td>
-							<td>
-							{{tool.description}}
-							</td>
-							<td>
-							{{tool.category}}
-							</td>
-							<td>
-							{{tool.shed.name}}
-							</td>
-							<td>
-                                      {% if tool.is_available %}
-                                      Shared
-                                      {% else %}
-                                      Loaned 
-                                      (<a href="{% url 'profile_detail' username=tool.borrower.username %}">{{tool.borrower.username}}</a>)
-                                      {% endif %}
-							</td>
-							<td class="but-col">
-								<a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
-							</td>
+            <tr class="row-link" data-href="{% url 'tool_detail' tool_id=tool.id %}">
+              <td>
+                {% if tool.image %}
+                <image src="{% static tool.filename %}" class="img-thumbnail tool-thumbnail"></image>
+                {% endif %}
 
-						</tr>
-					{% endfor %}
+                {{tool.name}}
 
-				</tbody>
-			</table>
-		</div>
-		{% else %}
-		<div class="text-center"><h2 class="text-muted">None</h2></div>
-		{% endif %}
+              </td>
+              <td><span title="{{tool.description}}">{{tool.short_descrip}}</span></td>
+              <td>{{tool.category}}</td>
+              <td>{{tool.shed.name}}</td>
+              <td>
+                {% if tool.is_available %}
+                Shared
+                {% else %}
+                Loaned ({{tool.borrower.username}})
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="text-center"><h2 class="text-muted">None</h2></div>
+    {% endif %}
 
 <h2 class="page-header">Tools Borrowed</h2>
           {% if borrow_list %}
@@ -107,7 +99,6 @@
                         <th>Category</th>
                         <th>Location</th>
                         <th>Owner</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -115,27 +106,19 @@
 
                     {% for tool in borrow_list %}
 
-                        <tr>
-        
-                            <td>
-                            {{tool.name}}
-                            </td>
-                            <td>
-                            {{tool.description}}
-                            </td>
-                            <td>
-                            {{tool.category}}
-                            </td>
-                            <td>
-                            {{tool.shed.name}}
-                            </td>
-                            <td>
-                           <a href="{% url 'profile_detail' username=tool.owner.username %}"> {{tool.owner.username}}</a>
-                            </td>
-                            <td class="but-col">
-                                <a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
-                            </td>
+                        <tr class="row-link" data-href="{% url 'tool_detail' tool_id=tool.id %}">
+                          <td>
+                            {% if tool.image %}
+                            <image src="{% static tool.filename %}" class="img-thumbnail tool-thumbnail"></image>
+                            {% endif %}
 
+                            {{tool.name}}
+
+                            </td>
+                            <td><span title="{{tool.description}}">{{tool.short_descrip}}</span></td>
+                            <td>{{tool.category}}</td>
+                            <td>{{tool.shed.name}}</td>
+                            <td> {{tool.owner.username}}</td>
                         </tr>
                     {% endfor %}
 

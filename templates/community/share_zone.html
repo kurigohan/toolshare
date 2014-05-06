@@ -14,26 +14,26 @@
               
    <nav class="navbar navbar-default" role="navigation">
 
-      	<span class="navbar-brand">
-      	Statistics:
-      	</span>
-   	<span class="navbar-brand">
-   		
-   		<small>Most Active Borrower: 
-		<a href="{% url 'profile_detail' username=stats.most_active_borrower.user.username %}">
-   		{{ stats.most_active_borrower.user.username }}
-   		</a>
-   		</small>
-   		
-   	</span>
-   	<span class="navbar-brand">
-   		
-   		<small> Most Active Lender: 
-		<a href="{% url 'profile_detail' username=stats.most_active_lender.user.username %}">
-   		{{ stats.most_active_lender.user.username }}
-		</a>
-   		</small>
-   	</span>
+        <span class="navbar-brand">
+        Statistics:
+        </span>
+    <span class="navbar-brand">
+        
+        <small>Most Active Borrower: 
+        <a href="{% url 'profile_detail' username=stats.most_active_borrower.user.username %}">
+        {{ stats.most_active_borrower.user.username }}
+        </a>
+        </small>
+        
+    </span>
+    <span class="navbar-brand">
+        
+        <small> Most Active Lender: 
+        <a href="{% url 'profile_detail' username=stats.most_active_lender.user.username %}">
+        {{ stats.most_active_lender.user.username }}
+        </a>
+        </small>
+    </span>
             <div class="container-fluid">
                 <form class="navbar-form navbar-right" action role="search" method="get">
                   <div class="form-group">
@@ -47,56 +47,50 @@
           </nav> 
 
          
-	<div class="table-responsive">
-		<table class="table table-hover sort-table">
-			<thead>
-				<tr>
-					<th>Name</th>
-					<th>Description</th>
-					<th>Category</th>
-					<th>Owner</th>
-					<th>Shed</th>
-					<th class="{sorter:false}"></th>
-				</tr>
-			</thead>
-			<tbody>
-			{% for tool in results %}
-					<tr>
-						<td>
-						{{tool.name}}
-						</td>
-			
-						<td>
+    <div class="table-responsive">
+        <table class="table table-hover sort-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Owner</th>
+                    <th>Shed</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for tool in results %}
+                    <tr class="row-link" data-href="{% url 'tool_detail' tool_id=tool.id %}">
+                        <td>
+                            {% if tool.image %}
+                            <image src="{% static tool.filename %}" class="img-thumbnail tool-thumbnail"></image>
+                            {% endif %}
 
-						<span title={{tool.description}}>{{tool.short_descrip}}</span>
-						</td>
-						<td>
-						{{tool.category}}
-						</td>
-						<td>                   
-							<a href="{% url 'profile_detail' username=tool.owner.username %}"> 
-							{{tool.owner.username}}
-							</a>
-						</td>
-						<td>
-						<a href="{% url 'shed_detail' shed_id=tool.shed.id %}">
-						{{tool.shed.name}}
-						</a>
-						</td>
-						<td class="but-col">
-							<a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
-						</td>
-					</tr>
-			{% endfor %}
+                            {{tool.name}}
+                        </td>
+                        <td>
+                        <span title="{{tool.description}}">{{tool.short_descrip}}</span>
+                        </td>
+                        <td>
+                        {{tool.category}}
+                        </td>
+                        <td>                   
+                            {{tool.owner.username}}
+                        </td>
+                        <td>
+                        {{tool.shed.name}}
+                        </td>
+                    </tr>
+            {% endfor %}
 
 
 
-		          </tbody>
-		</table>
-		{% if not results %}
-					<div class="text-center"><h2 class="text-muted">None</h2></div>
-		{% endif %}
-	</div>
+                  </tbody>
+        </table>
+        {% if not results %}
+                    <div class="text-center"><h2 class="text-muted">None</h2></div>
+        {% endif %}
+    </div>
 
       
 
@@ -104,57 +98,57 @@
 {% endblock %}
 
 {% block js_ready %}
-	$(".clear-search").click(function(){
-		$("#id_q").val("");
-	});
+    $(".clear-search").click(function(){
+        $("#id_q").val("");
+    });
 {% endblock %}
 
 <!--    {% if shed_list %}
-		<div class="table-responsive">
-			<table class="table table-hover sort-table">
-				<thead>
-					<tr>
+        <div class="table-responsive">
+            <table class="table table-hover sort-table">
+                <thead>
+                    <tr>
 
-						<th>Name</th>
-						<th>Owner</th>
-						<th class="center-text">Shared</th>
-						<th class="center-text">Loaned</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-		
+                        <th>Name</th>
+                        <th>Owner</th>
+                        <th class="center-text">Shared</th>
+                        <th class="center-text">Loaned</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+        
 
-					{% for shed in shed_list %}
+                    {% for shed in shed_list %}
 
-						{% with shed.share_count as share_count %}
-						{% if share_count > 0 %}
-						<tr>
-		
-							<td>
-							{{shed.name}}
-							</td>
-							<td>                   <a href="{% url 'profile_detail' username=shed.owner.username %}"> 
-							{{shed.owner.username}}</a>
-							</td>
-							<td class="label-col center-text">
-							{{share_count}}
-							</td>
-							<td class="label-col center-text">
-							{{shed.borrow_count}}
-							</td>
-							<td class="but-col">
-								<a href="{% url 'shed_detail' shed_id=shed.id %}">View</a>
-							</td>
+                        {% with shed.share_count as share_count %}
+                        {% if share_count > 0 %}
+                        <tr>
+        
+                            <td>
+                            {{shed.name}}
+                            </td>
+                            <td>                   <a href="{% url 'profile_detail' username=shed.owner.username %}"> 
+                            {{shed.owner.username}}</a>
+                            </td>
+                            <td class="label-col center-text">
+                            {{share_count}}
+                            </td>
+                            <td class="label-col center-text">
+                            {{shed.borrow_count}}
+                            </td>
+                            <td class="but-col">
+                                <a href="{% url 'shed_detail' shed_id=shed.id %}">View</a>
+                            </td>
 
-						</tr>
-						{% endif %}
-						{% endwith %}
-					{% endfor %}
+                        </tr>
+                        {% endif %}
+                        {% endwith %}
+                    {% endfor %}
 
-				</tbody>
-			</table>
-		</div>
-		{% else %}
-		<div class="text-center"><h2 class="text-muted">None</h2></div>
-		{% endif %} -->
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center"><h2 class="text-muted">None</h2></div>
+        {% endif %} -->

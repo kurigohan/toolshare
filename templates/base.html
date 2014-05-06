@@ -112,16 +112,16 @@
             {% endblock %}
         </div>
     </div>
-{% endblock %}
+    {% endblock %}
 
 
-  {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
         </div>
 
         <script type="text/javascript" src="{% static 'js/jquery-1.11.0.min.js' %}"></script> 
         <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bootbox.min.js' %}"></script>
- {% block js %}{% endblock %}
+        {% block js %}{% endblock %}
         <script type="text/javascript">
         $(document).ready(function(){
           $(".dash-btn").click( function() {
@@ -129,6 +129,10 @@
             $(".dash-btn").toggleClass("opened closed")
           });
 
+          $(".row-link").click(function(){
+            window.location.href = $(this).attr('data-href');
+          });
+          
         {% block js_ready %}{% endblock %}
       
       });
