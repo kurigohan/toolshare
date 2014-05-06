@@ -9,7 +9,8 @@ Required:
 	Django 1.6 +
 	Python 2.7 +
 
---------GETTING STARTED--------
+Getting Started
+===============
 
 To Run:
 
@@ -22,7 +23,8 @@ To Run:
 
 Reccomended browsers: Google Chrome or Mozilla Firefox 
 
----------APP INFO----------
+App Info
+========
 
 Toolshare pages:
 	- Dashboard options:	
