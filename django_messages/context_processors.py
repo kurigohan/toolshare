@@ -9,6 +9,6 @@ def inbox(request):
 
 def inbox_preview(request):
     if request.user.is_authenticated():
-        return {'inbox_preview': Message.objects.inbox_for(request.user)}
+        return {'inbox_preview': Message.objects.filter(recipient=request.user, read_at__isnull=True, recipient_deleted_at__isnull=True)}
     else:
         return {}

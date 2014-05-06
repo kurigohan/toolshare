@@ -2,7 +2,7 @@
 
 {% block content %}
 {{ block.super }} 
-<h1 class="page-header">My Notifications</h1>
+<h1 class="page-header">My Notifications {% if notification_list %}<small style="float:right; padding-top:2%; font-size:40%"><a href="{% url 'delete_all_notifications' %}">Delete All</a></small>{% endif %}</h1>
 {% if notification_list %}
 <table class="table table-hover sort-table">
     <thead>

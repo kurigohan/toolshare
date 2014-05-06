@@ -23,7 +23,7 @@
             <td>{{ br.status_str }}</td>
             <td>
                 {% if br.status == br_status.PENDING %}
-                    <a href="{% url 'approve_request' br_id=br.id %}" class="btn btn-default">Approve</a> | 
+                    <a href="{% url 'approve_request' br_id=br.id %}" class="btn btn-default">Approve</a> 
                     <a href="{% url 'deny_request' br_id=br.id %}" class="btn btn-default">Deny</a>
                 {% else %}
                     <a href="{% url 'recipient_delete_request' br_id=br.id %}" class="btn btn-default">Delete</a>
