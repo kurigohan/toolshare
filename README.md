@@ -6,6 +6,7 @@ by: Andy Nguyen, Raymond Bremmer, Cody Tinker, Arron Reed, Ransom Quinn
 Test liason: Andy - agn3691@rit.edu
 
 Required:
+
 	Django 1.6 +
 	Python 2.7 +
 

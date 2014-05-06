@@ -14,38 +14,39 @@
               
    <nav class="navbar navbar-default" role="navigation">
 
-        <span class="navbar-brand">
-        Statistics:
-        </span>
-    <span class="navbar-brand">
-        
-        <small>Most Active Borrower: 
-        <a href="{% url 'profile_detail' username=stats.most_active_borrower.user.username %}">
-        {{ stats.most_active_borrower.user.username }}
+        <a href="#" id="view_stats" class="navbar-brand">
+        View Statistics
         </a>
-        </small>
-        
-    </span>
-    <span class="navbar-brand">
-        
-        <small> Most Active Lender: 
-        <a href="{% url 'profile_detail' username=stats.most_active_lender.user.username %}">
-        {{ stats.most_active_lender.user.username }}
-        </a>
-        </small>
-    </span>
+    
             <div class="container-fluid">
                 <form class="navbar-form navbar-right" action role="search" method="get">
                   <div class="form-group">
-                    <input type="text" class="form-control" id="id_q" maxlength="30" name="q" placeholder="Search">
+                  {{form.category}}
+                  {{form.search_term}}
+                   <!-- <input type="text" class="form-control" id="id_q" maxlength="30" name="q" placeholder="Search"> -->
                   </div>
                   <input type="submit" class="btn btn-default" value="Submit">
                   <a href="#" class="btn btn-default clear-search">Clear</a>
                 </form>
 
             </div>
-          </nav> 
+    </nav> 
+    <div id="stats" class="row text-center" style="display:none">
+        <ul style="list-style-type:none">
+            <li><strong class="text-muted">Most Active Borrower:</strong> 
+                <a href="{% url 'profile_detail' username=stats.most_active_borrower.user.username %}">
+                {{ stats.most_active_borrower.user.username }}
+                </a>
+                </li>
 
+        <li>
+            <strong class="text-muted"> Most Active Lender:</strong> 
+                <a href="{% url 'profile_detail' username=stats.most_active_lender.user.username %}">
+                {{ stats.most_active_lender.user.username }}
+                </a>
+                </li>
+        </ul>
+    </div>
          
     <div class="table-responsive">
         <table class="table table-hover sort-table">
@@ -99,56 +100,10 @@
 
 {% block js_ready %}
     $(".clear-search").click(function(){
-        $("#id_q").val("");
+        $("#id_search_term").val("");
+    });
+
+    $("#view_stats").click(function(){
+        $("#stats").slideToggle();
     });
 {% endblock %}
-
-<!--    {% if shed_list %}
-        <div class="table-responsive">
-            <table class="table table-hover sort-table">
-                <thead>
-                    <tr>
-
-                        <th>Name</th>
-                        <th>Owner</th>
-                        <th class="center-text">Shared</th>
-                        <th class="center-text">Loaned</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-        
-
-                    {% for shed in shed_list %}
-
-                        {% with shed.share_count as share_count %}
-                        {% if share_count > 0 %}
-                        <tr>
-        
-                            <td>
-                            {{shed.name}}
-                            </td>
-                            <td>                   <a href="{% url 'profile_detail' username=shed.owner.username %}"> 
-                            {{shed.owner.username}}</a>
-                            </td>
-                            <td class="label-col center-text">
-                            {{share_count}}
-                            </td>
-                            <td class="label-col center-text">
-                            {{shed.borrow_count}}
-                            </td>
-                            <td class="but-col">
-                                <a href="{% url 'shed_detail' shed_id=shed.id %}">View</a>
-                            </td>
-
-                        </tr>
-                        {% endif %}
-                        {% endwith %}
-                    {% endfor %}
-
-                </tbody>
-            </table>
-        </div>
-        {% else %}
-        <div class="text-center"><h2 class="text-muted">None</h2></div>
-        {% endif %} -->

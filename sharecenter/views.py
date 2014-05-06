@@ -5,7 +5,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.db.models import Q
 from django.contrib import messages
 
-from sharecenter.forms import ToolForm,  ShedForm
+from sharecenter.forms import ToolForm,  ShedForm, SearchForm
 from sharecenter.models import Tool, Shed
 
 from notifications.models import Notification, Activity
@@ -53,6 +53,9 @@ def create_tool(request, template_name='tools/create_tool.html'):
 
 @login_required
 def delete_tool(request, tool_id):
+    """
+    Delete a tool
+    """
     tool = get_object_or_404(Tool, pk=tool_id)
     if request.user == tool.owner and tool.is_available():
         if tool.image:
@@ -264,6 +267,9 @@ def create_shed(request, template_name='sheds/create_shed.html'):
 
 @login_required
 def delete_shed(request, shed_id):
+    """
+    Delete a shed.
+    """
     shed = get_object_or_404(Shed, pk=shed_id)
     if request.user == shed.owner and shed.share_count() == 0 \
                                  and request.user.profile.home_shed != shed:
@@ -301,6 +307,9 @@ def edit_shed(request, shed_id, template_name='sheds/edit_shed.html'):
 
 @login_required
 def set_home_shed(request, shed_id):
+    """
+    Set shed as home shed
+    """
     shed = get_object_or_404(Shed, pk=shed_id)
     if request.user == shed.owner:
         request.user.profile.home_shed = shed
@@ -319,12 +328,20 @@ def share_zone(request, template_name='community/share_zone.html'):
 
     results = Tool.objects.filter(shed__postal_code=request.user.profile.postal_code)
     results = results.exclude(owner=request.user)
-  #  if request.method == 'GET' and 'q' in request.GET:
-    if request.method == 'GET' and 'q' in request.GET:
-        search_term = request.GET.get('q', False)
-        results = results.filter(Q(name__icontains=search_term))
+    # if search entered
+    if request.method == 'GET' and 'search_term' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            search_term = form.cleaned_data['search_term']
+            category = form.cleaned_data['category']
+            if category:
+                results = results.filter(Q(category=category), Q(name__icontains=search_term))
+            else:
+                results = results.filter(Q(name__icontains=search_term))
+    else:
+        form = SearchForm(initial={'category':''})
     stats = get_community_stats( request.user )
-    return render(request, template_name, {'results':results, 'stats':stats})
+    return render(request, template_name, {'form':form, 'results':results, 'stats':stats})
 
 def get_community_stats( user ):
     """
