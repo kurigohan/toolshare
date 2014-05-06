@@ -20,7 +20,7 @@ Profile
 
 <small>{{ profile.user.username }}</small>
 {% if profile.user == user %}
-<a class="text-right text-muted" href="{% url 'edit_profile' %}" style="float:right; padding-top:2%; font-size:40%">edit profile</a>
+<a class="text-muted" href="{% url 'edit_profile' %}" style="float:right; padding-top:2%; font-size:40%">edit profile</a>
 {% endif %}
 </h1> 
 <div class="row">
@@ -55,7 +55,7 @@ Profile
       </table>
     </div>
   </div>
-{% if user == profile.user %}
+{% if user == profile.user  and recent_activity %}
 <br>
 <h2>My Recent Activity</h2>
 <div class="row">

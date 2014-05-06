@@ -54,7 +54,7 @@
                 </li>
 
                 <li>
-                  <a href="{% url 'view_requests' %}">
+                  <a href="{% url 'view_requests' %}"  {% if new_br %}class="alert-new"{%endif %}>
                     <span class="glyphicon glyphicon-exclamation-sign"></span> 
                   </a>
                 </li>
@@ -132,7 +132,7 @@
           $(".row-link").click(function(){
             window.location.href = $(this).attr('data-href');
           });
-          
+
         {% block js_ready %}{% endblock %}
       
       });

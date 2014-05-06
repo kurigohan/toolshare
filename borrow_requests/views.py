@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from sharecenter.models import Tool, Shed
-from notifications.models import Notification
+from notifications.models import Notification, Activity
 from borrow_requests.models import BorrowRequest
 import notifications.NoticeType as NoticeType
 import borrow_requests.RequestStatus as RequestStatus  
@@ -45,6 +45,8 @@ def approve_borrow_request(request, br_id):
                                                         action="approved request for") 
             borrow_request.status = RequestStatus.APPROVED
             borrow_request.save()
+            activity_msg = "Approved borrow request for %s (%s)" % (borrow_request.tool.name, borrow_request.tool.shed.name)
+            Activity.objects.create(user=request.user, message=activity_msg)                  
         else:
             messages.error(request, 'Request could not be approved.')  
 
@@ -71,6 +73,8 @@ def deny_borrow_request(request, br_id):
                                                         action="denied request for") 
             borrow_request.status = RequestStatus.DENIED
             borrow_request.save()
+            activity_msg = "Denied borrow request for %s (%s)" % (borrow_request.tool.name, borrow_request.tool.shed.name)
+            Activity.objects.create(user=request.user, message=activity_msg)    
         else:
             messages.error(request, 'Request could not be denied.')  
     return  redirect('view_requests')
@@ -89,6 +93,8 @@ def sender_cancel_request(request, br_id):
                                                     tool=borrow_request.tool,
                                                     notice_type=NoticeType.ALERT,
                                                     action="canceled request for") 
+        activity_msg = "Canceled borrow request for %s (%s)" % (borrow_request.tool.name, borrow_request.tool.shed.name)
+        Activity.objects.create(user=request.user, message=activity_msg)    
     else:
         messages.error(request, 'Request cannot be canceled.')
     return redirect('view_requests')
