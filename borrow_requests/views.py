@@ -35,6 +35,8 @@ def approve_borrow_request(request, br_id):
             tool.save();
             borrow_request.sender.profile.stats.total_borrowed += 1
             borrow_request.sender.profile.stats.save()
+            request.user.profile.stats.total_shared +=  1
+            request.user.profile.stats.save()       
             # notify requester that the request was approved
             Notification.objects.create(recipient=borrow_request.sender, 
                                                         sender=request.user,

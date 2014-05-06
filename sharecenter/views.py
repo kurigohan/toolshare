@@ -46,9 +46,7 @@ def create_tool(request, template_name='tools/create_tool.html'):
             Notification.objects.create(recipient=request.user, 
                                                     sender=request.user,
                                                     notice_type=NoticeType.ACTIVITY,
-                                                    message=activity_msg)
-            request.user.profile.stats.total_shared +=  1
-            request.user.profile.stats.save()                                        
+                                                    message=activity_msg)                                 
             
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
@@ -138,9 +136,7 @@ def create_tool_to_shed(request, shed_id ,template_name='tools/create_tool.html'
             Notification.objects.create(recipient=request.user, 
                                                     sender=request.user,
                                                     notice_type=NoticeType.ACTIVITY,
-                                                    message=activity_msg)     
-            request.user.profile.stats.total_shared +=  1
-            request.user.profile.stats.save()                                     
+                                                    message=activity_msg)                               
             url = reverse('tool_detail', kwargs={'tool_id':tool.id})
             return HttpResponseRedirect(url)
     else: 
