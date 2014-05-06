@@ -33,15 +33,16 @@ class ShedForm(ModelForm):
         self.fields['image'].required = False
 
     def clean_image(self):
-        ext = os.path.splitext(self.cleaned_data['image'].name)[1]
-        accepted_formats = ('.jpg', '.jpeg', '.png', '.gif')
-        if ext in accepted_formats:
-            if self.cleaned_data['image'].size <= 768000:
-                return self.cleaned_data['image']
+        if self.cleaned_data['image']:
+            ext = os.path.splitext(self.cleaned_data['image'].name)[1]
+            accepted_formats = ('.jpg', '.jpeg', '.png', '.gif')
+            if ext in accepted_formats:
+                if self.cleaned_data['image'].size <= 768000:
+                    return self.cleaned_data['image']
+                else:
+                    raise forms.ValidationError('Image size must be 750kB or less')
             else:
-                raise forms.ValidationError('Image size must be 750kB or less')
-        else:
-            raise forms.ValidationError('Invalid image format. Image must be jpeg, png, or gif format.')
+                raise forms.ValidationError('Invalid image format. Image must be jpeg, png, or gif format.')
       
 
 import sharecenter.Categories as Category
@@ -80,14 +81,15 @@ class ToolForm(ModelForm):
 
 
     def clean_image(self):
-        ext = os.path.splitext(self.cleaned_data['image'].name)[1]
-        accepted_formats = ('.jpg', '.jpeg', '.png', '.gif')
-        if ext in accepted_formats:
-            if self.cleaned_data['image'].size <= 768000:
-                return self.cleaned_data['image']
+        if self.cleaned_data['image']:
+            ext = os.path.splitext(self.cleaned_data['image'].name)[1]
+            accepted_formats = ('.jpg', '.jpeg', '.png', '.gif')
+            if ext in accepted_formats:
+                if self.cleaned_data['image'].size <= 768000:
+                    return self.cleaned_data['image']
+                else:
+                    raise forms.ValidationError('Image size must be 750kB or less')
             else:
-                raise forms.ValidationError('Image size must be 750kB or less')
-        else:
-            raise forms.ValidationError('Invalid image format. Image must be jpeg, png, or gif format')
+                raise forms.ValidationError('Invalid image format. Image must be jpeg, png, or gif format')
       
 
