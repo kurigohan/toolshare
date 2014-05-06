@@ -23,10 +23,10 @@
             <td>{{ br.status_str }}</td>
             <td>
                 {% if br.status == br_status.PENDING %}
-                    <a href="{% url 'approve_request' br_id=br.id %}" class="btn btn-default">Approve</a> 
-                    <a href="{% url 'deny_request' br_id=br.id %}" class="btn btn-default">Deny</a>
+                    <a href="{% url 'approve_request' br_id=br.id %}" class="btn btn-default confirm">Approve</a> 
+                    <a href="{% url 'deny_request' br_id=br.id %}" class="btn btn-default confirm">Deny</a>
                 {% else %}
-                    <a href="{% url 'recipient_delete_request' br_id=br.id %}" class="btn btn-default">Delete</a>
+                    <a href="{% url 'recipient_delete_request' br_id=br.id %}" class="btn btn-default delete">Delete</a>
                 {% endif %}
             </td>
         </tr>
@@ -60,9 +60,9 @@
             <td>{{ br.status_str }}</td>
             <td>
                 {% if br.status == br_status.PENDING %}
-                    <a href="{% url 'cancel_request' br_id=br.id %}" class="btn btn-default">Cancel</a>
+                    <a href="{% url 'cancel_request' br_id=br.id %}" class="btn btn-default confirm">Cancel</a>
                 {% else %}
-                    <a href="{% url 'sender_delete_request' br_id=br.id %}" class="btn btn-default">Delete</a>
+                    <a href="{% url 'sender_delete_request' br_id=br.id %}" class="btn btn-default delete">Delete</a>
                 {% endif %}
             </td>
         </tr>
@@ -84,4 +84,24 @@
     $(".sort-table").tablesorter({
                 sortList: [[2,1]], 
                 });
+
+     $(".confirm").click(function(e){
+          e.preventDefault();
+          var url = $(this).attr("href");
+          var msg = $(this).attr("data-msg");
+          if (!msg){
+            msg = "Are you sure?"
+          }
+          bootbox.confirm(msg, function(result){
+            if(result){
+                window.location.replace(url);
+            }
+          });
+        });
+    //disables all delete links after delete in case page doesn't load fast enough
+      $("a.delete").click(function(){
+            $("a.delete").click(function(e){
+                e.preventDefault();
+            });
+        });
 {% endblock %}

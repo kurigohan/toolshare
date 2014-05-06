@@ -22,8 +22,8 @@ def delete_notification(request, notification_id):
     """
     Delete notification
     """
+    notification = get_object_or_404(Notification, pk=notification_id)
     if  request.user == notification.recipient:
-        notification = get_object_or_404(Notification, pk=notification_id)
         notification.delete()
     return  redirect('view_notifications')
 
@@ -32,8 +32,7 @@ def delete_all_notifications(request):
     """
     Delete all alert and request notifications.
     """
-    notification_list = Notification.objects.filter(Q(recipient=request.user), 
-                            Q(notice_type=NoticeType.ALERT)  | Q(notice_type=NoticeType.REQUEST))
+    notification_list = Notification.objects.filter(recipient=request.user)
     notification_list.delete()
     return  redirect('view_notifications')
 

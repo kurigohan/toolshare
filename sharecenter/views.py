@@ -139,7 +139,7 @@ def create_tool_to_shed(request, shed_id ,template_name='tools/create_tool.html'
 @login_required
 def borrow_tool(request, tool_id):
     """
-    Set selected tool as borrowed
+    Send a borrow request for the tool
     """
     tool = get_object_or_404(Tool, pk=tool_id)
     if request.user != tool.owner and tool.is_available():
@@ -173,7 +173,9 @@ def return_tool(request, tool_id):
                                             tool=tool,
                                             notice_type=NoticeType.ALERT,
                                             action="returned")                            
-
+    activity_msg = "Returned %s to %s" % (tool.name, tool.shed.name)
+    Activity.objects.create(user=request.user,
+                                                message=activity_msg)     
     url = reverse('tool_detail', kwargs={'tool_id':tool.id})
     return HttpResponseRedirect(url)
 

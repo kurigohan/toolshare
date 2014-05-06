@@ -18,7 +18,7 @@
         <tr>
             <td>{% autoescape off %} {{ notification.html }} {% endautoescape %}</td>
             <td>{{ notification.date }}</td>
-            <td><a href="{% url 'delete_notification' notification_id=notification.id %}">x</a></td>
+            <td><a href="{% url 'delete_notification' notification_id=notification.id %}" class="delete">x</a></td>
         </tr>
 
 {% endfor %}
@@ -37,4 +37,10 @@
     $(".sort-table").tablesorter({
                 sortList: [[1,1]], 
                 });
+   //disables all delete links after delete in case page doesn't load fast enough
+      $("a.delete").click(function(){
+            $("a.delete").click(function(e){
+                e.preventDefault();
+            });
+        });
 {% endblock %}
