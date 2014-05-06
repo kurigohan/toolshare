@@ -5,7 +5,7 @@ import notifications.NoticeType as NoticeType
         
 def notifications_new(request):
     if request.user.is_authenticated():
-        notification_list = Notification.objects.filter(recipient=request.user, is_new=True).order_by('-date')
+        notification_list = Notification.objects.filter(recipient=request.user, is_new=True).order_by('-date')[:10]
         return {'notifications_new': notification_list, 'notifications_new_count': len(notification_list)}
     else:
         return {}
