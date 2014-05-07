@@ -1,5 +1,5 @@
 {% extends "table_sortable.html" %} 
-
+{% load staticfiles %}
 {% block content %}
 {{ block.super }}
 <h1 class="page-header">My Borrow Requests</h1>
@@ -17,7 +17,11 @@
     <tbody>
 {% for br in recipient_request_list %}
         <tr>
-            <td><a href="{% url 'tool_detail' tool_id=br.tool.id %}">{{ br.tool.name }}</a></td>
+            <td>   
+                {% if br.tool.image %}
+                <img src="{% static br.tool.filename %}" class="img-thumbnail tool-thumbnail">
+                {% endif %}
+<a href="{% url 'tool_detail' tool_id=br.tool.id %}">{{ br.tool.name }}</a></td>
             <td><a href="{% url 'profile_detail' username=br.sender.username %}">{{ br.sender.username }}</a></td>
             <td>{{ br.date }}</td>
             <td>{{ br.status_str }}</td>
@@ -54,7 +58,10 @@
 {% for br in sender_request_list %}
 
         <tr>
-            <td><a href="{% url 'tool_detail' tool_id=br.tool.id %}">{{ br.tool.name }}</a></td>
+            <td>   {% if br.tool.image %}
+                <img src="{% static br.tool.filename %}" class="img-thumbnail tool-thumbnail">
+                {% endif %}
+<a href="{% url 'tool_detail' tool_id=br.tool.id %}">{{ br.tool.name }}</a></td>
             <td><a href="{% url 'profile_detail' username=br.sender.username %}">{{ br.sender.username }}</a></td>
             <td>{{ br.date }}</td>
             <td>{{ br.status_str }}</td>

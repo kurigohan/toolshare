@@ -64,7 +64,7 @@
                     <tr class="row-link" data-href="{% url 'tool_detail' tool_id=tool.id %}">
                         <td>
                             {% if tool.image %}
-                            <image src="{% static tool.filename %}" class="img-thumbnail tool-thumbnail"></image>
+                            <img src="{% static tool.filename %}" class="img-thumbnail tool-thumbnail">
                             {% endif %}
 
                             {{tool.name}}
