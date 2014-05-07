@@ -58,7 +58,7 @@ def delete_tool(request, tool_id):
     Delete a tool
     """
     tool = get_object_or_404(Tool, pk=tool_id)
-    if request.user == tool.owner and tool.is_available():
+    if request.user == tool.owner and not tool.borrower:
         if tool.image:
             try:
                 os.remove(tool.image.path) # remove image
