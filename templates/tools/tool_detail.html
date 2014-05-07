@@ -63,9 +63,10 @@
                     {% endif %}
 
                    {% if permissions.edit %}
-                      <a class="btn btn-primary" href="{% url 'edit_tool' tool_id=tool.id %}"><strong>Edit</strong></a>                  
+                      <a class="btn {% if tool.is_available %}btn-primary{% else %} btn-default disabled{% endif %}" href="{% url 'edit_tool' tool_id=tool.id %}" data-action="edit">
+                      <strong>Edit</strong></a>                  
                       {% if permissions.delete %}
-                        <a class="btn btn-primary confirm" href="{% url 'delete_tool' tool_id=tool.id %}" >
+                        <a class="btn  {% if tool.is_available %}btn-primary confirm{% else %} btn-default disabled{% endif %}" href="{% url 'delete_tool' tool_id=tool.id %}"  data-action="delete">
                           <strong>Delete</strong></a>
                       {% endif %}
                   {% endif %}

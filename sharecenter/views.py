@@ -191,8 +191,7 @@ def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
     permissions = {"borrow": False, "return":False, "delete":False, "edit":False}
     if request.user == tool.owner:
         permissions["edit"] = True
-        if tool.is_available(): #tool cannot be deleted if its borrowed
-            permissions["delete"] = True
+        permissions["delete"] = True
     elif tool.shed.postal_code == request.user.profile.postal_code:
         if not tool.is_available() and tool.borrower == request.user:
             permissions["return"] = True

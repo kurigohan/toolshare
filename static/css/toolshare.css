@@ -306,3 +306,6 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
    vertical-align: middle !important;
 }
 
+ul {
+  list-style:none !important;
+}

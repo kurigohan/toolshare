@@ -128,4 +128,10 @@ class Stats(models.Model):
     total_borrowed = models.IntegerField(default = 0)
     total_shared = models.IntegerField(default = 0)
 
+    def __unicode__(self):
+        return self.profile.user.username
+        
+    class Meta:
+        verbose_name_plural = "User Stats"
+
 
