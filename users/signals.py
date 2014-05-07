@@ -11,7 +11,10 @@ def user_registered_callback(sender, user, request, **kwargs):
     shed = Shed( 
             name= "%s's home" % user.username,
             owner=user,
-            postal_code = request.POST["postal_code"]
+            street=request.POST["street"],
+            city=request.POST["city"],
+            state=request.POST["state"],
+            postal_code=request.POST["postal_code"]
         )
     shed.save()
     profile = UserProfile(user=user, home_shed=shed)

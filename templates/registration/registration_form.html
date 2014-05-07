@@ -22,8 +22,8 @@
         {% endif %}
         
         <div class="form-inline form-group">
-                <input id="id_first_name" class="form-control input-inline" maxlength="30" name="first_name" placeholder="First Name" type="text">
-                <input id="id_last_name" class="form-control input-inline" maxlength="30" name="last_name" placeholder="Last Name" type="text">
+                {{form.first_name}}
+                {{form.last_name}}
 
         </div>
         <div class="form-group">
@@ -40,7 +40,10 @@
         </div>
 
         <div class="form-group">
-            <input id="id_postal_code" class="form-control" name="postal_code" placeholder="Postal Code" type="text">
+        {{form.street}}
+        {{form.city}}
+            {{form.state}}        
+           {{form.postal_code}}
         </div>
         
         <hr>

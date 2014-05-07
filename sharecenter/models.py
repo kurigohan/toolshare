@@ -20,11 +20,11 @@ class Shed(models.Model):
     """
     name = models.CharField(max_length=30)
     owner = models.ForeignKey(User, related_name='shed_owned')
-    tool_limit = models.IntegerField(verbose_name='tool limit', default=20)
-    street = models.CharField(max_length=30, blank=True)
-    city = models.CharField(max_length=30, blank=True)
-    state = models.CharField(max_length=2, blank=True)
-    postal_code = models.CharField(verbose_name='postal code', max_length=10, blank=True)
+    #tool_limit = models.IntegerField(verbose_name='tool limit', default=20)
+    street = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=2)
+    postal_code = models.CharField(verbose_name='postal code', max_length=10)
     image = models.FileField(upload_to=content_file_name, null=True, blank=True, storage=OverwriteStorage())
          
     def share_count(self):

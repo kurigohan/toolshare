@@ -1,20 +1,27 @@
 from registration.forms import RegistrationFormUniqueEmail
 from django import forms
- 
+from sharecenter import US_States
+
 class CustomRegistrationForm(RegistrationFormUniqueEmail):
     """
-    RegistrationForm with additional fields 
+    RegistrationForm  from django-registration with additional fields. 
     """
 
     first_name = forms.CharField(label="First Name", max_length=30, 
                                                 error_messages={'required': 'No first name entered'}, 
-                                                widget=forms.TextInput(attrs={'class':'form-control input-inline'}))
+                                                widget=forms.TextInput(attrs={'class':'form-control input-inline', 'placeholder':'First Name'}))
     last_name = forms.CharField(label="Last Name", max_length=30, 
                                                 error_messages={'required': 'No last name entered'}, 
-                                                    widget=forms.TextInput(attrs={'class':'form-control input-inline'}))
+                                                    widget=forms.TextInput(attrs={'class':'form-control input-inline',  'placeholder':'Last Name'}))
+    street = forms.CharField(label="Street", max_length=50, error_messages={'required': 'No street entered'}, 
+                                                widget=forms.TextInput(attrs={'class':'form-control',  'placeholder':'Street'}))
+    city = forms.CharField(label="City", max_length=50, error_messages={'required': 'No street entered'}, 
+                                                widget=forms.TextInput(attrs={'class':'form-control',  'placeholder':'City'}))
+    state = forms.ChoiceField(choices=US_States.US_STATES, 
+                                            widget=forms.Select(attrs={'class':'form-control'}))
     postal_code = forms.CharField(label="Postal Code", max_length=10, 
                                                 error_messages={'required': 'No postal code entered'}, 
-                                                widget=forms.TextInput(attrs={'class':'form-control'}))
+                                                widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Postal Code'}))
 
 
 from django.db import models
