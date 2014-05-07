@@ -52,15 +52,15 @@ Test DB
 
 Accounts:
 
-	superuser -  user: andy  pw: nguyen
+	superuser -  user: admin  pw: admin
 
 normal users:
 
 	All pws are 'test'
-	- andyn
+	- andy
 	- raymond
 	- cody
 	- arron
 	- ransom
 
-*If making new account, use 14612 or 14564 for the zip code to see test accounts in share zone
+*If making new account, use 14612 for the zip code to see test accounts in share zone
