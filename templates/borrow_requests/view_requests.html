@@ -16,7 +16,7 @@
     </thead>
     <tbody>
 {% for br in recipient_request_list %}
-        <tr>
+        <tr class="table-middle">
             <td>   
                 {% if br.tool.image %}
                 <img src="{% static br.tool.filename %}" class="img-thumbnail tool-thumbnail">
@@ -57,7 +57,7 @@
     <tbody>
 {% for br in sender_request_list %}
 
-        <tr>
+        <tr class="table-middle">
             <td>   {% if br.tool.image %}
                 <img src="{% static br.tool.filename %}" class="img-thumbnail tool-thumbnail">
                 {% endif %}

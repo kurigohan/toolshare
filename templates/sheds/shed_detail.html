@@ -105,12 +105,13 @@
                     {{tool.owner.username}}
                 </td>
                 <td>
-                    {% if tool.is_available %}
-                    Shared
-                    {% else %}
-                    Loaned 
-                    ({{tool.borrower.username}})
-                    {% endif %}
+                {% if tool.is_available %}
+                Shared
+                {% elif tool.borrower %}
+                Loaned ({{tool.borrower.username}})
+                {% else %}
+                Unavailable
+                {% endif %}
                 </td>
 
             </tr>

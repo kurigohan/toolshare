@@ -36,7 +36,8 @@ def create_tool(request, template_name='tools/create_tool.html'):
                 description=form.cleaned_data['description'],
                 owner=request.user,
                 shed=form.cleaned_data['shed'],
-                image=image
+                image=image,
+                available=form.cleaned_data['available']
             )
             tool.save()
             if image:
@@ -125,6 +126,7 @@ def create_tool_to_shed(request, shed_id ,template_name='tools/create_tool.html'
                 owner=request.user,
                 shed=shed,
                 image=image,
+                available = form.cleaned_data['available']
             )
             tool.save()
             if image:
@@ -199,7 +201,7 @@ def tool_detail(request,  tool_id, template_name='tools/tool_detail.html'):
             #check if the the user has a pending borrow request for the tool
             has_request = (BorrowRequest.objects.filter(sender=request.user, tool=tool,
                                                     status=RequestStatus.PENDING).count() > 0)
-            if not has_request:
+            if not has_request and tool.available:
                 permissions["borrow"] = True
     return render(request, template_name, {'tool':tool, 'permissions':permissions})
 
@@ -325,7 +327,7 @@ def share_zone(request, template_name='community/share_zone.html'):
     Display table with all sheds in share zone
     """
 
-    results = Tool.objects.filter(shed__postal_code=request.user.profile.postal_code)
+    results = Tool.objects.filter(shed__postal_code=request.user.profile.postal_code, available=True)
     results = results.exclude(owner=request.user)
     # if search entered
     if request.method == 'GET' and 'search_term' in request.GET:

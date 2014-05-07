@@ -72,8 +72,10 @@
               <td>
                 {% if tool.is_available %}
                 Shared
-                {% else %}
+                {% elif tool.borrower %}
                 Loaned ({{tool.borrower.username}})
+                {% else %}
+                Unavailable
                 {% endif %}
               </td>
             </tr>

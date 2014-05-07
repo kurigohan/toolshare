@@ -306,6 +306,10 @@ textarea:focus, input:focus, input[type]:focus, select:focus, .uneditable-input:
    vertical-align: middle !important;
 }
 
+ .table-middle td{
+   vertical-align: middle !important;
+  }  
+
 ul {
   list-style:none !important;
 }

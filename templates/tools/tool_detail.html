@@ -7,8 +7,11 @@
     <h2 class="page-header">Tool <small>{{ tool.name }}</small>
     {% if tool.is_available %}
 <span style="float:right; padding-top:2%; font-size:60%">Available</span>
+{% elif tool.borrower %}
+  <span class="text-muted" style="float:right; padding-top:2%; font-size:60%">On Loan</span>
 {% else %}
   <span class="text-muted" style="float:right; padding-top:2%; font-size:60%">Unavailable</span>
+
 {% endif %}
     </h2>
         <div class="row">
@@ -73,10 +76,10 @@
                     {% endif %}
 
                    {% if permissions.edit %}
-                      <a class="btn {% if tool.is_available %}btn-primary{% else %} btn-default disabled{% endif %}" href="{% url 'edit_tool' tool_id=tool.id %}" data-action="edit">
+                      <a class="btn {% if not tool.borrower %}btn-primary{% else %} btn-default disabled{% endif %}" href="{% url 'edit_tool' tool_id=tool.id %}" data-action="edit">
                       <strong>Edit</strong></a>                  
                       {% if permissions.delete %}
-                        <a class="btn  {% if tool.is_available %}btn-primary confirm{% else %} btn-default disabled{% endif %}" href="{% url 'delete_tool' tool_id=tool.id %}"  data-action="delete">
+                        <a class="btn  {% if not tool.borrower %}btn-primary confirm{% else %} btn-default disabled{% endif %}" href="{% url 'delete_tool' tool_id=tool.id %}"  data-action="delete">
                           <strong>Delete</strong></a>
                       {% endif %}
                   {% endif %}

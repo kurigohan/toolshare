@@ -67,6 +67,7 @@ class Tool(models.Model):
     date_borrowed = models.DateTimeField(verbose_name='borrow date', null=True)
     time_limit = models.IntegerField(verbose_name='time limit', default=7)
     image = models.FileField(upload_to=content_file_name, null=True, blank=True, storage=OverwriteStorage())
+    available = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.name
@@ -75,7 +76,7 @@ class Tool(models.Model):
         """
         Return true if the tool does not have a borrower
         """
-        if self.borrower:
+        if self.available == False or self.borrower:
             return False
         else:
             return True

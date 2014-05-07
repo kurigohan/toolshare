@@ -58,10 +58,12 @@ class ToolForm(ModelForm):
     
     image = forms.FileField(widget=forms.FileInput)
 
+    available = forms.BooleanField(label='Available?', required=False)
+
     class Meta:
         model = Tool
-        fields = ('name', 'description', 'category', 'shed', 'image')
-
+        fields = ('name', 'description', 'category', 'shed', 'image', 'available')
+        
     def __init__(self,  user, *args, **kwargs):
         super(ToolForm, self).__init__(*args, **kwargs)
         self.fields['shed'] = forms.ModelChoiceField(queryset=Shed.objects.filter(owner=user), 
