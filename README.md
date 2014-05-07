@@ -16,8 +16,8 @@ Getting Started
 To Run:
 
 	1. From the terminal, change to the toolshare directory
-	2. If the directory does not contain a db.sqlite3 file for testing, create a new one - 'python manage.py syncdb'
-	3. Start the dev server - 'python manage.py runserver'
+	2. If you would like to use the test database, rename test.sqlite3 to db.sqlite3. Otherwise, create a new one with 'python manage.py syncdb' command
+	3. Start the dev server with 'python manage.py runserver' command
 	4. Enter the server ip in your web browser (default 127.0.0.1:8000) 
 
 	**When creating a new database, if you create a superuser you cannot use that account to login to the main site. You must register a normal account to login to the toolshare site.
@@ -46,3 +46,21 @@ How borrowing and sharing works:
 	- Users can only borrow tools that are in their share zone. When a user selects borrow, a borrow request is sent to the tool owner. The tool owner has the option to accept or deny the request. 
 
 *Refer to the help page of the web app for more info.
+
+Test DB
+=======
+
+Accounts:
+
+	superuser -  user: andy  pw: nguyen
+
+normal users:
+
+	All pws are 'test'
+	- andyn
+	- raymond
+	- cody
+	- arron
+	- ransom
+
+*If making new account, use 14612 or 14564 for the zip code to see test accounts in share zone
