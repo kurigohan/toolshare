@@ -4,7 +4,13 @@
 
 {% block content %} 
 {{block.super}}
-    <h2 class="page-header">Tool <small>{{ tool.name }}</small></h2>
+    <h2 class="page-header">Tool <small>{{ tool.name }}</small>
+    {% if tool.is_available %}
+<span style="float:right; padding-top:2%; font-size:60%">Available</span>
+{% else %}
+  <span class="text-muted" style="float:right; padding-top:2%; font-size:60%">Unavailable</span>
+{% endif %}
+    </h2>
         <div class="row">
             <div class="col-sm-6 text-right">
                <img class="img-rounded tool-img" alt="170x170" src="{% static tool.filename %}"> 
@@ -20,6 +26,10 @@
                   <tr>
                     <td class="text-muted">Shed:</td>
                     <td><a href="{% url 'shed_detail' shed_id=tool.shed.id %}">{{ tool.shed.name }}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted">Location: </td>
+                    <td>{{ tool.shed.location }}</td>
                   </tr>
                   <tr>
                     <td class="text-muted">Owner:</td>

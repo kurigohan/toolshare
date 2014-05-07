@@ -62,7 +62,7 @@
                 <img src="{% static br.tool.filename %}" class="img-thumbnail tool-thumbnail">
                 {% endif %}
 <a href="{% url 'tool_detail' tool_id=br.tool.id %}">{{ br.tool.name }}</a></td>
-            <td><a href="{% url 'profile_detail' username=br.sender.username %}">{{ br.sender.username }}</a></td>
+            <td><a href="{% url 'profile_detail' username=br.sender.username %}">{{ br.tool.owner.username }}</a></td>
             <td>{{ br.date }}</td>
             <td>{{ br.status_str }}</td>
             <td>

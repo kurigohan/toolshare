@@ -88,8 +88,11 @@
         </thead>
         <tbody>
             {% for tool in tool_list %}
-            <tr>
+            <tr class="row-link" data-href="{% url 'tool_detail' tool_id=tool.id %}">
                 <td>
+                    {% if tool.image %}
+                    <img src="{% static tool.filename %}" class="img-thumbnail tool-thumbnail">
+                    {% endif %}
                     {{tool.name}}
                 </td>
                 <td>
@@ -99,18 +102,15 @@
                     {{tool.category}}
                 </td>
                 <td>
-                    <a href="{% url 'profile_detail' username=tool.owner.username %}">  {{tool.owner.username}}</a>
+                    {{tool.owner.username}}
                 </td>
                 <td>
                     {% if tool.is_available %}
                     Shared
                     {% else %}
                     Loaned 
-                    (<a href="{% url 'profile_detail' username=tool.borrower.username %}">{{tool.borrower.username}}</a>)
+                    ({{tool.borrower.username}})
                     {% endif %}
-                </td>
-                <td class="but-col">
-                    <a href="{% url 'tool_detail' tool_id=tool.id %}">View</a>
                 </td>
 
             </tr>

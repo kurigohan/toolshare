@@ -116,7 +116,6 @@ class Tool(models.Model):
             return 'media/tool_img/'+os.path.basename(self.image.name)
         return 'img/toolplaceholder.png'
 
-
 class Stats(models.Model):
     """
     The Stats class is associated with a User and tracks
